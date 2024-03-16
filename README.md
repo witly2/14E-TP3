@@ -1,1 +1,3 @@
-# 14E_Hiver2024
+# TP02 : Ciné Québec
+Mirella LEPASTEUR
+Wily ROUSSEL TATOW DOUNGMO
