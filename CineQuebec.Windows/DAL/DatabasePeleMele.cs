@@ -17,6 +17,7 @@ namespace CineQuebec.Windows.DAL
         {
             mongoDBClient = client ?? OuvrirConnexion();
             database = ConnectDatabase();
+            SeedTestData();
         }
         private IMongoClient OuvrirConnexion()
         {
@@ -60,5 +61,12 @@ namespace CineQuebec.Windows.DAL
             }
             return abonnes;
         }
+
+        public void SeedTestData()
+        {
+            Seed seedData = new Seed(database);
+            seedData.SeedAbonnes();
+        }
+
     }
 }

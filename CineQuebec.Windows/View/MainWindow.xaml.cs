@@ -1,4 +1,5 @@
-﻿using CineQuebec.Windows.View;
+﻿using CineQuebec.Windows.DAL;
+using CineQuebec.Windows.View;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,7 +20,12 @@ namespace CineQuebec.Windows
     {
         public MainWindow()
         {
-            
+            DatabasePeleMele db = new DatabasePeleMele();
+
+
+
+           // db.SeedData(); //
+
             InitializeComponent();
             mainContentControl.Content = new ConnexionControl();
         }
