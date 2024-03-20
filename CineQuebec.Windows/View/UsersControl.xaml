@@ -13,8 +13,8 @@
 
     <Grid Background="White" >
 
-        <md:Card Margin="10" UniformCornerRadius="15">
-            <Grid>
+
+        <Grid  ScrollViewer.CanContentScroll="True" >
                 <!--<Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                    
@@ -60,7 +60,7 @@
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </Grid>-->
-                <ItemsControl ItemsSource="{Binding }" ScrollViewer.CanContentScroll="True" >
+                <ItemsControl ItemsSource="{Binding }">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel  Orientation="Horizontal" HorizontalAlignment="Center"/>
@@ -85,7 +85,7 @@
 
 
             </Grid>
-        </md:Card>
+     
         
     </Grid>
 </UserControl>
