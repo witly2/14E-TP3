@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
 
         <Button Style="{StaticResource defautButton}" 
-                Grid.Column="0">
+                Grid.Column="0" Click="Button_Click">
             <StackPanel >
                 <Image Height="100" 
                        Source="/Ressources/Images/users.png" />

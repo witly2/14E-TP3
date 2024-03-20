@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CineQuebec.Windows.DAL;
+using CineQuebec.Windows.DAL.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,18 +18,22 @@ using System.Windows.Shapes;
 namespace CineQuebec.Windows.View
 {
     /// <summary>
-    /// Logique d'interaction pour AdminHomeControl.xaml
+    /// Logique d'interaction pour UsersControl.xaml
     /// </summary>
-    public partial class AdminHomeControl : UserControl
+    public partial class UsersControl : UserControl
     {
-        public AdminHomeControl()
+
+        private DatabasePeleMele db;
+        //public List<Abonne> Abonnes;
+        public UsersControl()
         {
             InitializeComponent();
-        }
+             db = new DatabasePeleMele();
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ((MainWindow)Application.Current.MainWindow).UsersControl();
+            //_abonnes = new List<Abonne>();
+            List<Abonne> Abonnes = db.ReadAbonnes();
+
+            this. DataContext = Abonnes;
         }
     }
 }
