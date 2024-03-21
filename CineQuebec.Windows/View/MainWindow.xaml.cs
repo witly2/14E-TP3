@@ -20,11 +20,7 @@ namespace CineQuebec.Windows
     {
         public MainWindow()
         {
-            DatabasePeleMele db = new DatabasePeleMele();
-
-
-
-           // db.SeedData(); //
+            DatabaseGestion db = new DatabaseGestion();
 
             InitializeComponent();
             mainContentControl.Content = new ConnexionControl();
