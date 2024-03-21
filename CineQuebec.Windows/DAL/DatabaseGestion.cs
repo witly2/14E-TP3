@@ -15,11 +15,11 @@ namespace CineQuebec.Windows.DAL
 
         public DatabaseGestion(IMongoClient client = null)
         {
-            mongoDBClient = client ?? OuvrirConnexion();
+            mongoDBClient = client ?? OpenConnection();
             database = ConnectDatabase();
-            SeedTestData();
+            SeedDevelopmentData();
         }
-        private IMongoClient OuvrirConnexion()
+        private IMongoClient OpenConnection()
         {
             MongoClient dbClient = null;
             try
@@ -62,7 +62,7 @@ namespace CineQuebec.Windows.DAL
             return abonnes;
         }
 
-        public void SeedTestData()
+        public void SeedDevelopmentData()
         {
             Seed seedData = new Seed(database);
             seedData.SeedAbonnes();

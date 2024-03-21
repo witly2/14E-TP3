@@ -15,17 +15,13 @@ namespace CineQuebec.Windows.DAL
 
 
         /// <summary>
-        ///  Liste de données de test pour les abonnés
+        ///  Liste de données pour les abonnés
         /// </summary>
         public void SeedAbonnes()
         {
 
             if (!_abonnesCollection.Indexes.List().Any())
             {
-                //_abonnesCollection.Indexes.CreateOne(new CreateIndexModel<Abonne>(Builders<Abonne>.IndexKeys.Ascending(x => x.Username)));
-
-
-
                 var abonnes = new List<Abonne>
                 {
                     new Abonne { Username = "John Doe", Email = "john.doe@example.com", DateJoin = DateTime.UtcNow },
@@ -40,7 +36,6 @@ namespace CineQuebec.Windows.DAL
                     new Abonne { Username = "Olivia Thomas", Email = "olivia.thomas@example.com", DateJoin = DateTime.UtcNow }
                 };
 
-                // Insére les données dans la base de données
                 _abonnesCollection.InsertMany(abonnes);
                 Console.WriteLine("Données d'abonnés insérées avec succès.");
             }
