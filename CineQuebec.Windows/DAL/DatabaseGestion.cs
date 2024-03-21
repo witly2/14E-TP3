@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace CineQuebec.Windows.DAL
 {
-    public class DatabasePeleMele
+    public class DatabaseGestion
     {
         private IMongoClient mongoDBClient;
         private IMongoDatabase database;
 
-        public DatabasePeleMele(IMongoClient client = null)
+        public DatabaseGestion(IMongoClient client = null)
         {
             mongoDBClient = client ?? OuvrirConnexion();
             database = ConnectDatabase();
