@@ -72,6 +72,9 @@ namespace CineQuebec.Windows.DAL
             Seed seedData = new Seed(database);
             seedData.SeedAbonnes();
             seedData.SeedFilms();
+            seedData.SeedActeurs();
+            seedData.SeedRealisateurs();
+            seedData.SeedCategories();
         }
 
     }
