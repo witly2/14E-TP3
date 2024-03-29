@@ -29,5 +29,10 @@ namespace CineQuebec.Windows.View
         {
             ((MainWindow)Application.Current.MainWindow).UsersControl();
         }
+
+        private void Button_Films_Click(object sender, RoutedEventArgs e)
+        {
+            ((MainWindow)Application.Current.MainWindow).FilmsControl();
+        }
     }
 }
