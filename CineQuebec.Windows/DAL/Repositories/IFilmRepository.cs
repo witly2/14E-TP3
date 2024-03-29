@@ -10,5 +10,7 @@ namespace CineQuebec.Windows.DAL.Repositories
     public interface IFilmRepository
     {
         List<Film> GetFilms();
+        void AddFilm(Film film);
+        void UpdateFilm(Film film);
     }
 }

@@ -21,5 +21,15 @@ namespace CineQuebec.Windows.BLL.Services
         {
             return _filmRepository.GetFilms();
         }
+
+        public void AddFilm(Film film)
+        {
+            _filmRepository.AddFilm(film);
+        }
+
+        public void Update(Film film)
+        {
+            _filmRepository.UpdateFilm(film);
+        }
     }
 }
