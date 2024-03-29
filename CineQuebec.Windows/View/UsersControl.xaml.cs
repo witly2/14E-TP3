@@ -28,7 +28,7 @@ namespace CineQuebec.Windows.View
         public UsersControl()
         {
             InitializeComponent();
-             db = new DatabaseGestion();
+            db = new DatabaseGestion();
 
             //_abonnes = new List<Abonne>();
             List<Abonne> Abonnes = db.ReadAbonnes();

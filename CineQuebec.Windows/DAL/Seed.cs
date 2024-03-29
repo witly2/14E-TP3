@@ -12,7 +12,7 @@ namespace CineQuebec.Windows.DAL
         public Seed(IMongoDatabase database)
         {
             _abonnesCollection = database.GetCollection<Abonne>("Abonnes");
-            _filmsCollection = database.GetCollection<Film>("films");
+            _filmsCollection = database.GetCollection<Film>("Films");
         }
 
 
