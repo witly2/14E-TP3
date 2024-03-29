@@ -8,7 +8,7 @@ using MongoDB.Driver;
 
 namespace CineQuebec.Windows.DAL.Repositories
 {
-    public class FilmRepository: IFilmRepository
+    public class FilmRepository : IFilmRepository
     {
         private readonly DatabaseGestion _databaseGestion;
         private readonly IMongoCollection<Film> _filmsCollection;
@@ -26,14 +26,49 @@ namespace CineQuebec.Windows.DAL.Repositories
             try
             {
                 films = _filmsCollection.Aggregate().ToList();
-                Console.WriteLine("films ok");
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Impossible d'obtenir la collection de films " + ex.Message, "Erreur");
+                Console.WriteLine("Impossible d'obtenir la collection de films : " + ex.Message, "Erreur");
             }
 
             return films;
+        }
+
+        public void AddFilm(Film film)
+        {
+            try
+            {
+                _filmsCollection.InsertOne(film);
+                Console.WriteLine("Congrats AddFilm");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Impossible d'ajouter le film : " + ex.Message, "Erreur");
+            }
+        }
+
+        public void UpdateFilm(Film film)
+        {
+            try
+            {
+                var filter = Builders<Film>.Filter.Eq(filmBd => filmBd.Id, film.Id);
+                var filmUpdate = Builders<Film>.Update
+                    .Set(filmBd => filmBd.OriginalTitle, film.OriginalTitle)
+                    .Set(filmBd => filmBd.FrenchTitle, film.FrenchTitle)
+                    .Set(filmBd => filmBd.Description, film.Description)
+                    .Set(filmBd => filmBd.Duration, film.Duration)
+                    .Set(filmBd => filmBd.InternationalReleaseDate, film.InternationalReleaseDate)
+                    .Set(filmBd => filmBd.Rating, film.Rating)
+                    .Set(filmBd => filmBd.OriginalLanguage, film.OriginalLanguage);
+
+                _filmsCollection.UpdateOne(filter, filmUpdate);
+                Console.WriteLine("Film mis à jour.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Impossible de mettre à jour le film: " + ex.Message, "Erreur");
+            }
         }
     }
 }
