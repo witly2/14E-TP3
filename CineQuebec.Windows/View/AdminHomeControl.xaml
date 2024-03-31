@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CineQuebec.Windows.View"
-             xmlns:rs="clr-namespace:CineQuebec.Windows.Ressources.i18n">
+             xmlns:rs="clr-namespace:CineQuebec.Windows.Ressources.i18n"
+             Style="{StaticResource Page_Style}">
 
     <Grid Background="White" Height="250" Width="300">
         <Grid.ColumnDefinitions>
