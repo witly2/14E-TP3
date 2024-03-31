@@ -55,7 +55,7 @@
                 </ToggleButton>
 
                 <ToggleButton Height="60" Width="228" Content="Films"  Background="Transparent"
-                              BorderThickness="0" Padding="10">
+                              Click="ToggleButton_Films_Click" BorderThickness="0" Padding="10">
                     <ToggleButton.ContentTemplate>
                         <DataTemplate>
 
