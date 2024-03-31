@@ -31,6 +31,11 @@ namespace CineQuebec.Windows
             mainContentControl.Content = new AdminHomeControl();
         }
 
+        //public void NavControl()
+        //{
+        //    mainContentControl.Content = new NavWindows();
+        //}
+
 
         public void UsersControl()
         {

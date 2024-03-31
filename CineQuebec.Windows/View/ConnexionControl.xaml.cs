@@ -28,7 +28,15 @@ namespace CineQuebec.Windows.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).AdminHomeControl();
+            
+            
+
+            // Créer une nouvelle instance de la fenêtre AdminHomeControl
+            NavWindows navWindows = new NavWindows();
+
+            // Afficher la nouvelle fenêtre
+            navWindows.Show();
+            ((MainWindow)Application.Current.MainWindow).Close();
         }
     }
 }

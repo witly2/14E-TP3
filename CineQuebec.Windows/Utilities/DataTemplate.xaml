@@ -1,0 +1,34 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:CineQuebec.Windows.ViewModels"
+                    xmlns:view="clr-namespace:CineQuebec.Windows.View">
+
+    <!--<DataTemplate DataType="{x:Type vm:UsersVm}">
+        <view:UsersControl />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:}">
+        <view:AdminHomeControl />
+    </DataTemplate>-->
+
+    <!--<DataTemplate DataType="{x:Type vm:ProductVM}">
+        <view:Products />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:OrderVM}">
+        <view:Orders />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:TransactionVM}">
+        <view:Transactions />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:ShipmentVM}">
+        <view:Shipments />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:SettingVM}">
+        <view:Settings />
+    </DataTemplate>-->
+    
+</ResourceDictionary>
