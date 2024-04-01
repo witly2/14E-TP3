@@ -62,10 +62,19 @@ namespace CineQuebec.Windows.DAL
             return abonnes;
         }
 
+        public IMongoCollection<Film> GetFilmsCollection()
+        {
+            return database.GetCollection<Film>("Films");
+        }
+
         public void SeedDevelopmentData()
         {
             Seed seedData = new Seed(database);
             seedData.SeedAbonnes();
+            seedData.SeedFilms();
+            seedData.SeedActeurs();
+            seedData.SeedRealisateurs();
+            seedData.SeedCategories();
         }
 
     }

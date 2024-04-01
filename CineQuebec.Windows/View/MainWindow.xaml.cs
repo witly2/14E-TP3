@@ -1,4 +1,6 @@
-﻿using CineQuebec.Windows.DAL;
+﻿using CineQuebec.Windows.BLL.Services;
+using CineQuebec.Windows.DAL;
+using CineQuebec.Windows.DAL.Repositories;
 using CineQuebec.Windows.View;
 using System.Text;
 using System.Windows;
@@ -18,9 +20,11 @@ namespace CineQuebec.Windows
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly FilmService _filmService;
         public MainWindow()
         {
             DatabaseGestion db = new DatabaseGestion();
+            _filmService = new FilmService(new FilmRepository(db));
 
             InitializeComponent();
             mainContentControl.Content = new ConnexionControl();
@@ -40,6 +44,11 @@ namespace CineQuebec.Windows
         public void UsersControl()
         {
             mainContentControl.Content = new UsersControl();
+        }
+
+        public void FilmsControl()
+        {
+            mainContentControl.Content = new FilmsControl(_filmService);
         }
     }
 }
