@@ -16,51 +16,7 @@
 
 
         <Grid  ScrollViewer.CanContentScroll="True" >
-                <!--<Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                   
-                </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0">
-                    <StackPanel Margin="10">
-                        
-
-                        <WrapPanel HorizontalAlignment="Center">
-                            <Border BorderBrush="White" BorderThickness="5" Margin="20 0" CornerRadius="15">
-                                <md:Card  UniformCornerRadius="15" BorderThickness="5" BorderBrush="White" Width="110" Height="130" Background="#F6F6F8">
-                                    <StackPanel Margin="10" HorizontalAlignment="Center">
-                                        <md:PackIcon Kind="User" Foreground="#29A3EC" HorizontalAlignment="Center" Height="30" Width="30"/>
-                                        <TextBlock FontWeight="SemiBold" FontSize="25" Text="Nom" Margin="0 10 0 0"/>
-                                        <TextBlock  FontSize="12" Text="01-01-2000" Margin="0 10 0 0"/>
-                                        <md:PackIcon Kind="EllipsisHorizontal" HorizontalAlignment="Right"/>
-                                    </StackPanel>
-                                    
-                                </md:Card>
-                            </Border>
-                        </WrapPanel>
-
-                      
-                    </StackPanel>
-
-
-                    <ItemsControl ItemsSource="{Binding }">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border BorderBrush="White" BorderThickness="5" Margin="20 0" CornerRadius="15">
-                                    <md:Card  UniformCornerRadius="15" BorderThickness="5" BorderBrush="White" Width="110" Height="130" Background="#F6F6F8">
-                                        <StackPanel Margin="10" HorizontalAlignment="Center">
-                                            <md:PackIcon Kind="User" Foreground="#29A3EC" HorizontalAlignment="Center" Height="30" Width="30"/>
-                                            <TextBlock FontWeight="SemiBold" FontSize="25" Text="{Binding Username}" Margin="0 10 0 0"/>
-                                            <TextBlock  FontSize="12" Text="{Binding DateAdhesion}" Margin="0 10 0 0"/>
-                                            <md:PackIcon Kind="EllipsisHorizontal" HorizontalAlignment="Right"/>
-                                        </StackPanel>
-
-                                    </md:Card>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </Grid>-->
                 <ItemsControl ItemsSource="{Binding }">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>

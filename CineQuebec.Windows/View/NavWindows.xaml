@@ -8,93 +8,131 @@
          xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="NavWindows" Height="650" Width="1000">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Window.Resources>
     <Grid>
         <Border Background="#212529"/>
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="231*"/>
-                <ColumnDefinition Width="769*"/>
+                <ColumnDefinition Width="231"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-        </Grid>
-
-        <Grid HorizontalAlignment="Left" Grid.Column="0">
-
-            <Border Background="#272B2F" CornerRadius="27,0,0,20"/>
-            <StackPanel Height="400"
-                Width="228">
 
 
-                <ToggleButton Height="60" Width="228" Content="Accueil" IsChecked="True" Background="Transparent" 
-                             BorderThickness="0" Padding="10" >
-                    <ToggleButton.ContentTemplate>
-                        <DataTemplate>
 
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <md:PackIcon Kind="Home" Foreground="White" Height="30" Width="30"/>
-                                <TextBlock Text="{Binding}" VerticalAlignment="Center" Margin="5"
-                                           FontWeight="Bold" Foreground="White" FontSize="14"/>
+            <Grid  Grid.Column="0" >
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Button Margin="20 28 0 35" Style="{StaticResource topButton}">
+                    <md:PackIcon Kind="Menu" Width="15" Height="15"/>
+                </Button>
+
+
+
+                <Border Background="#272B2F" CornerRadius="0,50,0,30" Grid.Row="1">
+
+
+                    <DockPanel>
+                        <Border Width="80" Height="80" Padding="3" Background="White" CornerRadius="100"
+                            DockPanel.Dock="Top" HorizontalAlignment="Left" Margin="20 -30 0 0">
+
+                            <Ellipse>
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="../Ressources/images/users.png"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                        </Border>
+
+
+                        <Separator Margin="25" DockPanel.Dock="Top" Height="0.8" Background="#7e5fdc"/>
+
+                        <StackPanel DockPanel.Dock="Top" >
+
+
+
+
+                            <Button Style="{StaticResource menuButton}">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <md:PackIcon Kind="Home" Style="{StaticResource menuBtnIcon}"/>
+                                    <TextBlock Text="Accueil" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource menuButton}"  Click="ToggleButton_Checked">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <md:PackIcon Kind="Users" Style="{StaticResource menuBtnIcon}"/>
+                                    <TextBlock Text="Abonés" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource menuButton}" Click="ToggleButton_Films_Click" >
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <md:PackIcon Kind="Movie" Style="{StaticResource menuBtnIcon}"/>
+                                    <TextBlock Text="Films" />
+                                </StackPanel>
+                            </Button>
+
+
+
+
+
+                        </StackPanel>
+
+
+
+                        <Button Style="{StaticResource menuButton}"  VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 20">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Kind="Logout" Style="{StaticResource menuBtnIcon}"/>
+                                <TextBlock Text="Déconexion" />
                             </StackPanel>
-                        </DataTemplate>
-                    </ToggleButton.ContentTemplate>
-                </ToggleButton>
+                        </Button>
+                    </DockPanel>
 
 
-                <ToggleButton Height="60" Width="228" Content="Abonnés"  Background="Transparent"
-                              Click="ToggleButton_Checked" BorderThickness="0" Padding="10">
-                    <ToggleButton.ContentTemplate>
-                        <DataTemplate>
 
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <md:PackIcon Kind="Users" Foreground="White" Height="30" Width="30"/>
-                                <TextBlock Text="{Binding}" VerticalAlignment="Center" Margin="5"
-                                 FontWeight="Bold" Foreground="White" FontSize="14"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ToggleButton.ContentTemplate>
-                </ToggleButton>
-
-                <ToggleButton Height="60" Width="228" Content="Films"  Background="Transparent"
-                              Click="ToggleButton_Films_Click" BorderThickness="0" Padding="10">
-                    <ToggleButton.ContentTemplate>
-                        <DataTemplate>
-
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <md:PackIcon Kind="Movie" Foreground="White" Height="30" Width="30"/>
-                                <TextBlock Text="{Binding}" VerticalAlignment="Center" Margin="5"
-                                 FontWeight="Bold" Foreground="White" FontSize="14"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ToggleButton.ContentTemplate>
-                </ToggleButton>
-
-
-            </StackPanel>
-
-
-        </Grid>
-
-        <Grid HorizontalAlignment="Right" >
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="5*"/>
-            </Grid.RowDefinitions>
-
-            <Border  />
-
-            <Grid>
-                <Button Content="Déconnexion" Foreground="White" FontWeight="Bold" Margin="583,22,31,36" Background="#FF6D6DF3" RenderTransformOrigin="0.151,1.24"/>
+                </Border>
 
             </Grid>
 
+            <Grid Grid.ColumnSpan="2" Margin="221,10,10,-10" >
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+
+                <Border  />
+
+                <Grid Width="300" HorizontalAlignment="Center">
+                    <!--<Button Content="Déconnexion" Foreground="White" FontWeight="Bold" HorizontalAlignment="Right"  Background="#FF6D6DF3" RenderTransformOrigin="0.151,1.24"/>-->
+
+                    <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
+                               Panel.ZIndex="1" Text="Recherche"
+                               Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}"/>
+
+                    <TextBox x:Name="txtSearch" Style="{StaticResource search_style}" Height="30" Foreground="Black"/>
+
+                    <md:PackIcon Kind="Magnify" Width="15" VerticalAlignment="Center"
+                                 Margin="0 0 15 0" Foreground="#b0b9c6" HorizontalAlignment="Right"/>
+                </Grid>
 
 
-            <ContentControl x:Name="mainContentControl" 
+
+                <ContentControl x:Name="mainContentControl" 
                  Grid.Row="1" 
                  HorizontalAlignment="Right" 
                  VerticalAlignment="Center" Margin="0,0,346,0" 
                  />
+            </Grid>
         </Grid>
+
     </Grid>
 </Window>

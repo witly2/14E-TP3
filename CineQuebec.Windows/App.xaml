@@ -13,12 +13,18 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />
                 <ResourceDictionary Source="Styles/Button.xaml" />
                 <ResourceDictionary Source="Styles/Page.xaml" />
+                <ResourceDictionary Source="Styles/BtnHambuger.xaml"/>
+                <ResourceDictionary Source="Styles/MenuBtn.xaml"/>
+                <ResourceDictionary Source="Styles/Search.xaml"/>
                 <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />-->
 
             </ResourceDictionary.MergedDictionaries>
 
+
+
         </ResourceDictionary>
+
         
     </Application.Resources>
 </Application>
