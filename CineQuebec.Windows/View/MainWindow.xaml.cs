@@ -1,7 +1,7 @@
 ﻿using CineQuebec.Windows.BLL.Services;
 using CineQuebec.Windows.DAL;
-using CineQuebec.Windows.DAL.Repositories;
 using CineQuebec.Windows.DAL.Repositories.Abonnes;
+using CineQuebec.Windows.DAL.Repositories.Films;
 using CineQuebec.Windows.View;
 using System.Text;
 using System.Windows;
