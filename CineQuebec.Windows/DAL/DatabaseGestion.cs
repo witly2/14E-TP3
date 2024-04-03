@@ -67,6 +67,11 @@ namespace CineQuebec.Windows.DAL
             return database.GetCollection<Film>("Films");
         }
 
+        public IMongoCollection<Abonne> GetAbonneCollection()
+        {
+            return database.GetCollection<Abonne>("Abonnes");
+        }
+
         public void SeedDevelopmentData()
         {
             Seed seedData = new Seed(database);

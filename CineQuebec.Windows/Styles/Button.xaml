@@ -104,15 +104,15 @@
 
     </Style>
 
-    <ImageBrush x:Key="close_app_def"
+    <!--<ImageBrush x:Key="close_app_def"
                 ImageSource="/Images/shutdown_def.png"
                 Stretch="None" />
 
     <ImageBrush x:Key="close_app_mo"
                 ImageSource="/Images/shutdown_mo.png"
-                Stretch="None" />
+                Stretch="None" />-->
 
-    <Style x:Key="ExitApp"
+    <!--<Style x:Key="ExitApp"
            TargetType="{x:Type Button}">
 
         <Setter Property="Height"
@@ -166,6 +166,6 @@
 
         </Setter>
 
-    </Style>
+    </Style>-->
 
 </ResourceDictionary>
