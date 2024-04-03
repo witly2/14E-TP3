@@ -4,6 +4,7 @@ using CineQuebec.Windows.DAL.Repositories;
 using CineQuebec.Windows.DAL;
 using System.Windows;
 using System.Windows.Controls;
+using CineQuebec.Windows.DAL.Repositories.Abonnes;
 
 
 namespace CineQuebec.Windows.View
@@ -14,10 +15,12 @@ namespace CineQuebec.Windows.View
     public partial class NavWindows : Window
     {
         private readonly FilmService _filmService;
+        private readonly AbonneService _abonneService;
         public NavWindows()
         {
             DatabaseGestion db = new DatabaseGestion();
             _filmService = new FilmService(new FilmRepository(db));
+            _abonneService = new AbonneService(new AbonneRepsitory(db));
 
             InitializeComponent();
             mainContentControl.Content = new AdminHomeControl();
@@ -28,7 +31,7 @@ namespace CineQuebec.Windows.View
 
         private void ToggleButton_Checked(object sender, RoutedEventArgs e)
         {
-            mainContentControl.Content = new UsersControl();
+            mainContentControl.Content = new UsersControl(_abonneService);
 
         }
 
