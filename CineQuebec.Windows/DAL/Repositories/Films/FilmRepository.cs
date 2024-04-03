@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using CineQuebec.Windows.DAL.Data;
 using MongoDB.Driver;
 
-namespace CineQuebec.Windows.DAL.Repositories
+namespace CineQuebec.Windows.DAL.Repositories.Films
 {
     public class FilmRepository : IFilmRepository
     {

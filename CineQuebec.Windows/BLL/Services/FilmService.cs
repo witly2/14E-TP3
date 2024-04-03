@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CineQuebec.Windows.DAL.Repositories;
 using CineQuebec.Windows.DAL.Data;
+using CineQuebec.Windows.DAL.Repositories.Films;
 
 namespace CineQuebec.Windows.BLL.Services
 {

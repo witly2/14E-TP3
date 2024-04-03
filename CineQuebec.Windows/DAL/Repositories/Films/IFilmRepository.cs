@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CineQuebec.Windows.DAL.Data;
 
-namespace CineQuebec.Windows.DAL.Repositories
+namespace CineQuebec.Windows.DAL.Repositories.Films
 {
     public interface IFilmRepository
     {
