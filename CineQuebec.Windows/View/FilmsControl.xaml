@@ -7,18 +7,54 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-       xmlns:rs="clr-namespace:CineQuebec.Windows.Ressources.i18n">
+       xmlns:rs="clr-namespace:CineQuebec.Windows.Ressources.i18n"
+             Style="{StaticResource Page_Style}">
 
-    <Grid Background="White">
-        <DataGrid ItemsSource="{Binding }" AutoGenerateColumns="False" CanUserAddRows="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Original Title" Binding="{Binding OriginalTitle}" />
-                <DataGridTextColumn Header="French Title" Binding="{Binding FrenchTitle}" />
-                <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" />
-                <DataGridTextColumn Header="Release Date" Binding="{Binding InternationalReleaseDate}" />
-                <DataGridTextColumn Header="Rating" Binding="{Binding Rating}" />
-                <DataGridTextColumn Header="Original Language" Binding="{Binding OriginalLanguage}" />
-            </DataGrid.Columns>
-        </DataGrid>
+    <Grid>
+        <Button Style="{StaticResource menuButton}" Click="ToggleButton_AddFilms_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Padding="50" >
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <md:PackIcon Kind="Movie" Style="{StaticResource menuBtnIcon}"/>
+                <TextBlock Text="Ajouter film" Padding="10" />
+            </StackPanel>
+        </Button>
+        <Border Margin="0 20 0 20">
+            <TextBlock Text="Liste des films" Foreground="White" HorizontalAlignment="Center" FontSize="20"  />
+        </Border>
+
+
+        <Grid  Margin="60 60 60 20" Background="White" >
+
+            <DataGrid x:Name="dataGridFilms" Background="White" Grid.Column="0" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" ItemsSource="{Binding }" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn IsReadOnly="True" CanUserResize="True" Width="auto" Header="Titre FR" Binding="{Binding Value.FrenchTitle}" />
+                    
+                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="auto" Header="Titre original" Binding="{Binding Value.OriginalTitle}" />
+
+                    <DataGridTextColumn IsReadOnly="True"  CanUserResize="False" Width="auto" Header="Note" Binding="{Binding Value.Rating}"/>
+
+                    <DataGridTextColumn x:Name="date" IsReadOnly="True" CanUserResize="False"  Width="auto" Header="Derniere projection" Binding="{Binding Value.InternationalReleaseDate}"/>
+
+                    <DataGridTemplateColumn Header="Operations" IsReadOnly="True" CanUserResize="False" Width="auto">
+                        <DataGridTemplateColumn.CellTemplate>
+
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Style="{StaticResource DataGridEditBtn}">
+                                        <md:PackIcon Kind="PencilOutline" Style="{StaticResource DataGridBtnIcon}"/>
+                                    </Button>
+
+                                    <Button Style="{StaticResource DataGridDeleteBtn}">
+                                        <md:PackIcon Kind="Delete" Foreground="White" Style="{StaticResource DataGridBtnIcon}"/>
+                                    </Button>
+                                </StackPanel>
+                            </DataTemplate>
+
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
+    
     </Grid>
 </UserControl>

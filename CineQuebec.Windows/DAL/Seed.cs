@@ -11,6 +11,8 @@ namespace CineQuebec.Windows.DAL
         private readonly IMongoCollection<Acteur> _acteursCollection;
         private readonly IMongoCollection<Realisateur> _realisateursCollection;
         private readonly IMongoCollection<Categorie> _categoriesCollection;
+        private readonly IMongoCollection<Salle> _sallesCollection;
+        private readonly IMongoCollection<Projection> _projectionsCollection;
 
         public Seed(IMongoDatabase database)
         {
@@ -19,6 +21,8 @@ namespace CineQuebec.Windows.DAL
             _acteursCollection = database.GetCollection<Acteur>("Acteurs");
             _realisateursCollection = database.GetCollection<Realisateur>("Realisateurs");
             _categoriesCollection = database.GetCollection<Categorie>("Categories");
+            _sallesCollection = database.GetCollection<Salle>("Salles");
+            _projectionsCollection = database.GetCollection<Projection>("Projections");
         }
 
 
@@ -69,6 +73,41 @@ namespace CineQuebec.Windows.DAL
 
                 _filmsCollection.InsertMany(films);
                 Console.WriteLine("Données de films insérées avec succès.");
+            }
+        }
+
+        public void SeedProjections()
+        {
+            if (!_projectionsCollection.Indexes.List().Any())
+            {
+                var projections = new List<Projection>
+        {
+            new Projection { DateHeureDebut = DateTime.Now.AddDays(1), 
+                                Salle = _sallesCollection.Find(s => s.NumeroSalle == 1).FirstOrDefault(), 
+                                Film = _filmsCollection.Find(f => f.OriginalTitle == "Inception").FirstOrDefault() },
+            new Projection { DateHeureDebut = DateTime.Now.AddDays(2), 
+                                Salle = _sallesCollection.Find(s => s.NumeroSalle == 2).FirstOrDefault(), 
+                                Film = _filmsCollection.Find(f => f.OriginalTitle == "The Dark Knight").FirstOrDefault() },
+        };
+
+                _projectionsCollection.InsertMany(projections);
+                Console.WriteLine("Données de projections insérées avec succès.");
+            }
+        }
+
+        public void SeedSalles()
+        {
+            if(!_sallesCollection.Indexes.List().Any())
+            {
+                var salles = new List<Salle>
+                {
+                    new Salle { NumeroSalle = 1, NombrePlace = 100 },
+                    new Salle { NumeroSalle = 2, NombrePlace = 120 },
+                    new Salle { NumeroSalle = 3, NombrePlace = 80 },
+                };
+
+                _sallesCollection.InsertMany(salles);
+                Console.WriteLine("Données des salles insérées avec succès.");
             }
         }
 
