@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,17 @@ namespace CineQuebec.Windows.DAL.Data
 {
     public class Projection
     {
-        public ObjectId Id { get; }
+        [BsonId]
+        public ObjectId Id { get; private set; }
         public DateTime DateHeureDebut { get; set; }
         public Salle Salle { get; set; }
         public Film Film { get; set; }
 
-        public Projection() { }
+        public Projection(DateTime pDateHeureDebut, Salle pSalle, Film pFilm) 
+        { 
+            DateHeureDebut = pDateHeureDebut;
+            Salle = pSalle;
+            Film = pFilm;
+        }
     }
 }

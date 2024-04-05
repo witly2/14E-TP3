@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace CineQuebec.Windows.DAL.Data
 {
     public class Acteur
     {
-        public ObjectId Id { get; set; }
+        [BsonId]
+        public ObjectId Id { get; private set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
     }

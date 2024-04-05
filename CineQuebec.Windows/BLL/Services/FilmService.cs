@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Films;
+using MongoDB.Bson;
 
 namespace CineQuebec.Windows.BLL.Services
 {
@@ -30,6 +31,11 @@ namespace CineQuebec.Windows.BLL.Services
         public void Update(Film film)
         {
             _filmRepository.UpdateFilm(film);
+        }
+
+        public List<Projection> GetProjections(ObjectId filmId)
+        {
+            return _filmRepository.GetProjectionsForFilm(filmId);
         }
     }
 }

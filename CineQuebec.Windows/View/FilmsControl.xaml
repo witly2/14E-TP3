@@ -26,13 +26,13 @@
 
             <DataGrid x:Name="dataGridFilms" Background="White" Grid.Column="0" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" ItemsSource="{Binding }" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged">
                 <DataGrid.Columns>
-                    <DataGridTextColumn IsReadOnly="True" CanUserResize="True" Width="auto" Header="Titre FR" Binding="{Binding Value.FrenchTitle}" />
+                    <DataGridTextColumn IsReadOnly="True" CanUserResize="True" Width="auto" Header="Titre FR" Binding="{Binding Value.Item1.FrenchTitle}" />
                     
-                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="auto" Header="Titre original" Binding="{Binding Value.OriginalTitle}" />
+                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="auto" Header="Titre original" Binding="{Binding Value.Item1.OriginalTitle}" />
 
-                    <DataGridTextColumn IsReadOnly="True"  CanUserResize="False" Width="auto" Header="Note" Binding="{Binding Value.Rating}"/>
+                    <DataGridTextColumn IsReadOnly="True"  CanUserResize="False" Width="auto" Header="Note" Binding="{Binding Value.Item1.Rating}"/>
 
-                    <DataGridTextColumn x:Name="date" IsReadOnly="True" CanUserResize="False"  Width="auto" Header="Derniere projection" Binding="{Binding Value.InternationalReleaseDate}"/>
+                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False"  Width="auto" Header="Derniere projection" Binding="{Binding Value.Item2}"/>
 
                     <DataGridTemplateColumn Header="Operations" IsReadOnly="True" CanUserResize="False" Width="auto">
                         <DataGridTemplateColumn.CellTemplate>

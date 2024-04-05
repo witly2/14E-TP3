@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CineQuebec.Windows.DAL.Data;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace CineQuebec.Windows.DAL.Repositories.Films
@@ -33,6 +34,23 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
             }
 
             return films;
+        }
+
+        public List<Projection> GetProjectionsForFilm(ObjectId  filmId)
+        {
+            var projections = new List<Projection>();
+
+            try
+            {
+                var projectionsFilm = Builders<Projection>.Filter.Eq(p => p.Film.Id, filmId);
+                projections = _databaseGestion.GetProjectionsCollection().Find(projectionsFilm).ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Impossible d'obtenir la collection de projection : " + ex.Message, "Erreur");
+            }
+
+            return projections;
         }
 
         public void AddFilm(Film film)

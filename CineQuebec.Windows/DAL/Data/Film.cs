@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace CineQuebec.Windows.DAL.Data
 {
     public class Film
     {
-        public ObjectId Id { get; }
+        [BsonId]
+        public ObjectId Id { get; private set; }
         public string OriginalTitle { get; set; }
         public string FrenchTitle { get; set; }
         public string Description { get; set; }
@@ -18,9 +20,15 @@ namespace CineQuebec.Windows.DAL.Data
         public ushort Rating { get; set; }
         public string OriginalLanguage { get; set; }
 
-        public Film()
+        public Film(string pOriginalTitle, string pFrenchTitle, string pDescription, ushort pDuration, DateTime pInternationalReleaseDate, ushort pRating, string pOriginalLanguage)
         {
-
+            OriginalTitle = pOriginalTitle;
+            FrenchTitle = pFrenchTitle;
+            Description = pDescription;
+            Duration = pDuration;
+            InternationalReleaseDate = pInternationalReleaseDate;
+            Rating = pRating;
+            OriginalLanguage = pOriginalLanguage;
         }
     }
 }
