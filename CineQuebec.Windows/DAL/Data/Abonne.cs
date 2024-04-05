@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace CineQuebec.Windows.DAL.Data
 {
     public class Abonne
     {
-        public ObjectId Id { get; set; }
+        [BsonId]
+        public ObjectId Id { get; private set; }
         public string Username { get; set; }
         public DateTime DateAdhesion { get; set; }
         public string Email { get; set; }

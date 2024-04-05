@@ -16,13 +16,13 @@ namespace CineQuebec.Windows.View
         private readonly FilmService _filmService;
         private List<Film> films;
         private DataGrid dataGrid;
-        private Dictionary<ObjectId, Film> filmsDictionary;
+        private Dictionary<ObjectId, Tuple<Film, string>> filmsDictionary;
 
         public FilmsControl(FilmService filmService)
         {
             InitializeComponent();
             _filmService = filmService;
-            filmsDictionary = new Dictionary<ObjectId, Film>();
+            filmsDictionary = new Dictionary<ObjectId, Tuple<Film, string>>();
             dataGrid = (DataGrid)this.FindName("dataGridFilms");
             GetFilms();
             DataGrid();
@@ -33,7 +33,18 @@ namespace CineQuebec.Windows.View
 
             foreach (var film in films)
             {
-                filmsDictionary.Add(film.Id, film);
+                var projections = _filmService.GetProjections(film.Id);
+                string lastProjectionDateString;
+                if (projections.Any())
+                {
+                    DateTime lastProjectionDate = projections.Max(p => p.DateHeureDebut);
+                    lastProjectionDateString = lastProjectionDate.ToString("yyyy-mm-dd");
+                }
+                else
+                {
+                    lastProjectionDateString = "Aucune projection";
+                }
+                filmsDictionary.Add(film.Id, new Tuple<Film, string>(film, lastProjectionDateString));
             }
 
             this.DataContext = filmsDictionary;
@@ -41,7 +52,6 @@ namespace CineQuebec.Windows.View
 
         public void DataGrid()
         {
-            DataGridTextColumn clnRang = (DataGridTextColumn)this.FindName("clnRang");
             DataGridTextColumn dateColumn = (DataGridTextColumn)this.FindName("date");
             if (dateColumn != null)
             {
@@ -55,15 +65,11 @@ namespace CineQuebec.Windows.View
         {
             if (dataGrid.SelectedItem != null)
             {
-                var selectedFilm = (KeyValuePair<ObjectId, Film>)dataGrid.SelectedItem;
-                ObjectId selectedGuid = selectedFilm.Key;
-
-                if(filmsDictionary.TryGetValue(selectedGuid, out Film film))
-                {
-                    MessageBox.Show($"Film: {film.FrenchTitle}");
-                }
+                var selectedKeyValue = (KeyValuePair<ObjectId, Tuple<Film, string>>)dataGrid.SelectedItem;
+                var selectedTuple = selectedKeyValue.Value;
+                Film selectedFilm = selectedTuple.Item1;
+                MessageBox.Show($"Film: {selectedFilm.FrenchTitle}");
             }
-
         }
 
         private void ToggleButton_AddFilms_Click(object sender, RoutedEventArgs e)

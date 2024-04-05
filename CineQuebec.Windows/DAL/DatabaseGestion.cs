@@ -72,6 +72,16 @@ namespace CineQuebec.Windows.DAL
             return database.GetCollection<Abonne>("Abonnes");
         }
 
+        public IMongoCollection<Projection> GetProjectionsCollection()
+        {
+            return database.GetCollection<Projection>("Projections");
+        }
+
+        public IMongoCollection<Salle> GetSallesCollection()
+        {
+            return database.GetCollection<Salle>("Salles");
+        }
+
         public void SeedDevelopmentData()
         {
             Seed seedData = new Seed(database);
@@ -80,6 +90,8 @@ namespace CineQuebec.Windows.DAL
             seedData.SeedActeurs();
             seedData.SeedRealisateurs();
             seedData.SeedCategories();
+            seedData.SeedProjections();
+            seedData.SeedSalles();
         }
 
     }
