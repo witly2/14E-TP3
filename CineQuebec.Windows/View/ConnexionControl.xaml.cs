@@ -38,5 +38,13 @@ namespace CineQuebec.Windows.View
             navWindows.Show();
             ((MainWindow)Application.Current.MainWindow).Close();
         }
+
+
+        private void Afficher_form_inscription(object sender, MouseButtonEventArgs e)
+        {
+            // Code pour afficher le formulaire d'inscription
+            ((MainWindow)Application.Current.MainWindow).InscriptionControl();
+        }
+
     }
 }

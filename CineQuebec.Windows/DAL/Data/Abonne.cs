@@ -13,6 +13,7 @@ namespace CineQuebec.Windows.DAL.Data
         public string Username { get; set; }
         public DateTime DateAdhesion { get; set; }
         public string Email { get; set; }
+        public byte[] Password {  get; set; }
 
 
         public Abonne()

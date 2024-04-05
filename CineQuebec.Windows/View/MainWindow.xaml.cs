@@ -43,6 +43,15 @@ namespace CineQuebec.Windows
         //    mainContentControl.Content = new NavWindows();
         //}
 
+        public void InscriptionControl()
+        {
+            mainContentControl.Content = new InscriptionControl1();
+        }
+
+        public void ConnexionControl()
+        {
+            mainContentControl.Content = new ConnexionControl();
+        }
 
         public void UsersControl()
         {

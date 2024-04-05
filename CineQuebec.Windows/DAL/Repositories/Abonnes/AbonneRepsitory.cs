@@ -1,4 +1,5 @@
 ﻿using CineQuebec.Windows.DAL.Data;
+using CineQuebec.Windows.DAL.Exceptions;
 using CineQuebec.Windows.DAL.Repositories.Abonnés;
 using MongoDB.Driver;
 using System;
@@ -24,15 +25,13 @@ namespace CineQuebec.Windows.DAL.Repositories.Abonnes
 
         public void AddAbonne(Abonne abonne)
         {
-            try
+            if (_abonneCollection.Find(x => x.Email == abonne.Email).Any())
             {
-                _abonneCollection.InsertOne(abonne);
-                Console.WriteLine("Congrats AddAbonne");
+               throw new EmailExisteExeption("Un abonnée existe dejà avec ce courriel");
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Impossible d'ajouter l'abonné : " + ex.Message, "Erreur");
-            }
+            _abonneCollection.InsertOne(abonne);
+
+
         }
 
         public List<Abonne> GetAbonnes()
@@ -42,7 +41,7 @@ namespace CineQuebec.Windows.DAL.Repositories.Abonnes
             try
             {
                 
-                abonnes = _abonneCollection.Aggregate().ToList();
+                abonnes = _abonneCollection.Aggregate().ToList().OrderBy(x=>x.Username).ToList();
             }
             catch (Exception ex)
             {
@@ -55,5 +54,7 @@ namespace CineQuebec.Windows.DAL.Repositories.Abonnes
         {
             throw new NotImplementedException();
         }
+
+
     }
 }
