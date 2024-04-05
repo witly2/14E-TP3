@@ -13,5 +13,7 @@ namespace CineQuebec.Windows.DAL.Repositories.Abonnés
         List<Abonne> GetAbonnes();
         void AddAbonne(Abonne abonne);
         void UpdateAbonne(Abonne abonne);
+
+        Abonne GetByEmail(string email);
     }
 }

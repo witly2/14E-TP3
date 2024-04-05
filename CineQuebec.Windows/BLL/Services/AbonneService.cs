@@ -33,5 +33,10 @@ namespace CineQuebec.Windows.BLL.Services
             _abonneRepository.UpdateAbonne(abonne);
         }
 
+        public Abonne GetAbonneByEmail(string email)
+        {
+            return _abonneRepository.GetByEmail(email);
+        }
+
     }
 }

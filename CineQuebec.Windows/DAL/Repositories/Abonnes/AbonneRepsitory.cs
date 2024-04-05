@@ -50,6 +50,12 @@ namespace CineQuebec.Windows.DAL.Repositories.Abonnes
             return abonnes;
         }
 
+        public Abonne GetByEmail(string email)
+        {
+
+            return _abonneCollection.Find(x => x.Email == email).FirstOrDefault();
+        }
+
         public void UpdateAbonne(Abonne abonne)
         {
             throw new NotImplementedException();

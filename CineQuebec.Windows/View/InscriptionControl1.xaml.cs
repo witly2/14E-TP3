@@ -62,9 +62,9 @@ namespace CineQuebec.Windows.View
             }
             else
             {
-                byte[] salt = Utils.CreerSALT();
+                newAbonne.Salt = Utils.CreerSALT();
 
-                newAbonne.Password = Utils.HacherMotDePasse(txtMdP.Password,salt);
+                newAbonne.Password = Utils.HacherMotDePasse(txtMdP.Password, newAbonne.Salt);
 
                 try
                 {
