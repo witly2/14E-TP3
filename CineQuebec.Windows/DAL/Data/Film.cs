@@ -9,7 +9,7 @@ namespace CineQuebec.Windows.DAL.Data
 {
     public class Film
     {
-        public ObjectId Id { get; set; }
+        public ObjectId Id { get; }
         public string OriginalTitle { get; set; }
         public string FrenchTitle { get; set; }
         public string Description { get; set; }
