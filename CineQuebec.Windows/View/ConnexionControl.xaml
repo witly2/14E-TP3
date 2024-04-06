@@ -4,23 +4,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:CineQuebec.Windows.View"
-             xmlns:rs="clr-namespace:CineQuebec.Windows.Ressources.i18n">
-    <Grid Background="White" >
+             xmlns:rs="clr-namespace:CineQuebec.Windows.Ressources.i18n"
+             >
+    <Grid  >
 
         <StackPanel VerticalAlignment="Center" >
-            <Label Content="{x:Static rs:Resource.connexion_username}" 
+            <Label Content="Courriel" 
                    Style="{StaticResource defautLabel}" />
-            <TextBox Width="200"  Style="{StaticResource defautInput}"
+            <TextBox Text="{Binding Email}"  Width="200"  Style="{StaticResource defautInput}"
                      Margin="0 0 0 10"/>
 
             <Label Content="{x:Static rs:Resource.connexion_password}" 
                    Style="{StaticResource defautLabel}" />
-            <TextBox Width="200" 
-                     Style="{StaticResource defautInput}"
+            <PasswordBox x:Name="txtMdP"  Width="200" 
                      Margin="0 0 0 20" />
 
-            <Button Content="{x:Static rs:Resource.connexion_connect}" 
-                    Style="{StaticResource defautButton}" Width="100" Click="Button_Click" />
+
+            <StackPanel>
+                <Button Content="{x:Static rs:Resource.connexion_connect}" 
+                Style="{StaticResource defautButton}" Width="100" Click="Button_Click" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Vous êtes nouveau?" />
+                    <TextBlock x:Name="btnConnexion" Text=" S'inscrire"  Foreground="Blue" MouseLeftButtonDown="Afficher_form_inscription"/>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -1,0 +1,83 @@
+﻿<UserControl x:Class="CineQuebec.Windows.View.InscriptionControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CineQuebec.Windows.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+              Style="{StaticResource Page_Style}">
+    <UserControl.Resources>
+        <Style x:Key="CustomErrorControlOnErrorStyle" TargetType="TextBox">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder x:Name="placeholder" />
+                            <TextBlock FontSize="11" FontStyle="Italic" Foreground="Red"
+                                      Text="{Binding ElementName=placeholder, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid x:Name="racineGrille" HorizontalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="1"  Grid.Column="1" FontSize="36" Text="Inscription" Grid.ColumnSpan="4" Margin="0,0,0,20" TextAlignment="Center" />
+
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0, 20">
+            <Label Width="100" Content="Utilisateur" FontFamily="Segoe UI" FontWeight="Black" />
+            <TextBox x:Name="txtUtilisateur" Width="200" Text="{Binding Username, ValidatesOnExceptions=True}"  Style="{StaticResource CustomErrorControlOnErrorStyle}" />
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0, 20">
+            <Label Width="100" Content="Courriel" FontFamily="Segoe UI" FontWeight="Black" />
+            <TextBox x:Name="txtCourriel" Width="200" Text="{Binding Email, ValidatesOnExceptions=True}" InputScope="EmailUserName"  Style="{StaticResource CustomErrorControlOnErrorStyle}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20">
+            <Label Content="Mot de passe" Width="100" FontFamily="Segoe UI" FontWeight="Black" />
+       
+            <PasswordBox x:Name="txtMdP" Width="200 " />
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20">
+            <Label Content="Confirmer le mot de passe" Width="100" FontFamily="Segoe UI" FontWeight="Black" />
+            <PasswordBox x:Name="txtCMdP" Width="200 " />
+        </StackPanel>
+        <TextBlock xml:space="preserve" Grid.Row="7" Grid.Column="1" x:Name="txtMessage" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="247"  Margin="26,10,25,0" OpacityMask="Crimson" Foreground="#FFE5572C" Grid.ColumnSpan="2" />
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="6" >
+       
+
+            <Button x:Name="btnCreerCompte" Content="Créer un compte"  Margin="10" Background="CadetBlue" Click="btnCreerCompte_Click" />
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Avez-vous un compte?" />
+                <TextBlock x:Name="btnConnexion" Text=" Connexion"  Foreground="Blue" MouseLeftButtonDown="Afficher_form_login"/>
+            </StackPanel>
+        </StackPanel>
+
+
+
+    </Grid>
+</UserControl>

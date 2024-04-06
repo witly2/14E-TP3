@@ -40,6 +40,8 @@ namespace CineQuebec.Windows.View
             mainContentControl.Content = new FilmsControl(_filmService);
         }
 
+      
+
 
     }
 }
