@@ -14,27 +14,24 @@ namespace CineQuebec.Windows.View
 {
     public partial class AddUpdateFilmControl: UserControl
     {
-       // private Film film;
-
         public AddUpdateFilmControl(Film filmToUpdate = null)
         {
             InitializeComponent();
-            TextBlock addUpdateFilmButton = (TextBlock)this.FindName("addUpdateButton");
+            TextBlock addUpdateFilmTextBlock = (TextBlock)this.FindName("addUpdateButton");
             if (filmToUpdate != null)
             {
                 Debug.WriteLine($"Titre FR: {filmToUpdate.FrenchTitle}");
-                //film = filmToUpdate;
-                addUpdateFilmButton.Text = "Modifier";
+                addUpdateFilmTextBlock.Text = "Modifier";
                 this.DataContext = filmToUpdate;
             }
             else
             {
-                addUpdateFilmButton.Text = "Ajouter";
+                addUpdateFilmTextBlock.Text = "Ajouter";
             }
         }
         public void ToggleButton_AddProjection_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Ajout projection.");
+            MessageBox.Show($"Ajout projection bientôt disponible.");
         }
 
         public void addUpdateButton_Click(object sender, RoutedEventArgs e)

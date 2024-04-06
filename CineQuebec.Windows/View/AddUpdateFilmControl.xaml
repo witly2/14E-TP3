@@ -27,31 +27,31 @@
                 <!-- Titre FR -->
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <Label Content="Titre FR :" />
-                    <TextBox Text="{Binding Value.FrenchTitle, Mode=TwoWay}" Width="200" />
+                    <TextBox x:Name="titreFr" Text="{Binding FrenchTitle, Mode=TwoWay}" Width="200" />
                 </StackPanel>
 
                 <!-- Titre original -->
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <Label Content="Titre original :" />
-                    <TextBox Text="{Binding Value.OriginalTitle, Mode=TwoWay}" Width="200" />
+                    <TextBox Text="{Binding OriginalTitle, Mode=TwoWay}" Width="200" />
                 </StackPanel>
 
                 <!-- Date de sortie internationale -->
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <Label Content="Date de sortie internationale :" />
-                    <DatePicker SelectedDate="{Binding Value.InternationalReleaseDate, Mode=TwoWay}" />
+                    <DatePicker SelectedDate="{Binding InternationalReleaseDate, Mode=TwoWay}" />
                 </StackPanel>
 
                 <!-- Duree du film en minutes -->
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <Label Content="Duree du film (minutes) :" />
-                    <TextBox Text="{Binding Value.Duration, Mode=TwoWay}" Width="200" />
+                    <TextBox Text="{Binding Duration, Mode=TwoWay}" Width="200" />
                 </StackPanel>
 
                 <!-- Description -->
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <Label Content="Description :" />
-                    <TextBox Text="{Binding Value.Description, Mode=TwoWay}"  Width="200" Height="100" />
+                    <TextBox Text="{Binding Description, Mode=TwoWay}"  Width="400" Height="100" TextWrapping="Wrap" AcceptsReturn="True" />
                 </StackPanel>
 
                 <Button Style="{StaticResource menuButton}" Click="ToggleButton_AddProjection_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="50" >
