@@ -77,8 +77,7 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
                     .Set(filmBd => filmBd.Description, film.Description)
                     .Set(filmBd => filmBd.Duration, film.Duration)
                     .Set(filmBd => filmBd.InternationalReleaseDate, film.InternationalReleaseDate)
-                    .Set(filmBd => filmBd.Rating, film.Rating)
-                    .Set(filmBd => filmBd.OriginalLanguage, film.OriginalLanguage);
+                    .Set(filmBd => filmBd.Rating, film.Rating);
 
                 _filmsCollection.UpdateOne(filter, filmUpdate);
                 Console.WriteLine("Film mis à jour.");

@@ -11,7 +11,7 @@
              Style="{StaticResource Page_Style}">
 
     <Grid>
-        <Button Style="{StaticResource menuButton}" Click="ToggleButton_AddFilms_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Padding="50" >
+        <Button Style="{StaticResource menuButton}" Name="AddFilmButton" Click="ToggleButton_AddFilm_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Padding="50" >
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <md:PackIcon Kind="Movie" Style="{StaticResource menuBtnIcon}"/>
                 <TextBlock Text="Ajouter film" Padding="10" />
@@ -39,7 +39,7 @@
 
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                    <Button Style="{StaticResource DataGridEditBtn}">
+                                    <Button Style="{StaticResource DataGridEditBtn}" Click="ToggleButton_UpdateFilm_Click">
                                         <md:PackIcon Kind="PencilOutline" Style="{StaticResource DataGridBtnIcon}"/>
                                     </Button>
 

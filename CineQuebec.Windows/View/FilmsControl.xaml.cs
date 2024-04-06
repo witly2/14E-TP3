@@ -61,6 +61,29 @@ namespace CineQuebec.Windows.View
             }
         }
 
+        private void ToggleButton_AddFilm_Click(object sender, RoutedEventArgs e)
+        {
+            AddUpdateFilmControl filmAddUpdateControl = new AddUpdateFilmControl();
+            this.Content = filmAddUpdateControl;
+        }
+
+        private void ToggleButton_UpdateFilm_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGrid.SelectedItem != null)
+            {
+                var selectedKeyValue = (KeyValuePair<ObjectId, Tuple<Film, string>>)dataGrid.SelectedItem;
+                var filmToUpdate = selectedKeyValue.Value.Item1 as Film;
+                if (filmToUpdate != null)
+                {
+                    AddUpdateFilmControl updateControl = new AddUpdateFilmControl(filmToUpdate);
+                    this.Content = updateControl;
+                } else
+                {
+                    MessageBox.Show($"Veuillez sélectionner un film à mettre à jour.");
+                }
+            }
+        }
+
         private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (dataGrid.SelectedItem != null)
@@ -70,12 +93,6 @@ namespace CineQuebec.Windows.View
                 Film selectedFilm = selectedTuple.Item1;
                 MessageBox.Show($"Film: {selectedFilm.FrenchTitle}");
             }
-        }
-
-        private void ToggleButton_AddFilms_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show($"Click add film.");
-            //mainContentControl.Content = new FilmsControl(_filmService);
         }
     }
 }

@@ -63,12 +63,12 @@ namespace CineQuebec.Windows.DAL
             {
                 var films = new List<Film>
                 {
-                    new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8, "English"),
-                    new Film("The Dark Knight", "Le Chevalier Noir", "Lorsque la menace connue sous le nom du Joker sème le chaos parmi les habitants de Gotham, Batman doit accepter l'une des plus grandes épreuves psychologiques et physiques de sa capacité à lutter contre l'injustice.", 152, new DateTime(2008, 7, 18), 9, "English"),
-                    new Film("Interstellar", "Interstellaire", "Une équipe d'explorateurs voyage à travers un trou de ver dans l'espace dans le but de garantir la survie de l'humanité.", 169, new DateTime(2014, 11, 7), 8, "English"),
-                    new Film("La La Land", "La La Land", "En naviguant dans leur carrière à Los Angeles, un pianiste et une actrice tombent amoureux tout en tentant de concilier leurs aspirations pour l'avenir.", 128, new DateTime(2016, 12, 25), 8, "English"),
-                    new Film("Dune", "Dune", "Adaptation cinématographique du roman de science-fiction de Frank Herbert, à propos du fils d'une famille noble chargé de la protection de l'actif le plus précieux et de l'élément le plus vital de la galaxie.", 155, new DateTime(2023, 9, 21), 7, "English"),
-                    new Film("Django Unchained", "Django déchaîné", "Deux ans avant la Guerre civile, un ancien esclave du nom de Django s'associe avec un chasseur de primes d'origine allemande qui l'a libéré: il accepte de traquer avec lui des criminels recherchés. En échange, il l'aidera à retrouver sa femme perdue depuis longtemps et esclave elle aussi.", 165, new DateTime(2012, 12, 25), 7, "English")
+                    new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8),
+                    new Film("The Dark Knight", "Le Chevalier Noir", "Lorsque la menace connue sous le nom du Joker sème le chaos parmi les habitants de Gotham, Batman doit accepter l'une des plus grandes épreuves psychologiques et physiques de sa capacité à lutter contre l'injustice.", 152, new DateTime(2008, 7, 18), 9),
+                    new Film("Interstellar", "Interstellaire", "Une équipe d'explorateurs voyage à travers un trou de ver dans l'espace dans le but de garantir la survie de l'humanité.", 169, new DateTime(2014, 11, 7), 8),
+                    new Film("La La Land", "La La Land", "En naviguant dans leur carrière à Los Angeles, un pianiste et une actrice tombent amoureux tout en tentant de concilier leurs aspirations pour l'avenir.", 128, new DateTime(2016, 12, 25), 8),
+                    new Film("Dune", "Dune", "Adaptation cinématographique du roman de science-fiction de Frank Herbert, à propos du fils d'une famille noble chargé de la protection de l'actif le plus précieux et de l'élément le plus vital de la galaxie.", 155, new DateTime(2023, 9, 21), 7),
+                    new Film("Django Unchained", "Django déchaîné", "Deux ans avant la Guerre civile, un ancien esclave du nom de Django s'associe avec un chasseur de primes d'origine allemande qui l'a libéré: il accepte de traquer avec lui des criminels recherchés. En échange, il l'aidera à retrouver sa femme perdue depuis longtemps et esclave elle aussi.", 165, new DateTime(2012, 12, 25), 7)
                 };
 
                 _filmsCollection.InsertMany(films);

@@ -1,5 +1,6 @@
 ﻿using CineQuebec.Windows.BLL.Services;
 using CineQuebec.Windows.DAL;
+using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Abonnes;
 using CineQuebec.Windows.DAL.Repositories.Films;
 using CineQuebec.Windows.View;
@@ -38,11 +39,6 @@ namespace CineQuebec.Windows
             mainContentControl.Content = new AdminHomeControl();
         }
 
-        //public void NavControl()
-        //{
-        //    mainContentControl.Content = new NavWindows();
-        //}
-
         public void InscriptionControl()
         {
             mainContentControl.Content = new InscriptionControl1();
@@ -61,6 +57,11 @@ namespace CineQuebec.Windows
         public void FilmsControl()
         {
             mainContentControl.Content = new FilmsControl(_filmService);
+        }
+
+        public void AddUpdateFilmControl()
+        {
+            mainContentControl.Content = new AddUpdateFilmControl();
         }
     }
 }
