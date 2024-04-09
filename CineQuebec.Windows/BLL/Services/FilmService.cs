@@ -9,7 +9,7 @@ using MongoDB.Bson;
 
 namespace CineQuebec.Windows.BLL.Services
 {
-    public class FilmService
+    public class FilmService : IFilmService
     {
         private readonly IFilmRepository _filmRepository;
 
@@ -18,24 +18,24 @@ namespace CineQuebec.Windows.BLL.Services
             _filmRepository = filmRepository;
         }
 
-        public List<Film> GetFilms()
+        public async Task<List<Film>> GetFilms()
         {
-            return _filmRepository.GetFilms();
+            return await _filmRepository.GetFilms();
         }
 
-        public void AddFilm(Film film)
+        public async Task<Film> AddFilm(Film film)
         {
-            _filmRepository.AddFilm(film);
+           return await _filmRepository.AddFilm(film);
         }
 
-        public void Update(Film film)
+        public async Task<Film> UpdateFilm(Film film)
         {
-            _filmRepository.UpdateFilm(film);
+            return await _filmRepository.UpdateFilm(film);
         }
 
-        public List<Projection> GetProjections(ObjectId filmId)
+        public async Task<List<Projection>> GetProjections(ObjectId filmId)
         {
-            return _filmRepository.GetProjectionsForFilm(filmId);
+            return await _filmRepository.GetProjectionsForFilm(filmId);
         }
     }
 }

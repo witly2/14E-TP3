@@ -24,6 +24,8 @@ namespace CineQuebec.Windows
     {
         private readonly FilmService _filmService;
         private readonly AbonneService _abonneService;
+        private Film film;
+
         public MainWindow()
         {
             DatabaseGestion db = new DatabaseGestion();
@@ -61,7 +63,7 @@ namespace CineQuebec.Windows
 
         public void AddUpdateFilmControl()
         {
-            mainContentControl.Content = new AddUpdateFilmControl();
+            mainContentControl.Content = new AddUpdateFilmControl(_filmService);
         }
     }
 }

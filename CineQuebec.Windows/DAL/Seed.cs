@@ -29,7 +29,7 @@ namespace CineQuebec.Windows.DAL
         /// <summary>
         ///  Liste de données pour les abonnés
         /// </summary>
-        public void SeedAbonnes()
+        public async Task SeedAbonnes()
         {
 
             if (!_abonnesCollection.Indexes.List().Any())
@@ -57,7 +57,7 @@ namespace CineQuebec.Windows.DAL
         /// <summary>
         /// Liste de données pour les films
         /// </summary>
-        public void SeedFilms()
+        public async Task SeedFilms()
         {
             if (!_filmsCollection.Indexes.List().Any())
             {
@@ -76,7 +76,7 @@ namespace CineQuebec.Windows.DAL
             }
         }
 
-        public void SeedProjections()
+        public async Task SeedProjections()
         {
             if (!_projectionsCollection.Indexes.List().Any())
             {
@@ -95,7 +95,7 @@ namespace CineQuebec.Windows.DAL
             }
         }
 
-        public void SeedSalles()
+        public async Task SeedSalles()
         {
             if(!_sallesCollection.Indexes.List().Any())
             {
@@ -111,7 +111,7 @@ namespace CineQuebec.Windows.DAL
             }
         }
 
-        public void SeedActeurs()
+        public async Task SeedActeurs()
         {
             if (!_acteursCollection.Indexes.List().Any())
             {
@@ -141,7 +141,7 @@ namespace CineQuebec.Windows.DAL
                 
         }
 
-        public void SeedRealisateurs()
+        public async Task SeedRealisateurs()
         {
             if (!_realisateursCollection.Indexes.List().Any())
             {
@@ -157,7 +157,7 @@ namespace CineQuebec.Windows.DAL
             }
         }
 
-        public void SeedCategories()
+        public async Task SeedCategories()
         {
             if (!_categoriesCollection.Indexes.List().Any())
             {

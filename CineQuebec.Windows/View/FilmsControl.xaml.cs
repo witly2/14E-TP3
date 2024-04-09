@@ -13,12 +13,13 @@ namespace CineQuebec.Windows.View
 {
     public partial class FilmsControl: UserControl
     {
-        private readonly FilmService _filmService;
+        private readonly IFilmService _filmService;
+        private readonly IProjectionService _projectionService;
         private List<Film> films;
         private DataGrid dataGrid;
         private Dictionary<ObjectId, Tuple<Film, string>> filmsDictionary;
 
-        public FilmsControl(FilmService filmService)
+        public FilmsControl(IFilmService filmService)
         {
             InitializeComponent();
             _filmService = filmService;
@@ -27,15 +28,15 @@ namespace CineQuebec.Windows.View
             GetFilms();
             DataGrid();
         }
-        public void GetFilms()
+        public async void GetFilms()
         {
-            films = _filmService.GetFilms();
+            films = await _filmService.GetFilms();
 
             foreach (var film in films)
             {
-                var projections = _filmService.GetProjections(film.Id);
+                var projections = await _filmService.GetProjections(film.Id);
                 string lastProjectionDateString;
-                if (projections.Any())
+                if (projections.Count > 0)
                 {
                     DateTime lastProjectionDate = projections.Max(p => p.DateHeureDebut);
                     lastProjectionDateString = lastProjectionDate.ToString("yyyy-mm-dd");
@@ -55,15 +56,13 @@ namespace CineQuebec.Windows.View
             DataGridTextColumn dateColumn = (DataGridTextColumn)this.FindName("date");
             if (dateColumn != null)
             {
-
-
                 dateColumn.Binding.StringFormat = "yyyy-MM-dd";
             }
         }
 
         private void ToggleButton_AddFilm_Click(object sender, RoutedEventArgs e)
         {
-            AddUpdateFilmControl filmAddUpdateControl = new AddUpdateFilmControl();
+            AddUpdateFilmControl filmAddUpdateControl = new AddUpdateFilmControl(_filmService);
             this.Content = filmAddUpdateControl;
         }
 
@@ -75,7 +74,7 @@ namespace CineQuebec.Windows.View
                 var filmToUpdate = selectedKeyValue.Value.Item1 as Film;
                 if (filmToUpdate != null)
                 {
-                    AddUpdateFilmControl updateControl = new AddUpdateFilmControl(filmToUpdate);
+                    AddUpdateFilmControl updateControl = new AddUpdateFilmControl(_filmService, filmToUpdate);
                     this.Content = updateControl;
                 } else
                 {
@@ -92,6 +91,21 @@ namespace CineQuebec.Windows.View
                 var selectedTuple = selectedKeyValue.Value;
                 Film selectedFilm = selectedTuple.Item1;
                 MessageBox.Show($"Film: {selectedFilm.FrenchTitle}");
+            }
+        }
+
+        private void ToggleButton_AddProjection_Click(object sender, RoutedEventArgs e)
+        {
+            if (dataGrid.SelectedItem != null)
+            {
+                var selectedKeyValue = (KeyValuePair<ObjectId, Tuple<Film, string>>)dataGrid.SelectedItem;
+                Film selectedFilm = selectedKeyValue.Value.Item1;
+                AddProjectionControl addProjectionControl = new AddProjectionControl(_projectionService, selectedFilm);
+                this.Content = addProjectionControl;
+            }
+            else
+            {
+                MessageBox.Show($"Veuillez sélectionner un film àpour ajouter une projection.");
             }
         }
     }
