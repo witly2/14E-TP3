@@ -8,11 +8,17 @@ using System.Threading.Tasks;
 
 namespace CineQuebec.Windows.DAL.Data
 {
-    public class Acteur
+    public class Salle
     {
         [BsonId]
         public ObjectId Id { get; private set; }
-        public string Nom { get; set; }
-        public string Prenom { get; set; }
+        public int NumeroSalle { get; set; }
+        public int NombrePlace { get; set; }
+
+        public Salle(int pNumeroSalle, int pNombrePlace) 
+        {
+            NumeroSalle = pNumeroSalle;
+            NombrePlace = pNombrePlace;
+        }
     }
 }

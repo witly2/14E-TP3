@@ -1,0 +1,57 @@
+<UserControl x:Class="CineQuebec.Windows.View.AddProjectionControl"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:CineQuebec.Windows.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:rs="clr-namespace:CineQuebec.Windows.Ressources.i18n"
+      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+     Style="{StaticResource Page_Style}">
+
+    <Grid>
+        <Border Margin="0 20 0 20">
+            <TextBlock Text="Ajouter une projection" Foreground="White" HorizontalAlignment="Center" FontSize="20"  />
+        </Border>
+
+
+        <Grid  Margin="60 60 60 20" Background="White" >
+            <StackPanel Orientation="Vertical">
+                <!-- Titre FR -->
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <Label Content="Titre FR :" />
+                    <TextBlock Text="{Binding FrenchTitle}" Margin="10"/>
+                </StackPanel>
+
+                <!-- Date de projection -->
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <!-- DatePicker de MaterialDesignInXamlToolkit -->
+                    <DatePicker x:Name="datePicker" />
+
+                    <!-- TimePicker de MahApps.Metro -->
+                    <mah:TimePicker x:Name="timePicker" Margin="10" Width="195" Height="25"/>
+                </StackPanel>
+
+
+                <!-- Salle -->
+                <StackPanel Orientation="Horizontal" Margin="10">
+                    <Label Content="Salle disponible :" />
+                    <ComboBox x:Name="descriptionComboBox" Width="400" Height="100">
+                        <ComboBoxItem Content="Option 1" />
+                        <ComboBoxItem Content="Option 2" />
+                        <ComboBoxItem Content="Option 3" />
+                    </ComboBox>
+                </StackPanel>
+
+
+                <Button Style="{StaticResource menuButton}" Click="addProjectionButton_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="50" >
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <TextBlock Text="Ajouter" Padding="10" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

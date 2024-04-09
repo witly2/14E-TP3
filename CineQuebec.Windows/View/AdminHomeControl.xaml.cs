@@ -1,4 +1,7 @@
-﻿using System;
+﻿using CineQuebec.Windows.BLL.Services;
+using CineQuebec.Windows.DAL.Repositories.Films;
+using CineQuebec.Windows.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,8 +23,11 @@ namespace CineQuebec.Windows.View
     /// </summary>
     public partial class AdminHomeControl : UserControl
     {
+        private readonly FilmService _filmService;
         public AdminHomeControl()
         {
+            DatabaseGestion db = new DatabaseGestion();
+            _filmService = new FilmService(new FilmRepository(db));
             InitializeComponent();
         }
 

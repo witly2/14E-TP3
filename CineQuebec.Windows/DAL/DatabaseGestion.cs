@@ -15,13 +15,16 @@ namespace CineQuebec.Windows.DAL
 
         public DatabaseGestion(IMongoClient client = null)
         {
-            mongoDBClient = client ?? OpenConnection();
-            database = ConnectDatabase();
-            SeedDevelopmentData();
+            Task.Run(async () =>
+            {
+                mongoDBClient = client ?? await OpenConnection();
+                database = await ConnectDatabase();
+                await SeedDevelopmentData();
+            }).Wait();
         }
-        private IMongoClient OpenConnection()
+        private async Task<IMongoClient> OpenConnection()
         {
-            MongoClient dbClient = null;
+            IMongoClient dbClient = null;
             try
             {
                 dbClient = new MongoClient("mongodb://localhost:27017/");
@@ -33,7 +36,7 @@ namespace CineQuebec.Windows.DAL
             return dbClient;
         }
 
-        private IMongoDatabase ConnectDatabase()
+        private async Task<IMongoDatabase> ConnectDatabase()
         {
             IMongoDatabase db = null;
             try
@@ -62,7 +65,7 @@ namespace CineQuebec.Windows.DAL
             return abonnes;
         }
 
-        public IMongoCollection<Film> GetFilmsCollection()
+        public async Task<IMongoCollection<Film>> GetFilmsCollection()
         {
             return database.GetCollection<Film>("Films");
         }
@@ -72,14 +75,26 @@ namespace CineQuebec.Windows.DAL
             return database.GetCollection<Abonne>("Abonnes");
         }
 
-        public void SeedDevelopmentData()
+        public async Task<IMongoCollection<Projection>> GetProjectionsCollection()
+        {
+            return database.GetCollection<Projection>("Projections");
+        }
+
+        public async Task<IMongoCollection<Salle>> GetSallesCollection()
+        {
+            return database.GetCollection<Salle>("Salles");
+        }
+
+        public async Task SeedDevelopmentData()
         {
             Seed seedData = new Seed(database);
-            seedData.SeedAbonnes();
-            seedData.SeedFilms();
-            seedData.SeedActeurs();
-            seedData.SeedRealisateurs();
-            seedData.SeedCategories();
+            await seedData.SeedAbonnes();
+            await seedData.SeedFilms();
+            await seedData.SeedActeurs();
+            await seedData.SeedRealisateurs();
+            await seedData.SeedCategories();
+            await seedData.SeedProjections();
+            await seedData.SeedSalles();
         }
 
     }

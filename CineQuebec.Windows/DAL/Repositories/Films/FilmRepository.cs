@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CineQuebec.Windows.DAL.Data;
+using MongoDB.Bson;
 using MongoDB.Driver;
 
-namespace CineQuebec.Windows.DAL.Repositories
+namespace CineQuebec.Windows.DAL.Repositories.Films
 {
     public class FilmRepository : IFilmRepository
     {
@@ -16,39 +17,52 @@ namespace CineQuebec.Windows.DAL.Repositories
         public FilmRepository(DatabaseGestion databaseGestion)
         {
             _databaseGestion = databaseGestion;
-            _filmsCollection = _databaseGestion.GetFilmsCollection();
+            _filmsCollection = _databaseGestion.GetFilmsCollection().Result;
         }
 
-        public List<Film> GetFilms()
+        public async Task<List<Film>> GetFilms()
         {
-            var films = new List<Film>();
-
             try
             {
-                films = _filmsCollection.Aggregate().ToList();
+                return await _filmsCollection.Aggregate().ToListAsync();
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Impossible d'obtenir la collection de films : " + ex.Message, "Erreur");
+                return new List<Film>();
             }
-
-            return films;
         }
 
-        public void AddFilm(Film film)
+        public async Task<List<Projection>> GetProjectionsForFilm(ObjectId  filmId)
         {
             try
             {
-                _filmsCollection.InsertOne(film);
+                var projectionsFilm = Builders<Projection>.Filter.Eq(p => p.Film.Id, filmId);
+                return await _databaseGestion.GetProjectionsCollection().Result.Find(projectionsFilm).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Impossible d'obtenir la collection de projection : " + ex.Message, "Erreur");
+                return new List<Projection>();
+            }
+        }
+
+        public async Task<Film> AddFilm(Film film)
+        {
+            try
+            {
+                await _filmsCollection.InsertOneAsync(film);
                 Console.WriteLine("Congrats AddFilm");
+                return film;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Impossible d'ajouter le film : " + ex.Message, "Erreur");
+                return null;
             }
         }
 
-        public void UpdateFilm(Film film)
+        public async Task<Film> UpdateFilm(Film film)
         {
             try
             {
@@ -59,15 +73,16 @@ namespace CineQuebec.Windows.DAL.Repositories
                     .Set(filmBd => filmBd.Description, film.Description)
                     .Set(filmBd => filmBd.Duration, film.Duration)
                     .Set(filmBd => filmBd.InternationalReleaseDate, film.InternationalReleaseDate)
-                    .Set(filmBd => filmBd.Rating, film.Rating)
-                    .Set(filmBd => filmBd.OriginalLanguage, film.OriginalLanguage);
+                    .Set(filmBd => filmBd.Rating, film.Rating);
 
-                _filmsCollection.UpdateOne(filter, filmUpdate);
+                await _filmsCollection.UpdateOneAsync(filter, filmUpdate);
                 Console.WriteLine("Film mis à jour.");
+                return film;
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Impossible de mettre à jour le film: " + ex.Message, "Erreur");
+                return null;
             }
         }
     }
