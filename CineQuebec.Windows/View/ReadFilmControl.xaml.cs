@@ -15,9 +15,11 @@ namespace CineQuebec.Windows.View
     public partial class ReadFilmControl: UserControl
     {
         private readonly IFilmService _filmService;
-        public ReadFilmControl()
+        private readonly Film _film;
+        public ReadFilmControl(Film film)
         {
             InitializeComponent();
+            _film = film;
         }
 
         public void ToggleButton_AddProjection_Click(object sender, RoutedEventArgs e)

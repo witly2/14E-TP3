@@ -27,7 +27,7 @@ namespace CineQuebec.Windows.View
 
         public async void addProjectionButton_Click(object sender, RoutedEventArgs e)
         {
-           
+            MessageBox.Show($"Ajout projection.");
         }
     }
 }
