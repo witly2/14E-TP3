@@ -78,6 +78,8 @@ namespace CineQuebec.Windows.View
 
         public async void addUpdateButton_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show($"Ajout addUpdate.");
+            /*
             TextBlock addUpdateFilmTextBlock = (TextBlock)this.FindName("addUpdateButton");
             Film film = GetFilmForm();
 
@@ -92,9 +94,9 @@ namespace CineQuebec.Windows.View
                         if (newFilm != null)
                         {
                             MessageBox.Show("Film créé avec succès.");
-                            ReadFilmControl readFilmControl = new ReadFilmControl();
-                            readFilmControl.DataContext = newFilm;
-                            this.Content = readFilmControl;
+                            //ReadFilmControl readFilmControl = new ReadFilmControl();
+                            //readFilmControl.DataContext = newFilm;
+                            //this.Content = readFilmControl;
                         }
                         else
                         {
@@ -115,9 +117,9 @@ namespace CineQuebec.Windows.View
                         if (updateFilm != null)
                         {
                             MessageBox.Show("Film mis à jour avec succès.");
-                            ReadFilmControl readFilmControl = new ReadFilmControl();
-                            readFilmControl.DataContext = updateFilm;
-                            this.Content = readFilmControl;
+                            //ReadFilmControl readFilmControl = new ReadFilmControl();
+                            //readFilmControl.DataContext = updateFilm;
+                           // this.Content = readFilmControl;
                         }
                         else
                         {
@@ -133,7 +135,7 @@ namespace CineQuebec.Windows.View
             else
             {
                 MessageBox.Show("Erreur lors de la récupération du film formulaire.");
-            }
+            }*/
         }
 
     }
