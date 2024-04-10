@@ -13,6 +13,6 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
         Task<List<Film>> GetFilms();
         Task<Film> AddFilm(Film film);
         Task<Film> UpdateFilm(Film film);
-        Task<List<Projection>> GetProjectionsForFilm(ObjectId filmId);
+        Task<List<Projection>> GetProjectionsForFilm(Film film);
     }
 }

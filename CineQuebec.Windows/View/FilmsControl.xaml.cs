@@ -34,7 +34,7 @@ namespace CineQuebec.Windows.View
 
             foreach (var film in films)
             {
-                var projections = await _filmService.GetProjections(film.Id);
+                var projections = await _filmService.GetProjections(film);
                 string lastProjectionDateString;
                 if (projections.Count > 0)
                 {

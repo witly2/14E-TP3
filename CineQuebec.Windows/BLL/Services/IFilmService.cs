@@ -13,6 +13,6 @@ namespace CineQuebec.Windows.BLL.Services
         Task<List<Film>> GetFilms();
         Task<Film> AddFilm(Film film);
         Task<Film> UpdateFilm(Film film);
-        Task<List<Projection>> GetProjections(ObjectId filmId);
+        Task<List<Projection>> GetProjections(Film film);
     }
 }
