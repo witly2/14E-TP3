@@ -20,22 +20,54 @@ namespace CineQuebec.Windows.BLL.Services
 
         public async Task<List<Film>> GetFilms()
         {
-            return await _filmRepository.GetFilms();
+            try
+            {
+                return await _filmRepository.GetFilms();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Une erreur s'est produite lors de la récupération des films : " + ex.Message);
+                throw;
+            }
         }
 
         public async Task<Film> AddFilm(Film film)
         {
-           return await _filmRepository.AddFilm(film);
+            try
+            {
+                return await _filmRepository.AddFilm(film);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Une erreur s'est produite lors de l'ajout du film : " + ex.Message);
+                throw;
+            }
         }
 
         public async Task<Film> UpdateFilm(Film film)
         {
-            return await _filmRepository.UpdateFilm(film);
+            try
+            {
+                return await _filmRepository.UpdateFilm(film);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Une erreur s'est produite lors de la récupération du film : " + ex.Message);
+                throw;
+            }
         }
 
         public async Task<List<Projection>> GetProjections(ObjectId filmId)
         {
-            return await _filmRepository.GetProjectionsForFilm(filmId);
+            try
+            {
+                return await _filmRepository.GetProjectionsForFilm(filmId);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Une erreur s'est produite lors de la récupération des projections du film : " + ex.Message);
+                throw;
+            }
         }
     }
 }
