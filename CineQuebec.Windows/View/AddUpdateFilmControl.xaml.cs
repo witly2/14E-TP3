@@ -76,7 +76,7 @@ namespace CineQuebec.Windows.View
             MessageBox.Show($"Ajout projection bientôt disponible.");
         }
 
-        public async Task addUpdateButton_Click(object sender, RoutedEventArgs e)
+        public async void addUpdateButton_Click(object sender, RoutedEventArgs e)
         {
             TextBlock addUpdateFilmTextBlock = (TextBlock)this.FindName("addUpdateButton");
             Film film = GetFilmForm();

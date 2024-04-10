@@ -100,12 +100,13 @@ namespace CineQuebec.Windows.View
             {
                 var selectedKeyValue = (KeyValuePair<ObjectId, Tuple<Film, string>>)dataGrid.SelectedItem;
                 Film selectedFilm = selectedKeyValue.Value.Item1;
-                AddProjectionControl addProjectionControl = new AddProjectionControl(_projectionService, selectedFilm);
-                this.Content = addProjectionControl;
+                MessageBox.Show($"Add projection au film: {selectedFilm.FrenchTitle}");
+                //AddProjectionControl addProjectionControl = new AddProjectionControl(_projectionService, selectedFilm);
+                //this.Content = addProjectionControl;
             }
             else
             {
-                MessageBox.Show($"Veuillez sélectionner un film àpour ajouter une projection.");
+                MessageBox.Show($"Veuillez sélectionner un film pour ajouter une projection.");
             }
         }
     }

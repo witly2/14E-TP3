@@ -44,7 +44,7 @@
 
                 <!-- Duree du film en minutes -->
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <Label Content="Durée du film (minutes) :" />
+                    <Label Content="Duree du film (minutes) :" />
                     <TextBlock Text="{Binding Duration}" Margin="10"/>
                 </StackPanel>
 

@@ -47,7 +47,7 @@
                                         <md:PackIcon Kind="Delete" Foreground="White" Style="{StaticResource DataGridBtnIcon}"/>
                                     </Button>
 
-                                    <Button Style="{StaticResource DataGridAddProjectionBtn}" Click="ToggleButton_AddProjection_Click">
+                                    <Button Style="{StaticResource DataGridEditBtn}" Click="ToggleButton_AddProjection_Click">
                                         <md:PackIcon Kind="Plus" Foreground="White" Style="{StaticResource DataGridBtnIcon}"/>
                                     </Button>
                                 </StackPanel>
