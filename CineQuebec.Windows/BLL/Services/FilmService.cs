@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,8 +27,7 @@ namespace CineQuebec.Windows.BLL.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Une erreur s'est produite lors de la récupération des films : " + ex.Message);
-                throw;
+                throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des films : " + ex.Message);
             }
         }
 
@@ -39,8 +39,7 @@ namespace CineQuebec.Windows.BLL.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Une erreur s'est produite lors de l'ajout du film : " + ex.Message);
-                throw;
+                throw new InvalidDataException($"Une erreur s'est produite lors de l'ajout du film : " + ex.Message);
             }
         }
 
@@ -52,21 +51,19 @@ namespace CineQuebec.Windows.BLL.Services
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Une erreur s'est produite lors de la récupération du film : " + ex.Message);
-                throw;
+                throw new InvalidDataException($"Une erreur s'est produite lors de la récupération du film : " + ex.Message);
             }
         }
 
-        public async Task<List<Projection>> GetProjections(ObjectId filmId)
+        public async Task<List<Projection>> GetProjections(Film film)
         {
             try
             {
-                return await _filmRepository.GetProjectionsForFilm(filmId);
+                return await _filmRepository.GetProjectionsForFilm(film);
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Une erreur s'est produite lors de la récupération des projections du film : " + ex.Message);
-                throw;
+                throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des projections du film : " + ex.Message);
             }
         }
     }
