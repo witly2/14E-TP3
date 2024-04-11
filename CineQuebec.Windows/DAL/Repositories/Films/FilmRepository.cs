@@ -52,7 +52,6 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
             try
             {
                 await _filmsCollection.InsertOneAsync(film);
-                Console.WriteLine("Congrats AddFilm");
                 return film;
             }
             catch (Exception ex)
@@ -75,7 +74,6 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
                     .Set(filmBd => filmBd.Rating, film.Rating);
 
                 await _filmsCollection.UpdateOneAsync(filter, filmUpdate);
-                Console.WriteLine("Film mis à jour.");
                 return film;
             }
             catch (Exception ex)
