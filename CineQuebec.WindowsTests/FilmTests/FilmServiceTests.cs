@@ -5,7 +5,7 @@ using MongoDB.Bson;
 using Moq;
 using System.Windows;
 
-namespace CineQuebec.WindowsTests
+namespace CineQuebec.WindowsTests.FilmTests
 {
     [TestClass()]
     public class FilmServiceTests
@@ -46,7 +46,7 @@ namespace CineQuebec.WindowsTests
         [TestMethod()]
         public async Task AddFilm_Success()
         {
-            Film addedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 
+            Film addedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.",
                                     148, new DateTime(2010, 7, 16), 8);
             Film expectedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.",
                                     148, new DateTime(2010, 7, 16), 8);

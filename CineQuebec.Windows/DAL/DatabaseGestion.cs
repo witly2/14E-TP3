@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,10 +65,20 @@ namespace CineQuebec.Windows.DAL
             }
             return abonnes;
         }
-
+        
         public async Task<IMongoCollection<Film>> GetFilmsCollection()
         {
-            return database.GetCollection<Film>("Films");
+            try
+            {
+                var filmsCollection = database.GetCollection<Film>("Films");
+                return filmsCollection;
+
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
+            }
+            //return database.GetCollection<Film>("Films");
         }
 
         public IMongoCollection<Abonne> GetAbonneCollection()
