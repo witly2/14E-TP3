@@ -32,9 +32,13 @@ namespace CineQuebec.Windows.View
         private Abonne newAbonne;
         private string erreurMessage;
         private readonly AbonneService _abonneService;
-        public InscriptionControl1()
+        public InscriptionControl1(Abonne abonne = null)
         {
             InitializeComponent();
+            if(abonne != null)
+            {
+                newAbonne = abonne;
+            }
 
             newAbonne = new Abonne();
             DatabaseGestion db = new DatabaseGestion();
@@ -77,8 +81,6 @@ namespace CineQuebec.Windows.View
                     MessageBox.Show(ex.Message);
                 }
 
-                //string passwordHashString = Convert.ToBase64String(newAbonne.Password);
-                //txtCourriel.Text = passwordHashString;
 
 
             }
