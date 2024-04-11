@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,12 +25,12 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
         {
             try
             {
+
                 return await _filmsCollection.Aggregate().ToListAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Impossible d'obtenir la collection de films : " + ex.Message, "Erreur");
-                return new List<Film>();
+                throw new InvalidDataException("Impossible d'obtenir la collection de films : " + ex.Message);
             }
         }
 
@@ -42,8 +43,7 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Impossible d'obtenir la collection de projection : " + ex.Message, "Erreur");
-                return new List<Projection>();
+                throw new InvalidDataException("Impossible d'obtenir la collection de projection : " + ex.Message);
             }
         }
 
@@ -57,8 +57,7 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Impossible d'ajouter le film : " + ex.Message, "Erreur");
-                return null;
+                throw new InvalidDataException("Impossible d'ajouter le film : " + ex.Message);
             }
         }
 
@@ -81,8 +80,7 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Impossible de mettre à jour le film: " + ex.Message, "Erreur");
-                return null;
+                throw new InvalidDataException("Impossible de mettre à jour le film: " + ex.Message);
             }
         }
     }
