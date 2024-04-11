@@ -19,13 +19,7 @@ namespace CineQuebec.Windows.Utilities
         /// Permet de générer le SALT pour un nouvel utilisateur
         /// </summary>
         /// <returns>Un SALT</returns>
-        //public static byte[] CreerSALT()
-        //{
-        //    var buffer = new byte[16];
-        //    var rng = new RNGCryptoServiceProvider();
-        //    rng.GetBytes(buffer);
-        //    return buffer;
-        //}
+        
 
         public static byte[] CreerSALT()
         {

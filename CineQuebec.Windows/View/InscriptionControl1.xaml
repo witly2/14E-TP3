@@ -47,22 +47,22 @@
         <TextBlock Grid.Row="1"  Grid.Column="1" FontSize="36" Text="Inscription" Grid.ColumnSpan="4" Margin="0,0,0,20" TextAlignment="Center" />
 
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0, 20">
-            <Label Width="100" Content="Utilisateur" FontFamily="Segoe UI" FontWeight="Black" />
+            <Label Width="120" Content="Utilisateur" FontFamily="Segoe UI" FontWeight="Black" />
             <TextBox x:Name="txtUtilisateur" Width="200" Text="{Binding Username, ValidatesOnExceptions=True}"  Style="{StaticResource CustomErrorControlOnErrorStyle}" />
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0, 20">
-            <Label Width="100" Content="Courriel" FontFamily="Segoe UI" FontWeight="Black" />
+            <Label Width="120" Content="Courriel" FontFamily="Segoe UI" FontWeight="Black" />
             <TextBox x:Name="txtCourriel" Width="200" Text="{Binding Email, ValidatesOnExceptions=True}" InputScope="EmailUserName"  Style="{StaticResource CustomErrorControlOnErrorStyle}" />
         </StackPanel>
 
         <StackPanel Grid.Row="4" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20">
-            <Label Content="Mot de passe" Width="100" FontFamily="Segoe UI" FontWeight="Black" />
+            <Label Content="Mot de passe" Width="120" FontFamily="Segoe UI" FontWeight="Black" />
        
             <PasswordBox x:Name="txtMdP" Width="200 " />
         </StackPanel>
 
         <StackPanel Grid.Row="5" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20">
-            <Label Content="Confirmer le mot de passe" Width="100" FontFamily="Segoe UI" FontWeight="Black" />
+            <Label Content="Confirmer le mot de passe" Width="120" FontFamily="Segoe UI" FontWeight="Black" />
             <PasswordBox x:Name="txtCMdP" Width="200 " />
         </StackPanel>
         <TextBlock xml:space="preserve" Grid.Row="7" Grid.Column="1" x:Name="txtMessage" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="247"  Margin="26,10,25,0" OpacityMask="Crimson" Foreground="#FFE5572C" Grid.ColumnSpan="2" />

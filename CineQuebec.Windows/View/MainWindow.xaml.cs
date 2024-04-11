@@ -36,10 +36,7 @@ namespace CineQuebec.Windows
             mainContentControl.Content = new ConnexionControl();
         }
 
-        public void AdminHomeControl()
-        {
-            mainContentControl.Content = new AdminHomeControl();
-        }
+     
 
         public void InscriptionControl()
         {

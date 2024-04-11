@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CineQuebec.Windows.DAL.Data;
+using CineQuebec.Windows.Utilities;
 
 namespace CineQuebec.Windows.View
 {
@@ -24,21 +26,14 @@ namespace CineQuebec.Windows.View
     public partial class AdminHomeControl : UserControl
     {
         private readonly FilmService _filmService;
-        public AdminHomeControl()
+        public AdminHomeControl(Abonne abonne)
         {
             DatabaseGestion db = new DatabaseGestion();
-            _filmService = new FilmService(new FilmRepository(db));
+            this.DataContext = abonne;
+           
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            ((MainWindow)Application.Current.MainWindow).UsersControl();
-        }
-
-        private void Button_Films_Click(object sender, RoutedEventArgs e)
-        {
-            ((MainWindow)Application.Current.MainWindow).FilmsControl();
-        }
+       
     }
 }

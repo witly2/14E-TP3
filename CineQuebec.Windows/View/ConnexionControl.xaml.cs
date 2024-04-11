@@ -45,7 +45,7 @@ namespace CineQuebec.Windows.View
             
 
             // Créer une nouvelle instance de la fenêtre AdminHomeControl
-            NavWindows navWindows = new NavWindows();
+            
 
             // Afficher la nouvelle fenêtre
             if (ValidateForm())
@@ -54,6 +54,8 @@ namespace CineQuebec.Windows.View
                 if (existeAbonne != null && Utils.EstMotDePasseCorrespond(txtMdP.Password.Trim(), existeAbonne.Salt,
                        existeAbonne.Password))
                 {
+                    NavWindows navWindows = new NavWindows(existeAbonne);
+
                     navWindows.Show();
                     ((MainWindow)Application.Current.MainWindow).Close();
                    

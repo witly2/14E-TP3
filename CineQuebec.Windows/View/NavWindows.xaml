@@ -30,11 +30,6 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!--<Button Margin="20 28 0 35" Style="{StaticResource topButton}">
-    <md:PackIcon Kind="Menu" Width="15" Height="15"/>
-</Button>-->
-                
-
 
 
                 <Border Background="#272B2F" CornerRadius="0,50,0,30" Grid.Row="1">
@@ -52,6 +47,8 @@
 
                         </Border>
 
+                        <TextBlock x:Name="AdminName" Text="xx" DockPanel.Dock="Top"  Style="{StaticResource Text_Style}"/>
+
 
                         <Separator Margin="25" DockPanel.Dock="Top" Height="0.8" Background="#7e5fdc"/>
 
@@ -60,7 +57,7 @@
 
 
 
-                            <Button Style="{StaticResource menuButton}">
+                            <Button Style="{StaticResource menuButton}" Click="Button_Click_1">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <md:PackIcon Kind="Home" Style="{StaticResource menuBtnIcon}"/>
                                     <TextBlock Text="Accueil" />
@@ -89,7 +86,7 @@
 
 
 
-                        <Button Style="{StaticResource menuButton}"  VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 20">
+                        <Button Style="{StaticResource menuButton}"  VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 20" Click="Button_Click">
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Kind="Logout" Style="{StaticResource menuBtnIcon}"/>
                                 <TextBlock Text="Déconexion" />
@@ -115,7 +112,6 @@
                 <Border  />
 
                 <Grid Width="200" HorizontalAlignment="Right">
-                    <!--<Button Content="Déconnexion" Foreground="White" FontWeight="Bold" HorizontalAlignment="Right"  Background="#FF6D6DF3" RenderTransformOrigin="0.151,1.24"/>-->
 
                     <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
                                Panel.ZIndex="1" Text="Recherche"
@@ -132,29 +128,12 @@
                 <ContentControl x:Name="mainContentControl" 
                  Grid.Row="1" 
                  HorizontalAlignment="Stretch" 
-                 VerticalAlignment="Stretch" 
+                
                  Margin="20 0 20 0"
                                 
                  />
                 
-                <!--
-                 <Border Grid.Row="2" HorizontalAlignment="Right" BorderBrush="#dee4ec" BorderThickness="1"
-         CornerRadius="5" Padding="5" Background="White" Margin="0 10 10 10" >
-     <StackPanel Orientation="Horizontal">
-
-         <Button Style="{StaticResource PagingButton}">
-             <md:PackIcon Kind="ChevronLeft" Style="{StaticResource pagingBtnIcon}"/>
-         </Button>
-
-         <Rectangle Width="1" Fill="#dee4ec" Margin="3 7"/>
-
-         <Button Style="{StaticResource PagingButton}" Content="1"/>
-         <Button Style="{StaticResource PagingButton}" Content="2"/>
-         <Button Style="{StaticResource PagingButton}" Content="3"/>
-     </StackPanel>
-     
- </Border>
-                -->
+       
                
             </Grid>
         </Grid>

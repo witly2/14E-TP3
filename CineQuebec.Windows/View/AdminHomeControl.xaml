@@ -6,34 +6,68 @@
              xmlns:local="clr-namespace:CineQuebec.Windows.View"
              xmlns:rs="clr-namespace:CineQuebec.Windows.Ressources.i18n"
              Style="{StaticResource Page_Style}">
+    <UserControl.Resources>
+        <Style x:Key="CustomErrorControlOnErrorStyle" TargetType="TextBox">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder x:Name="placeholder" />
+                            <TextBlock FontSize="11" FontStyle="Italic" Foreground="Red"
+                                  Text="{Binding ElementName=placeholder, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" />
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
 
-    <Grid Background="White" Height="250" Width="300">
+    <Grid x:Name="racineGrille" Background="White" HorizontalAlignment="Center">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
 
-        <Button Style="{StaticResource defautButton}" 
-                Grid.Column="0" Click="Button_Click">
-            <StackPanel >
-                <Image Height="100" 
-                       Source="/Ressources/Images/users.png" />
-                <Label HorizontalAlignment="Center"
-                       Content="{x:Static rs:Resource.admin_users}" 
-                    Style="{StaticResource defautLabel}" />
-            </StackPanel>
-        </Button>
+        <TextBlock Grid.Row="1"  Grid.Column="1" FontSize="36" Text="Mon profil" Grid.ColumnSpan="4" Margin="0,0,0,20" TextAlignment="Center" />
 
-        <Button Style="{StaticResource defautButton}" 
-        Grid.Column="1" Click="Button_Films_Click">
-            <StackPanel>
-                <Image Height="100"
-                       Source="/Ressources/Images/projections.png" />
-                <Label HorizontalAlignment="Center"
-                       Content="{x:Static rs:Resource.admin_films}" 
-            Style="{StaticResource defautLabel}" />
-            </StackPanel>
-        </Button>
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Margin="0, 20">
+            <Label Width="120" Content="Utilisateur" FontFamily="Segoe UI" FontWeight="Black" />
+            <TextBox x:Name="txtUtilisateur" Width="200" Text="{Binding Username, ValidatesOnExceptions=True}"  Style="{StaticResource CustomErrorControlOnErrorStyle}" />
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0, 20">
+            <Label Width="120" Content="Courriel" FontFamily="Segoe UI" FontWeight="Black" />
+            <TextBox x:Name="txtCourriel" Width="200" Text="{Binding Email, ValidatesOnExceptions=True}" InputScope="EmailUserName"  Style="{StaticResource CustomErrorControlOnErrorStyle}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20">
+            <Label Content="Date d'adhésion" Width="120" FontFamily="Segoe UI" FontWeight="Black" />
+
+            <TextBlock Text="{Binding DateAdhesion}" Width="200 " IsEnabled="True" />
+        </StackPanel>
+
+     
+
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="6" >
+
+
+            <Button x:Name="btnCreerCompte" Content="Modifier"  Margin="10" Background="CadetBlue"  />
+            
+        </StackPanel>
+
 
 
     </Grid>
