@@ -41,12 +41,10 @@ namespace CineQuebec.Windows.View
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
-            
-
-            // Afficher la nouvelle fenêtre
             if (ValidateForm())
             {
                 var existeAbonne = await _abonneService.GetAbonneByEmail(newAbonne.Email) as Abonne;
+
                 if (existeAbonne != null && Utils.EstMotDePasseCorrespond(txtMdP.Password.Trim(), existeAbonne.Salt,
                        existeAbonne.Password))
                 {
@@ -59,9 +57,7 @@ namespace CineQuebec.Windows.View
                 else
                 {
                     MessageBox.Show("Email ou mot de passe est incorrect");
-                }
-
-               
+                }    
             }
             else
             {
@@ -72,29 +68,27 @@ namespace CineQuebec.Windows.View
 
         private void Afficher_form_inscription(object sender, MouseButtonEventArgs e)
         {
-            // Code pour afficher le formulaire d'inscription
             ((MainWindow)Application.Current.MainWindow).InscriptionControl();
         }
 
         private bool ValidateForm()
         {
             erreurMessage = "";
+            // Le motif regex ci-dessous correspond à une adresse courriel valide.
             string pattern = @"^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$";
             Regex rgxMail = new Regex(pattern);
 
             if (newAbonne.Email == null || newAbonne.Email == "" || txtMdP.Password == "" || txtMdP.Password == "")
             {
-                erreurMessage += "veuiller remplir tous les champs\n";
+                erreurMessage += "Veuiller remplir tous les champs\n. ";
             }
             else
             {
                 if (!rgxMail.IsMatch(newAbonne.Email))
                 {
-                    erreurMessage += "le format du couriel c'est test@example.com\n";
+                    erreurMessage += "Le format du courriel c'est test@example.com\n. ";
                 }
-
             }
-
 
             if (erreurMessage.Trim() != "")
             {
@@ -104,9 +98,6 @@ namespace CineQuebec.Windows.View
             {
                 return true;
             }
-
-
-
         }
 
     }

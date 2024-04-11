@@ -22,10 +22,12 @@ namespace CineQuebec.Windows.View
         public FilmsControl(IFilmService filmService, IProjectionService projectionService)
         {
             InitializeComponent();
+
             _filmService = filmService;
             _projectionService = projectionService;
             filmsDictionary = new Dictionary<ObjectId, Tuple<Film, string>>();
             dataGrid = (DataGrid)this.FindName("dataGridFilms");
+
             GetFilms();
             DataGrid();
         }

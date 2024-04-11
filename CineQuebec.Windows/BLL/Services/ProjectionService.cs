@@ -1,13 +1,6 @@
 ﻿using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Projections;
-using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.WebRequestMethods;
 
 namespace CineQuebec.Windows.BLL.Services
 {
@@ -79,7 +72,7 @@ namespace CineQuebec.Windows.BLL.Services
             }
         }
 
-        public async Task<bool> SalleDisponibleThisDay(Salle salle, DateTime day)
+        public async Task<bool> estSalleDisponibleThisDay(Salle salle, DateTime day)
         {
             try
             {

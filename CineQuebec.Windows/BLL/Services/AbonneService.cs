@@ -23,11 +23,6 @@ namespace CineQuebec.Windows.BLL.Services
            await _abonneRepository.AddAbonne(abonne);
         }
 
-        public async Task UpdateAbonne(Abonne abonne)
-        {
-           await _abonneRepository.UpdateAbonne(abonne);
-        }
-
         public async Task<Abonne> GetAbonneByEmail(string email)
         {
             return await _abonneRepository.GetByEmail(email);

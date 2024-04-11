@@ -1,10 +1,4 @@
 ﻿using CineQuebec.Windows.DAL.Data;
-using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CineQuebec.Windows.BLL.Services
 {
@@ -15,6 +9,6 @@ namespace CineQuebec.Windows.BLL.Services
         Task<bool> UpdateProjection(Projection projection);
         Task<bool> DeleteProjection(Projection projection);
         Task<List<Salle>> GetSalles();
-        Task<bool> SalleDisponibleThisDay(Salle salle, DateTime day);
+        Task<bool> estSalleDisponibleThisDay(Salle salle, DateTime day);
     }
 }

@@ -24,6 +24,7 @@ namespace CineQuebec.WindowsTests.FilmTests
             _projectionService = new ProjectionService(_mockProjectionRepository.Object);
         }
 
+        #region AddProjectionTests
         [TestMethod()]
         public async Task AddProjection_Success()
         {
@@ -46,7 +47,9 @@ namespace CineQuebec.WindowsTests.FilmTests
 
             await _projectionService.AddProjection(expectedProjection);
         }
+        #endregion
 
+        #region DeleteProjectionTests
         [TestMethod()]
         public async Task DeleteProjection_Success()
         {
@@ -69,7 +72,9 @@ namespace CineQuebec.WindowsTests.FilmTests
 
             await _projectionService.DeleteProjection(expectedProjection);
         }
+        #endregion
 
+        #region GetProjectionstests
         [TestMethod()]
         public async Task GetProjections_Success()
         {
@@ -99,7 +104,9 @@ namespace CineQuebec.WindowsTests.FilmTests
 
             await _projectionService.GetProjections(film);
         }
+        #endregion
 
+        #region UpdateProjectionTests
         [TestMethod()]
         public async Task UpdateProjection_Success()
         {
@@ -122,7 +129,9 @@ namespace CineQuebec.WindowsTests.FilmTests
 
             await _projectionService.UpdateProjection(expectedProjection);
         }
+        #endregion
 
+        #region GetSallesTests
         [TestMethod()]
         public async Task GetSalles_Success()
         {
@@ -146,9 +155,11 @@ namespace CineQuebec.WindowsTests.FilmTests
 
             await _projectionService.GetSalles();
         }
+        #endregion
 
+        #region EstSalleDisponibleThisDay
         [TestMethod()]
-        public async Task SalleDisponibleThisDay_Success()
+        public async Task EstSalleDisponibleThisDay_Success()
         {
             var salle1 = new Salle(1, 100);
             var day = new DateTime(2024, 3, 10);
@@ -160,7 +171,7 @@ namespace CineQuebec.WindowsTests.FilmTests
         }
 
         [TestMethod()]
-        public async Task SalleDisponibleThisDay_NoDisponible()
+        public async Task EstSalleDisponibleThisDay_NoDisponible()
         {
             var salle1 = new Salle(1, 100);
             var day = new DateTime(2024, 3, 10);
@@ -177,7 +188,7 @@ namespace CineQuebec.WindowsTests.FilmTests
 
         [TestMethod()]
         [ExpectedException(typeof(InvalidDataException))]
-        public async Task SalleDisponibleThisDay_Exception()
+        public async Task EstSalleDisponibleThisDay_Exception()
         {
             var salle1 = new Salle(1, 100);
             var day = new DateTime(2024, 3, 10);
@@ -185,5 +196,6 @@ namespace CineQuebec.WindowsTests.FilmTests
 
             var result = await _projectionService.SalleDisponibleThisDay(salle1, day);
         }
+        #endregion
     }
 }

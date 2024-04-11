@@ -50,7 +50,6 @@ namespace CineQuebec.Windows.View
 
         private void Afficher_form_login(object sender, MouseButtonEventArgs e)
         {
-            // Code pour afficher le formulaire d'inscription
             ((MainWindow)Application.Current.MainWindow).ConnexionControl();
         }
 
@@ -80,35 +79,32 @@ namespace CineQuebec.Windows.View
                 {
                     MessageBox.Show(ex.Message);
                 }
-
-
-
             }
         }
 
         private bool ValidateForm()
         {
             erreurMessage = "";
+            // Le motif regex ci-dessous correspond à une adresse courriel valide.
             string pattern = @"^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$";
             Regex rgxMail = new Regex(pattern);
 
             if(newAbonne.Username == null || newAbonne.Username == "" || newAbonne.Email==null || newAbonne.Email == "" || txtMdP.Password=="" || txtMdP.Password == "")
             {
-                erreurMessage += "veuiller remplir tous les champs\n";
+                erreurMessage += "Veuiller remplir tous les champs\n. ";
             }
             else
             {
                 if ( !rgxMail.IsMatch(newAbonne.Email))
                 {
-                    erreurMessage += "le format du couriel c'est test@example.com\n";
+                    erreurMessage += "Le format du courriel c'est test@example.com\n. ";
                 }
 
                 if (txtMdP.Password != txtCMdP.Password)
                 {
-                    erreurMessage += "Les mot de passe doivent être identique\n";
+                    erreurMessage += "Les mot de passe doivent être identique\n. ";
                 }
             }
-          
 
             if (erreurMessage.Trim()!="")
             {
@@ -118,8 +114,6 @@ namespace CineQuebec.Windows.View
             {
                 return true;
             }
-
-            
 
         }
     }

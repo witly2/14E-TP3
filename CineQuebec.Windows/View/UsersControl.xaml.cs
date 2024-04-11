@@ -20,9 +20,6 @@ using static MaterialDesignThemes.Wpf.Theme;
 
 namespace CineQuebec.Windows.View
 {
-    /// <summary>
-    /// Logique d'interaction pour UsersControl.xaml
-    /// </summary>
     public partial class UsersControl : UserControl
     {
 
@@ -34,32 +31,24 @@ namespace CineQuebec.Windows.View
         public UsersControl(AbonneService abonneService)
         {
             InitializeComponent();
+
            _abonneService = abonneService;
             abonnesDictionary = new Dictionary<int, Abonne>();
             dataGrid = (System.Windows.Controls.DataGrid)this.FindName("dataGridAbonnes");
 
-
-            //clnRang.Binding.
-
             GetAbonnes();
-
             DataGrid();
-
         }
 
         private void GetAbonnes()
         {
            Abonnes= _abonneService.GetAbonnes();
-            //this.DataContext = Abonnes;
 
             for (int i = 0; i < Abonnes.Count; i++)
             {
                 abonnesDictionary.Add(i + 1, Abonnes[i]);
             }
-
-            // Définissez le DataContext sur le dictionnaire
             this.DataContext = abonnesDictionary;
-
         }
 
         public void DataGrid()
@@ -68,8 +57,6 @@ namespace CineQuebec.Windows.View
             DataGridTextColumn dateColumn = (DataGridTextColumn)this.FindName("date");
             if (dateColumn != null)
             {
-                
-
                 dateColumn.Binding.StringFormat = "yyyy-MM-dd";
             }
         }
@@ -81,7 +68,6 @@ namespace CineQuebec.Windows.View
 
             if (abonnesDictionary.TryGetValue(selectedKey, out Abonne selectedAbonne))
             {
-                //MessageBox.Show($"Abonne: {selectedAbonne.Username}");
                 gridAbonneDetails.DataContext = selectedAbonne;
             }
 

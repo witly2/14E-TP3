@@ -60,38 +60,5 @@ namespace CineQuebec.Windows.DAL.Repositories.Abonnes
             }
             return await _abonneCollection.Find(x => x.Email == email).FirstOrDefaultAsync();
         }
-
-        public async Task<Abonne> GetById(ObjectId id)
-        {
-            var abonne = await _abonneCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
-           
-            return abonne;
-        }
-
-        public async Task UpdateAbonne(Abonne abonne)
-        {
-
-            //var existingAbonne = await GetById(abonne.Id);
-            //if (existingAbonne == null)
-            //{
-            //    throw new EmailNotExiseException("Cet abonnés n'existe pas");
-            //}
-
-    
-
-
-            //var filter = Builders<Abonne>.Filter.Eq(x => x.Id, abonne.Id);
-            //var update = Builders<Abonne>.Update
-            //    .Set(x => x.Username, abonne.Username)
-            //    .Set(x => x.Email, abonne.Email)
-            //    .Set(x => x.Password, abonne.Password)
-            //    .Set(x => x.Salt, abonne.Salt);
-
-            //await _abonneCollection.UpdateOneAsync(filter, update);
-
-
-        }
-
-       
     }
 }

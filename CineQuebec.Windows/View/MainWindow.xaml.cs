@@ -36,6 +36,7 @@ namespace CineQuebec.Windows
             _projectionService = new ProjectionService(new ProjectionRepository(db));
 
             InitializeComponent();
+
             mainContentControl.Content = new ConnexionControl();
         }
 

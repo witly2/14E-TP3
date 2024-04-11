@@ -26,6 +26,7 @@ namespace CineQuebec.WindowsTests.Abonnes
             _abonneService = new AbonneService(_mockAbonneRepository.Object);
         }
 
+        #region GetAbonnesTests
         [TestMethod]
         public async Task GetAbonnesSuccess()
         {
@@ -55,8 +56,9 @@ namespace CineQuebec.WindowsTests.Abonnes
             Assert.IsNotNull(result); 
             Assert.AreEqual(0, result.Count); 
         }
+        #endregion
 
-
+        #region AddAbonneTests
         [TestMethod]
         public async Task AddAbonneSuccess()
         {
@@ -77,9 +79,11 @@ namespace CineQuebec.WindowsTests.Abonnes
 
             await _abonneService.AddAbonne(expected_abonne);
         }
+        #endregion
 
+        #region GetAbonneByEmail
         [TestMethod]
-        public async Task GetByEmail()
+        public async Task GetAbonneByEmail()
         {
             string email = "john.doe@example.com";
             Abonne expectedAbonne = new Abonne { Username = "John Doe", Email = email, DateAdhesion = new DateTime(2010, 7, 16) };
@@ -94,7 +98,7 @@ namespace CineQuebec.WindowsTests.Abonnes
 
         [TestMethod]
         [ExpectedException(typeof(EmailNotExiseException))]
-        public async Task GetByEmail_EmailNotFound()
+        public async Task GetAbonneByEmail_EmailNotFound()
         {
             string email = "john.doe@example.com";
 
@@ -102,6 +106,6 @@ namespace CineQuebec.WindowsTests.Abonnes
 
             var result = await _abonneService.GetAbonneByEmail(email);
         }
-
+        #endregion
     }
 }
