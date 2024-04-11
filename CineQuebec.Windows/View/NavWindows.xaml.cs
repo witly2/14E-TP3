@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using CineQuebec.Windows.DAL.Repositories.Abonnes;
 using CineQuebec.Windows.DAL.Data;
+using CineQuebec.Windows.DAL.Repositories.Projections;
 
 
 namespace CineQuebec.Windows.View
@@ -18,11 +19,13 @@ namespace CineQuebec.Windows.View
         private readonly FilmService _filmService;
         private readonly AbonneService _abonneService;
         private readonly AdminHomeControl _adminHomeControl;
+        private readonly ProjectionService _projectionService;
         public NavWindows(Abonne abonne)
         {
             DatabaseGestion db = new DatabaseGestion();
             _filmService = new FilmService(new FilmRepository(db));
             _abonneService = new AbonneService(new AbonneRepsitory(db));
+            _projectionService = new ProjectionService(new ProjectionRepository(db));
             _adminHomeControl = new AdminHomeControl(abonne);
 
             InitializeComponent();
@@ -50,7 +53,7 @@ namespace CineQuebec.Windows.View
         /// <param name="e"></param>
         private void ToggleButton_Films_Click(object sender, RoutedEventArgs e)
         {
-            mainContentControl.Content = new FilmsControl(_filmService);
+            mainContentControl.Content = new FilmsControl(_filmService, _projectionService);
         }
         /// <summary>
         /// Déconnexion

@@ -84,7 +84,14 @@ namespace CineQuebec.Windows.BLL.Services
             try
             {
                 List<Projection> projections = await _projectionRepository.GetProjectionsForSalle(salle, day);
-                return projections.Count == 0;
+                if(projections.Count == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {

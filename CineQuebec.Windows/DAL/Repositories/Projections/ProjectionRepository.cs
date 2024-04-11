@@ -98,7 +98,7 @@ namespace CineQuebec.Windows.DAL.Repositories.Projections
             try
             {
                 var filter = Builders<Projection>.Filter.Eq(p => p.Salle.Id, salle.Id) &
-                    Builders<Projection>.Filter.Eq(p => p.DateHeureDebut.Date, jour.Date);
+                    Builders<Projection>.Filter.Eq(p => p.DateHeureDebut, jour.Date);
                 return await _projectionsCollection.Find(filter).ToListAsync();
             }
             catch (Exception ex)

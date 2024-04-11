@@ -102,7 +102,16 @@ namespace CineQuebec.Windows.DAL
 
         public async Task<IMongoCollection<Salle>> GetSallesCollection()
         {
-            return database.GetCollection<Salle>("Salles");
+            try
+            {
+                var sallesCollection = database.GetCollection<Salle>("Salles");
+                return sallesCollection;
+
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
+            }
         }
 
         public async Task SeedDevelopmentData()

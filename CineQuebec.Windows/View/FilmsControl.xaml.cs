@@ -19,10 +19,11 @@ namespace CineQuebec.Windows.View
         private DataGrid dataGrid;
         private Dictionary<ObjectId, Tuple<Film, string>> filmsDictionary;
 
-        public FilmsControl(IFilmService filmService)
+        public FilmsControl(IFilmService filmService, IProjectionService projectionService)
         {
             InitializeComponent();
             _filmService = filmService;
+            _projectionService = projectionService;
             filmsDictionary = new Dictionary<ObjectId, Tuple<Film, string>>();
             dataGrid = (DataGrid)this.FindName("dataGridFilms");
             GetFilms();
@@ -62,7 +63,7 @@ namespace CineQuebec.Windows.View
 
         private void ToggleButton_AddFilm_Click(object sender, RoutedEventArgs e)
         {
-            AddUpdateFilmControl filmAddUpdateControl = new AddUpdateFilmControl(_filmService);
+            AddUpdateFilmControl filmAddUpdateControl = new AddUpdateFilmControl(_filmService, _projectionService);
             this.Content = filmAddUpdateControl;
         }
 
@@ -74,7 +75,7 @@ namespace CineQuebec.Windows.View
                 var filmToUpdate = selectedKeyValue.Value.Item1 as Film;
                 if (filmToUpdate != null)
                 {
-                    AddUpdateFilmControl updateControl = new AddUpdateFilmControl(_filmService, filmToUpdate);
+                    AddUpdateFilmControl updateControl = new AddUpdateFilmControl(_filmService, _projectionService, filmToUpdate);
                     this.Content = updateControl;
                 } else
                 {
