@@ -33,25 +33,25 @@ namespace CineQuebec.Windows.View
                 DatePicker datePicker = (DatePicker)this.FindName("datePicker");
                 TimePicker timePicker = (TimePicker)this.FindName("timePicker");
                 ComboBox salleComboBox = (ComboBox)this.FindName("salleComboBox");
-                /*
-                if(datePicker.SelectedDate.HasValue && timePicker.SelectedTime.HasValue)
+                
+                if(datePicker.SelectedDate.HasValue && timePicker.SelectedDateTime.HasValue)
                 {
-                    DateTime dateHeureDebut = datePicker.SelectedDate.Value.Date + timePicker.SelectedTime;
+                    DateTime selectedDateTime = timePicker.SelectedDateTime.Value;
+                    TimeSpan selectedTime = selectedDateTime.TimeOfDay;
+                    DateTime dateHeureDebut = datePicker.SelectedDate.Value.Date + selectedTime;
 
-                    var selectedSalle = (ComboBoxItem)salleComboBox.SelectedItem;
+                    ComboBoxItem selectedSalleItem = (ComboBoxItem)salleComboBox.SelectedItem;
+                    string selectedSalle = selectedSalleItem.Content.ToString();
 
                     Projection newProjection = new Projection(dateHeureDebut, selectedSalle, _film);
 
                     await _projectionService.AddProjection(newProjection);
 
                     MessageBox.Show("La projection a été ajoutée avec succès.", "Validation", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    // TODO : afficher la page FilmsControl
                 } else
                 {
                     MessageBox.Show("Veuillez sélectionner une date, une heure et une salle pour la projection.");
                 }
-                */
             }
             catch (Exception ex)
             {

@@ -78,13 +78,12 @@ namespace CineQuebec.Windows.DAL.Repositories.Projections
                 return false;
             }
         }
-
+        /*
         public async Task<List<Salle>> GetSallesDisponibles(DateTime dateHeureDebut)
         {
             try
             {
                 var salles = await _sallesCollection.Aggregate().ToListAsync();
-                // TODO : ameliorer la logique en prenant en compte fin projection
                 var sallesNonDispo = await _projectionsCollection.Find(p => p.DateHeureDebut == dateHeureDebut).Project(p => p.Salle.Id).ToListAsync();
                 var sallesDispo = salles.Where(s => !sallesNonDispo.Contains(s.Id)).ToList();
                 return sallesDispo;
@@ -92,6 +91,20 @@ namespace CineQuebec.Windows.DAL.Repositories.Projections
             catch (Exception ex)
             {
                 Console.WriteLine("Impossible d'obtenir les salles disponible : " + ex.Message);
+                return new List<Salle>();
+            }
+        }*/
+
+        public async Task<List<Salle>> GetSalles()
+        {
+            try
+            {
+                var resultSalles = await _sallesCollection.Aggregate().ToListAsync();
+                return resultSalles;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Impossible d'obtenir les salles : " + ex.Message);
                 return new List<Salle>();
             }
         }

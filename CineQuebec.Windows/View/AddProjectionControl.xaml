@@ -19,30 +19,23 @@
 
         <Grid  Margin="60 60 60 20" Background="White" >
             <StackPanel Orientation="Vertical">
-                <!-- Titre FR -->
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <Label Content="Titre FR :" />
                     <TextBlock Text="{Binding FrenchTitle}" Margin="10"/>
                 </StackPanel>
 
-                <!-- Date de projection -->
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <!-- DatePicker de MaterialDesignInXamlToolkit -->
                     <DatePicker x:Name="datePicker" />
 
-                    <!-- TimePicker de MahApps.Metro -->
                     <mah:TimePicker x:Name="timePicker" Margin="10" Width="195" Height="25"/>
                 </StackPanel>
 
-
-                <!-- Salle -->
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <Label Content="Salle disponible :" />
                     <ComboBox x:Name="descriptionComboBox" Width="400" Height="100">
-
-                        <ComboBoxItem Content="Option 1" />
-                        <ComboBoxItem Content="Option 2" />
-                        <ComboBoxItem Content="Option 3" />
+                        <ComboBoxItem Content="Salle 1 - 100 places" />
+                        <ComboBoxItem Content="Salle 2 - 120 places" />
+                        <ComboBoxItem Content="Salle 3 - 80 places" />
                     </ComboBox>
                 </StackPanel>
 

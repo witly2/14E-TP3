@@ -120,7 +120,6 @@ namespace CineQuebec.Windows.View
                 MessageBox.Show($"Film supprimé avec succès.");
                 GetFilms();
             } 
-            // TODO : gerer les suppressions de projection egalement
         }
     }
 }

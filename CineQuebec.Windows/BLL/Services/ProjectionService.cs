@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.WebRequestMethods;
 
 namespace CineQuebec.Windows.BLL.Services
 {
@@ -63,6 +64,18 @@ namespace CineQuebec.Windows.BLL.Services
             catch (Exception ex)
             {
                 throw new InvalidDataException($"Une erreur s'est produite lors de la modification de la projection : " + ex.Message);
+            }
+        }
+
+        public async Task<List<Salle>> GetSalles()
+        {
+            try
+            {
+                return await _projectionRepository.GetSalles();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des salles : " + ex.Message);
             }
         }
     }

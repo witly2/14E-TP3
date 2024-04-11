@@ -74,7 +74,6 @@ namespace CineQuebec.WindowsTests.FilmTests
         {
             Film film = new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.",
                                     148, new DateTime(2010, 7, 16), 8);
-            var projectionsCollectionMock = new Mock<IMongoCollection<Projection>>();
             var expectedProjections = new List<Projection>();
             var projection1 = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
                 new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
@@ -82,8 +81,7 @@ namespace CineQuebec.WindowsTests.FilmTests
                 new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
             expectedProjections.Add(projection1);
             expectedProjections.Add(projection2);
-            //projectionsCollectionMock.Setup(x => x.Find(It.IsAny<FilterDefinition<Projection>>()).ToList()).Returns(expectedProjections);
-            _mockDatabaseGestion.Setup(x => x.GetProjectionsCollection()).ReturnsAsync(projectionsCollectionMock.Object);
+            //_mockDatabaseGestion.Setup(x => x.GetProjectionsCollection()).ReturnsAsync(expectedProjections);
             _mockProjectionRepository.Setup(x => x.GetProjectionsForFilm(film));
             
             var result = await _projectionService.GetProjections(film);
