@@ -78,5 +78,18 @@ namespace CineQuebec.Windows.BLL.Services
                 throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des salles : " + ex.Message);
             }
         }
+
+        public async Task<bool> SalleDisponibleThisDay(Salle salle, DateTime day)
+        {
+            try
+            {
+                List<Projection> projections = await _projectionRepository.GetProjectionsForSalle(salle, day);
+                return projections.Count == 0;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des projections pour cette salle : " + ex.Message);
+            }
+        }
     }
 }

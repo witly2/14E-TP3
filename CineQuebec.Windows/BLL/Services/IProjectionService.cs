@@ -15,5 +15,6 @@ namespace CineQuebec.Windows.BLL.Services
         Task<bool> UpdateProjection(Projection projection);
         Task<bool> DeleteProjection(Projection projection);
         Task<List<Salle>> GetSalles();
+        Task<bool> SalleDisponibleThisDay(Salle salle, DateTime day);
     }
 }
