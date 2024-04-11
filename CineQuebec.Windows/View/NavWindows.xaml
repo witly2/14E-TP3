@@ -7,7 +7,7 @@
         xmlns:Menu="clr-namespace:CineQuebec.Windows.Utilities"
          xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="NavWindows" Height="650" Width="1000">
+        Title="NavWindows" Height="700" Width="1300">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis"/>
@@ -101,17 +101,21 @@
             </Grid>
 
             <Grid Grid.ColumnSpan="2" Margin="221,10,10,-10" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="93*"/>
+                    <ColumnDefinition Width="292*"/>
+                </Grid.ColumnDefinitions>
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1*"/>
                     <RowDefinition Height="5*"/>
                     <RowDefinition Height="80"/>
-                       
+
                 </Grid.RowDefinitions>
 
-                <Border  />
+                <Border Grid.ColumnSpan="2"  />
 
-                <Grid Width="200" HorizontalAlignment="Right">
+                <Grid Width="200" HorizontalAlignment="Left" Grid.Column="1" Margin="384,0,0,0">
 
                     <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
                                Panel.ZIndex="1" Text="Recherche"
@@ -126,15 +130,13 @@
 
 
                 <ContentControl x:Name="mainContentControl" 
-                 Grid.Row="1" 
-                 HorizontalAlignment="Stretch" 
                 
-                 Margin="20 0 20 0"
+                 Margin="20,92,20,0" Grid.ColumnSpan="2" Grid.RowSpan="2"
                                 
                  />
-                
-       
-               
+
+
+
             </Grid>
         </Grid>
 

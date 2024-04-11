@@ -86,5 +86,15 @@ namespace CineQuebec.Windows.View
             }
 
         }
+
+        private void Button_Edit(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Action indisonible pour l'instant");
+        }
+
+        private void Button_delete (object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Action indisonible pour l'instant");
+        }
     }
 }

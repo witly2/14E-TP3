@@ -42,10 +42,6 @@ namespace CineQuebec.Windows.View
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             
-            
-
-            // Créer une nouvelle instance de la fenêtre AdminHomeControl
-            
 
             // Afficher la nouvelle fenêtre
             if (ValidateForm())

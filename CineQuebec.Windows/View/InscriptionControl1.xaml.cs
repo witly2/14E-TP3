@@ -81,8 +81,6 @@ namespace CineQuebec.Windows.View
                     MessageBox.Show(ex.Message);
                 }
 
-                //string passwordHashString = Convert.ToBase64String(newAbonne.Password);
-                //txtCourriel.Text = passwordHashString;
 
 
             }

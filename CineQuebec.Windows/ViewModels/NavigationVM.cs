@@ -21,19 +21,11 @@ namespace CineQuebec.Windows.ViewModels
 
         public ICommand UsersCommand { get; set; }
         public ICommand HomeAdminCommand { get; set; }
-        //public ICommand ProductsCommand { get; set; }
-        //public ICommand OrdersCommand { get; set; }
-        //public ICommand TransactionsCommand { get; set; }
-        //public ICommand ShipmentsCommand { get; set; }
-        //public ICommand SettingsCommand { get; set; }
+
 
         private void Users(object obj) => CurrentView = new UsersVm();
         private void HomeAdmin(object obj) => CurrentView = new AdminHomVm();
-        //private void Product(object obj) => CurrentView = new ProductVM();
-        //private void Order(object obj) => CurrentView = new OrderVM();
-        //private void Transaction(object obj) => CurrentView = new TransactionVM();
-        //private void Shipment(object obj) => CurrentView = new ShipmentVM();
-        //private void Setting(object obj) => CurrentView = new SettingVM();
+       
 
         public NavigationVM()
         {
