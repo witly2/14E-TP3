@@ -49,11 +49,11 @@ namespace CineQuebec.Windows.DAL.Repositories.Projections
             }
         }
 
-        public async Task<List<Projection>> GetProjectionsForFilm(ObjectId filmId)
+        public async Task<List<Projection>> GetProjectionsForFilm(Film film)
         {
             try
             {
-                var projectionsFilm = Builders<Projection>.Filter.Eq(p => p.Film.Id, filmId);
+                var projectionsFilm = Builders<Projection>.Filter.Eq(p => p.Film.Id, film.Id);
                 return await _projectionsCollection.Find(projectionsFilm).ToListAsync();
             }
             catch (Exception ex)

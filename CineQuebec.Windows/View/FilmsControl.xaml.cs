@@ -90,7 +90,6 @@ namespace CineQuebec.Windows.View
                 var selectedKeyValue = (KeyValuePair<ObjectId, Tuple<Film, string>>)dataGrid.SelectedItem;
                 var selectedTuple = selectedKeyValue.Value;
                 Film selectedFilm = selectedTuple.Item1;
-                MessageBox.Show($"Film: {selectedFilm.FrenchTitle}");
             }
         }
 
@@ -100,14 +99,28 @@ namespace CineQuebec.Windows.View
             {
                 var selectedKeyValue = (KeyValuePair<ObjectId, Tuple<Film, string>>)dataGrid.SelectedItem;
                 Film selectedFilm = selectedKeyValue.Value.Item1;
-                MessageBox.Show($"Add projection au film: {selectedFilm.FrenchTitle}");
-                //AddProjectionControl addProjectionControl = new AddProjectionControl(_projectionService, selectedFilm);
-                //this.Content = addProjectionControl;
+                AddProjectionControl addProjectionControl = new AddProjectionControl(_projectionService, selectedFilm);
+                this.Content = addProjectionControl;
             }
             else
             {
                 MessageBox.Show($"Veuillez sélectionner un film pour ajouter une projection.");
             }
+        }
+
+        private async void ToggleButton_DeleteFilm_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedKeyValue = (KeyValuePair<ObjectId, Tuple<Film, string>>)dataGrid.SelectedItem;
+            Film selectedFilm = selectedKeyValue.Value.Item1;
+
+            MessageBoxResult result = MessageBox.Show($"Êtes-vous sûr de vouloir supprimer le film \"{selectedFilm.FrenchTitle}\" ?", "Confirmation de suppression", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+                await _filmService.DeleteFilm(selectedFilm);
+                MessageBox.Show($"Film supprimé avec succès.");
+                GetFilms();
+            } 
+            // TODO : gerer les suppressions de projection egalement
         }
     }
 }

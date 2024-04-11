@@ -15,6 +15,7 @@ namespace CineQuebec.Windows.View
     public partial class ReadFilmControl: UserControl
     {
         private readonly IFilmService _filmService;
+        private readonly IProjectionService _projectionService;
         private readonly Film _film;
         public ReadFilmControl(Film film)
         {
@@ -24,7 +25,8 @@ namespace CineQuebec.Windows.View
 
         public void ToggleButton_AddProjection_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show($"Ajout projection bientôt disponible.");
+            AddProjectionControl addProjectionControl = new AddProjectionControl(_projectionService, _film);
+            this.Content = addProjectionControl;
         }
     }
 }

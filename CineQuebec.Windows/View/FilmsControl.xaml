@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:CineQuebec.Windows.View"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="1000"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
        xmlns:rs="clr-namespace:CineQuebec.Windows.Ressources.i18n"
              Style="{StaticResource Page_Style}">
@@ -22,19 +22,19 @@
         </Border>
 
 
-        <Grid  Margin="60 60 60 20" Background="White" >
+        <Grid  Margin="60 60 60 20"  Background="White" >
 
-            <DataGrid x:Name="dataGridFilms" Background="White" Grid.Column="0" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" ItemsSource="{Binding }" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged">
+            <DataGrid x:Name="dataGridFilms" Background="White" Margin="45 10" Grid.Column="0" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" ItemsSource="{Binding }" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged">
                 <DataGrid.Columns>
-                    <DataGridTextColumn IsReadOnly="True" CanUserResize="True" Width="auto" Header="Titre FR" Binding="{Binding Value.Item1.FrenchTitle}" />
+                    <DataGridTextColumn IsReadOnly="True" CanUserResize="True" Width="200"  Header="Titre FR" Binding="{Binding Value.Item1.FrenchTitle}" />
                     
-                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="auto" Header="Titre original" Binding="{Binding Value.Item1.OriginalTitle}" />
+                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="200" Header="Titre original" Binding="{Binding Value.Item1.OriginalTitle}" />
 
-                    <DataGridTextColumn IsReadOnly="True"  CanUserResize="False" Width="auto" Header="Note" Binding="{Binding Value.Item1.Rating}"/>
+                    <DataGridTextColumn IsReadOnly="True"  CanUserResize="False" Width="100" Header="Note" Binding="{Binding Value.Item1.Rating}"/>
 
-                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False"  Width="auto" Header="Derniere projection" Binding="{Binding Value.Item2}"/>
+                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False"  Width="150" Header="Derniere projection" Binding="{Binding Value.Item2}"/>
 
-                    <DataGridTemplateColumn Header="Operations" IsReadOnly="True" CanUserResize="False" Width="auto">
+                    <DataGridTemplateColumn Header="Operations" IsReadOnly="True" CanUserResize="False" Width="150">
                         <DataGridTemplateColumn.CellTemplate>
 
                             <DataTemplate>
@@ -43,7 +43,7 @@
                                         <md:PackIcon Kind="PencilOutline" Style="{StaticResource DataGridBtnIcon}"/>
                                     </Button>
 
-                                    <Button Style="{StaticResource DataGridDeleteBtn}">
+                                    <Button Style="{StaticResource DataGridDeleteBtn}" Click="ToggleButton_DeleteFilm_Click">
                                         <md:PackIcon Kind="Delete" Foreground="White" Style="{StaticResource DataGridBtnIcon}"/>
                                     </Button>
 

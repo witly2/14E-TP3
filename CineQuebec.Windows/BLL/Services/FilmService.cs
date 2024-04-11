@@ -66,5 +66,17 @@ namespace CineQuebec.Windows.BLL.Services
                 throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des projections du film : " + ex.Message);
             }
         }
+
+        public async Task<bool> DeleteFilm(Film film)
+        {
+            try
+            {
+                return await _filmRepository.DeleteFilm(film);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException($"Une erreur s'est produite lors de la suppression du film : " + ex.Message);
+            }
+        }
     }
 }

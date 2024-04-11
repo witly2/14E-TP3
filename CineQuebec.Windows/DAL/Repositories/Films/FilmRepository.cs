@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,12 +25,12 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
         {
             try
             {
+
                 return await _filmsCollection.Aggregate().ToListAsync();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Impossible d'obtenir la collection de films : " + ex.Message, "Erreur");
-                return new List<Film>();
+                throw new InvalidDataException("Impossible d'obtenir la collection de films : " + ex.Message);
             }
         }
 
@@ -42,8 +43,7 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Impossible d'obtenir la collection de projection : " + ex.Message, "Erreur");
-                return new List<Projection>();
+                throw new InvalidDataException("Impossible d'obtenir la collection de projection : " + ex.Message);
             }
         }
 
@@ -52,13 +52,11 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
             try
             {
                 await _filmsCollection.InsertOneAsync(film);
-                Console.WriteLine("Congrats AddFilm");
                 return film;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Impossible d'ajouter le film : " + ex.Message, "Erreur");
-                return null;
+                throw new InvalidDataException("Impossible d'ajouter le film : " + ex.Message);
             }
         }
 
@@ -76,13 +74,25 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
                     .Set(filmBd => filmBd.Rating, film.Rating);
 
                 await _filmsCollection.UpdateOneAsync(filter, filmUpdate);
-                Console.WriteLine("Film mis à jour.");
                 return film;
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Impossible de mettre à jour le film: " + ex.Message, "Erreur");
-                return null;
+                throw new InvalidDataException("Impossible de mettre à jour le film: " + ex.Message);
+            }
+        }
+
+        public async Task<bool> DeleteFilm(Film film)
+        {
+            try
+            {
+                var deleteResult = await _filmsCollection.DeleteOneAsync(filmBd => filmBd.Id == film.Id);
+                return deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Impossible de supprimer le film : " + ex.Message);
+                return false;
             }
         }
     }
