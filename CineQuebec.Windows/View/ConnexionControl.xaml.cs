@@ -39,7 +39,7 @@ namespace CineQuebec.Windows.View
             this.DataContext = newAbonne;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             
             
@@ -50,7 +50,7 @@ namespace CineQuebec.Windows.View
             // Afficher la nouvelle fenêtre
             if (ValidateForm())
             {
-                var existeAbonne = _abonneService.GetAbonneByEmail(newAbonne.Email) as Abonne;
+                var existeAbonne = await _abonneService.GetAbonneByEmail(newAbonne.Email) as Abonne;
                 if (existeAbonne != null && Utils.EstMotDePasseCorrespond(txtMdP.Password.Trim(), existeAbonne.Salt,
                        existeAbonne.Password))
                 {

@@ -1,4 +1,5 @@
 ﻿using CineQuebec.Windows.DAL.Data;
+using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,10 @@ namespace CineQuebec.Windows.DAL.Repositories.Abonnés
     {
 
         List<Abonne> GetAbonnes();
-        void AddAbonne(Abonne abonne);
-        void UpdateAbonne(Abonne abonne);
+        Task AddAbonne(Abonne abonne);
+        Task UpdateAbonne(Abonne abonne);
 
-        Abonne GetByEmail(string email);
+        Task<Abonne> GetByEmail(string email);
+        Task<Abonne> GetById(ObjectId id);
     }
 }
