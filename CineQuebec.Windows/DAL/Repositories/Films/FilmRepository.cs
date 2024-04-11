@@ -81,5 +81,19 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
                 throw new InvalidDataException("Impossible de mettre à jour le film: " + ex.Message);
             }
         }
+
+        public async Task<bool> DeleteFilm(Film film)
+        {
+            try
+            {
+                var deleteResult = await _filmsCollection.DeleteOneAsync(filmBd => filmBd.Id == film.Id);
+                return deleteResult.IsAcknowledged && deleteResult.DeletedCount > 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Impossible de supprimer le film : " + ex.Message);
+                return false;
+            }
+        }
     }
 }
