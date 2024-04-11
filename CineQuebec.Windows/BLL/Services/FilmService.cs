@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Films;
 using MongoDB.Bson;

@@ -19,6 +19,7 @@ namespace CineQuebec.WindowsTests.FilmTests
             _filmService = new FilmService(_mockFilmRepository.Object);
         }
 
+        #region GetFilmTests
         [TestMethod()]
         public async Task GetFilms_Success()
         {
@@ -42,7 +43,9 @@ namespace CineQuebec.WindowsTests.FilmTests
 
             await _filmService.GetFilms();
         }
+        #endregion
 
+        #region AddFilmtests
         [TestMethod()]
         public async Task AddFilm_Success()
         {
@@ -67,7 +70,9 @@ namespace CineQuebec.WindowsTests.FilmTests
 
             await _filmService.AddFilm(expectedFilm);
         }
+        #endregion
 
+        #region UpdateFilmTests
         [TestMethod()]
         public async Task UpdateFilm_Success()
         {
@@ -92,7 +97,9 @@ namespace CineQuebec.WindowsTests.FilmTests
 
             await _filmService.AddFilm(expectedFilm);
         }
+        #endregion
 
+        #region GetProjectionsTests
         [TestMethod()]
         public async Task GetProjections_Success()
         {
@@ -118,5 +125,6 @@ namespace CineQuebec.WindowsTests.FilmTests
 
             await _filmService.GetProjections(expectedFilm);
         }
+        #endregion
     }
 }

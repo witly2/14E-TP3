@@ -78,7 +78,6 @@ namespace CineQuebec.Windows.DAL
             {
                 throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
             }
-            //return database.GetCollection<Film>("Films");
         }
 
         public IMongoCollection<Abonne> GetAbonneCollection()
@@ -88,12 +87,31 @@ namespace CineQuebec.Windows.DAL
 
         public async Task<IMongoCollection<Projection>> GetProjectionsCollection()
         {
-            return database.GetCollection<Projection>("Projections");
+            try
+            {
+                var projectionsCollection = database.GetCollection<Projection>("Projections");
+                return projectionsCollection;
+
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
+            }
+                    
         }
 
         public async Task<IMongoCollection<Salle>> GetSallesCollection()
         {
-            return database.GetCollection<Salle>("Salles");
+            try
+            {
+                var sallesCollection = database.GetCollection<Salle>("Salles");
+                return sallesCollection;
+
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
+            }
         }
 
         public async Task SeedDevelopmentData()

@@ -3,6 +3,7 @@ using CineQuebec.Windows.DAL;
 using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Abonnes;
 using CineQuebec.Windows.DAL.Repositories.Films;
+using CineQuebec.Windows.DAL.Repositories.Projections;
 using CineQuebec.Windows.View;
 using System.Text;
 using System.Windows;
@@ -24,15 +25,18 @@ namespace CineQuebec.Windows
     {
         private readonly FilmService _filmService;
         private readonly AbonneService _abonneService;
-        private Film film;
+        private readonly ProjectionService _projectionService;
+        private readonly Film film;
 
         public MainWindow()
         {
             DatabaseGestion db = new DatabaseGestion();
             _filmService = new FilmService(new FilmRepository(db));
             _abonneService = new AbonneService(new AbonneRepsitory(db));
+            _projectionService = new ProjectionService(new ProjectionRepository(db));
 
             InitializeComponent();
+
             mainContentControl.Content = new ConnexionControl();
         }
 
@@ -55,12 +59,17 @@ namespace CineQuebec.Windows
 
         public void FilmsControl()
         {
-            mainContentControl.Content = new FilmsControl(_filmService);
+            mainContentControl.Content = new FilmsControl(_filmService, _projectionService);
         }
 
         public void AddUpdateFilmControl()
         {
-            mainContentControl.Content = new AddUpdateFilmControl(_filmService);
+            mainContentControl.Content = new AddUpdateFilmControl(_filmService, _projectionService);
+        }
+
+        public void AddProjectionControl()
+        {
+            mainContentControl.Content = new AddProjectionControl(_projectionService, film);
         }
     }
 }

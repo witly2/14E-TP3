@@ -57,14 +57,14 @@
 
 
 
-                            <Button Style="{StaticResource menuButton}" Click="Button_Click_1">
+                            <Button Style="{StaticResource menuButton}" Click="Button_Accueil_Click">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <md:PackIcon Kind="Home" Style="{StaticResource menuBtnIcon}"/>
                                     <TextBlock Text="Accueil" />
                                 </StackPanel>
                             </Button>
 
-                            <Button Style="{StaticResource menuButton}"  Click="ToggleButton_Checked">
+                            <Button Style="{StaticResource menuButton}"  Click="ToggleButton_Abonnes">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <md:PackIcon Kind="Users" Style="{StaticResource menuBtnIcon}"/>
                                     <TextBlock Text="Abonnés" />
@@ -86,7 +86,7 @@
 
 
 
-                        <Button Style="{StaticResource menuButton}"  VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 20" Click="Button_Click">
+                        <Button Style="{StaticResource menuButton}"  VerticalAlignment="Bottom" DockPanel.Dock="Bottom" Margin="15 0 15 20" Click="Button_Deconnexion_Click">
                             <StackPanel Orientation="Horizontal">
                                 <md:PackIcon Kind="Logout" Style="{StaticResource menuBtnIcon}"/>
                                 <TextBlock Text="Déconexion" />

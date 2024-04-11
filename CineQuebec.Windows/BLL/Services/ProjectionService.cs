@@ -1,12 +1,6 @@
 ﻿using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Projections;
-using MongoDB.Bson;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CineQuebec.Windows.BLL.Services
 {
@@ -63,6 +57,38 @@ namespace CineQuebec.Windows.BLL.Services
             catch (Exception ex)
             {
                 throw new InvalidDataException($"Une erreur s'est produite lors de la modification de la projection : " + ex.Message);
+            }
+        }
+
+        public async Task<List<Salle>> GetSalles()
+        {
+            try
+            {
+                return await _projectionRepository.GetSalles();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des salles : " + ex.Message);
+            }
+        }
+
+        public async Task<bool> estSalleDisponibleThisDay(Salle salle, DateTime day)
+        {
+            try
+            {
+                List<Projection> projections = await _projectionRepository.GetProjectionsForSalle(salle, day);
+                if(projections.Count == 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des projections pour cette salle : " + ex.Message);
             }
         }
     }

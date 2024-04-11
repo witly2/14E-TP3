@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using CineQuebec.Windows.BLL.Services;
 using CineQuebec.Windows.DAL.Data;
-using MongoDB.Bson;
 
 namespace CineQuebec.Windows.View
 {
@@ -16,12 +10,16 @@ namespace CineQuebec.Windows.View
     {
         private readonly IFilmService _filmServiceInterface;
         private readonly IProjectionService _projectionService;
-        public AddUpdateFilmControl(IFilmService filmService, Film filmToUpdate = null)
+        public AddUpdateFilmControl(IFilmService filmService, IProjectionService projectionService, Film filmToUpdate = null)
         {
             InitializeComponent();
+
             _filmServiceInterface = filmService;
+            _projectionService = projectionService;
+
             TextBlock addUpdateFilmTextBlock = (TextBlock)this.FindName("addUpdateButton");
             TextBlock addUpdateTitleTextBlock = (TextBlock)this.FindName("addUpdateTitle");
+
             if (filmToUpdate != null)
             {
                 Debug.WriteLine($"Titre FR: {filmToUpdate.FrenchTitle}");
@@ -42,13 +40,16 @@ namespace CineQuebec.Windows.View
             string originalTitleForm = originalTitle.Text;
             DateTime internationalReleaseDateForm = InternationalReleaseDate.SelectedDate ?? DateTime.Now;
             ushort durationForm;
+
             if (!ushort.TryParse(duration.Text, out durationForm))
             {
                 MessageBox.Show("La durée doit être un nombre entier positif.");
             }
+
             string descriptionForm = description.Text;
             ushort ratingForm;
             Film filmToUpdate = this.DataContext as Film;
+
             if (filmToUpdate != null && filmToUpdate.Rating.HasValue)
             {
                 ratingForm = filmToUpdate.Rating.Value;
@@ -67,8 +68,6 @@ namespace CineQuebec.Windows.View
                 InternationalReleaseDate = internationalReleaseDateForm,
                 Rating = ratingForm
             };
-
-            
 
             return film;
         }

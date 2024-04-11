@@ -13,9 +13,7 @@ namespace CineQuebec.Windows.DAL.Repositories.Abonnés
 
         List<Abonne> GetAbonnes();
         Task AddAbonne(Abonne abonne);
-        Task UpdateAbonne(Abonne abonne);
 
         Task<Abonne> GetByEmail(string email);
-        Task<Abonne> GetById(ObjectId id);
     }
 }

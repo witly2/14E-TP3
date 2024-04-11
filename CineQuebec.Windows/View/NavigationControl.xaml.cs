@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace CineQuebec.Windows.View
 {
-    /// <summary>
-    /// Logique d'interaction pour NavigationControl.xaml
-    /// </summary>
     public partial class NavigationControl : UserControl
     {
         public NavigationControl()
