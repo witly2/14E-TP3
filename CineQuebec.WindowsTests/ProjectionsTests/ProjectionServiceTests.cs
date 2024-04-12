@@ -165,7 +165,7 @@ namespace CineQuebec.WindowsTests.FilmTests
             var day = new DateTime(2024, 3, 10);
             _mockProjectionRepository.Setup(x => x.GetProjectionsForSalle(salle1, day)).ReturnsAsync(new List<Projection>());
 
-            var result = await _projectionService.SalleDisponibleThisDay(salle1, day);
+            var result = await _projectionService.estSalleDisponibleThisDay(salle1, day);
 
             Assert.IsTrue(result);
         }
@@ -181,7 +181,7 @@ namespace CineQuebec.WindowsTests.FilmTests
             projections.Add(projection1);
             _mockProjectionRepository.Setup(x => x.GetProjectionsForSalle(salle1, day)).ReturnsAsync(projections);
 
-            var result = await _projectionService.SalleDisponibleThisDay(salle1, day);
+            var result = await _projectionService.estSalleDisponibleThisDay(salle1, day);
 
             Assert.IsFalse(result);
         }
@@ -194,7 +194,7 @@ namespace CineQuebec.WindowsTests.FilmTests
             var day = new DateTime(2024, 3, 10);
             _mockProjectionRepository.Setup(x => x.GetProjectionsForSalle(salle1, day)).ThrowsAsync(new Exception("Erreur lors de la recherche des projections ce jour."));
 
-            var result = await _projectionService.SalleDisponibleThisDay(salle1, day);
+            var result = await _projectionService.estSalleDisponibleThisDay(salle1, day);
         }
         #endregion
     }
