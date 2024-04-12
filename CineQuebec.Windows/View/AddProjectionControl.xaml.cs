@@ -49,7 +49,7 @@ namespace CineQuebec.Windows.View
 
                     ComboBoxItem selectedSalleItem = (ComboBoxItem)salleComboBox.SelectedItem;
                     Salle selectedSalle = selectedSalleItem.Tag as Salle;
-                    bool salleDisponible = await _projectionService.SalleDisponibleThisDay(selectedSalle, datePicker.SelectedDate.Value.Date);
+                    bool salleDisponible = await _projectionService.estSalleDisponibleThisDay(selectedSalle, datePicker.SelectedDate.Value.Date);
                     if (salleDisponible)
                     {
                         Projection newProjection = new Projection(dateHeureDebut, selectedSalle, _film);
