@@ -17,7 +17,7 @@ namespace CineQuebec.Windows.DAL.Data
         public string Email { get; set; }
         public byte[] Password {  get; set; }
         public byte[] Salt { get; set; }
-
+        public bool IsAdmin { get; set; }=false;
 
         public Abonne()
         {

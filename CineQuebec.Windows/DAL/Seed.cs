@@ -45,7 +45,10 @@ namespace CineQuebec.Windows.DAL
                     new Abonne { Username = "Daniel Martinez", Email = "daniel.martinez@example.com", DateAdhesion = DateTime.UtcNow },
                     new Abonne { Username = "Sarah Anderson", Email = "sarah.anderson@example.com", DateAdhesion = DateTime.UtcNow },
                     new Abonne { Username = "David Taylor", Email = "david.taylor@example.com", DateAdhesion = DateTime.UtcNow },
-                    new Abonne { Username = "Olivia Thomas", Email = "olivia.thomas@example.com", DateAdhesion = DateTime.UtcNow }
+                    new Abonne { Username = "Olivia Thomas", Email = "olivia.thomas@example.com", DateAdhesion = DateTime.UtcNow },
+                    new Abonne { Username = "admin", Email = "admin@test.com", DateAdhesion = DateTime.UtcNow,Password = Convert.FromBase64String("QfWXKJ2prwJ4UOw/dvP22g=="),
+                        Salt = Convert.FromBase64String("YlW4gWxsBG3IYq/sKPlnpA=="),
+                        IsAdmin = true},
                 };
 
                 _abonnesCollection.InsertMany(abonnes);
