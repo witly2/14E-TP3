@@ -11,7 +11,7 @@ using MongoDB.Bson;
 
 namespace CineQuebec.Windows.View
 {
-    public partial class FilmsControl: UserControl
+    public partial class AdminFilmsControl: UserControl
     {
         private readonly IFilmService _filmService;
         private readonly IProjectionService _projectionService;
@@ -19,7 +19,7 @@ namespace CineQuebec.Windows.View
         private DataGrid dataGrid;
         private Dictionary<ObjectId, Tuple<Film, string>> filmsDictionary;
 
-        public FilmsControl(IFilmService filmService, IProjectionService projectionService)
+        public AdminFilmsControl(IFilmService filmService, IProjectionService projectionService)
         {
             InitializeComponent();
 

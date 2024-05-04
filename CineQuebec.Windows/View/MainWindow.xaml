@@ -8,19 +8,27 @@
         mc:Ignorable="d"
         Title="{x:Static rs:Resource.app_name}" 
         ResizeMode="NoResize"
-        Height="650" Width="1000"
-         Icon="/Ressources/images/logoCinemaWithoutText.png">
+        Height="700" Width="1300"
+         Icon="/Ressources/images/logoCinemaWithoutText.png"
+        Background="#212529"
+        >
    
     <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <Image Grid.Row="0"
-               HorizontalAlignment="Center" 
-               Margin="10,10,10,10" 
-               VerticalAlignment="Center"
-               Source="/Ressources/images/logoCinema.png"/>
+        
+        <Border Grid.Row="0">
+            
+            <Border.Effect><DropShadowEffect ShadowDepth="1"/></Border.Effect>
+            <Grid>
+            </Grid>
+        </Border>
+      
+        
+      
+
         <ContentControl x:Name="mainContentControl" 
                         Grid.Row="1" 
                         HorizontalAlignment="Center" 

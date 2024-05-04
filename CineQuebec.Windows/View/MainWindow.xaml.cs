@@ -37,7 +37,7 @@ namespace CineQuebec.Windows
 
             InitializeComponent();
 
-            mainContentControl.Content = new ConnexionControl();
+            mainContentControl.Content = new FilmControl();
         }
 
      
@@ -59,7 +59,7 @@ namespace CineQuebec.Windows
 
         public void FilmsControl()
         {
-            mainContentControl.Content = new FilmsControl(_filmService, _projectionService);
+            mainContentControl.Content = new AdminFilmsControl(_filmService, _projectionService);
         }
 
         public void AddUpdateFilmControl()
