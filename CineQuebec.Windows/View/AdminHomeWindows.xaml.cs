@@ -11,22 +11,26 @@ using CineQuebec.Windows.DAL.Repositories.Projections;
 
 namespace CineQuebec.Windows.View
 {
-    public partial class NavWindows : Window
+    public partial class AdminHomeWindows : Window
     {
         private readonly FilmService _filmService;
         private readonly AbonneService _abonneService;
         private readonly AdminHomeControl _adminHomeControl;
         private readonly ProjectionService _projectionService;
-        public NavWindows(Abonne abonne)
+        public string imageUrl { get; set; }
+        public AdminHomeWindows(Abonne abonne)
         {
             DatabaseGestion db = new DatabaseGestion();
             _filmService = new FilmService(new FilmRepository(db));
             _abonneService = new AbonneService(new AbonneRepsitory(db));
             _projectionService = new ProjectionService(new ProjectionRepository(db));
             _adminHomeControl = new AdminHomeControl(abonne);
-
             InitializeComponent();
+            DataContext = this;
+
             AdminName.Text = abonne.Username;
+           imageUrl = $"https://robohash.org/{abonne.Id}";
+          
             mainContentControl.Content = _adminHomeControl;
 
         }
@@ -39,7 +43,7 @@ namespace CineQuebec.Windows.View
 
         private void ToggleButton_Films_Click(object sender, RoutedEventArgs e)
         {
-            mainContentControl.Content = new FilmsControl(_filmService, _projectionService);
+            mainContentControl.Content = new AdminFilmsControl(_filmService, _projectionService);
         }
 
         private void Button_Deconnexion_Click(object sender, RoutedEventArgs e)
