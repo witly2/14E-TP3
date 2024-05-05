@@ -5,20 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CineQuebec.Windows.View"
              mc:Ignorable="d"
-             d:DesignHeight="600" d:DesignWidth="800" 
-             Background="Transparent">
+             d:DesignHeight="700" d:DesignWidth="1300" 
+             >
     <Grid  >
         <Grid.RowDefinitions>
-            <RowDefinition Height="200"></RowDefinition>
+            <RowDefinition Height="400"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         
-        <Image Grid.Row="0"
-               HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               Source="/Ressources/images/logoCinema.png"/>
+       <Grid Grid.Row="0">
+           <Grid.Background>
+               <ImageBrush x:Name="ImgBrushSlider" Opacity="0.5" Stretch="UniformToFill" AlignmentX="Center" AlignmentY="Center"
+                   ImageSource="/Ressources/images/0.png"/>
+           </Grid.Background>
+           
+           
+           
+       </Grid>
         
-        <StackPanel Grid.Row="1">
+        
+        <StackPanel Grid.Row="1"  HorizontalAlignment="Center" 
+                    VerticalAlignment="Center" >
             <TextBlock Text="Films" Margin="10" FontSize="22" FontWeight="Medium" Foreground="White"/>
             
             <StackPanel Margin="20 0">
@@ -26,14 +33,16 @@
             <ItemsControl ItemsSource="{Binding Films}" Foreground="White">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Border Margin="10" Width="300" Height="300">
-                            <StackPanel>
-                                <Border Width="200" Height="200" CornerRadius="5">
+                        <Border Margin="10" Width="300" Height="400"
+                                CornerRadius="5" BorderThickness="2" >
+                            <StackPanel
+                                VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Border Width="280" Height="300" BorderBrush= "White">
                                     <Border.Effect>
                                         <DropShadowEffect ShadowDepth="1"/>
                                     </Border.Effect>
                                     <Border.Background>
-                                        <ImageBrush ImageSource="/Ressources/images/users.png"/>
+                                        <ImageBrush ImageSource="/Ressources/images/no.png"/>
                                     </Border.Background>
                                 </Border>
                                 <TextBlock Margin="5 0" Text="{Binding FrenchTitle}" FontSize="15"

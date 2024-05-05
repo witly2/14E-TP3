@@ -19,22 +19,26 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         
-        <Border Grid.Row="0">
+        <Border Grid.Row="0" Background="Black">
             
-            <Border.Effect><DropShadowEffect ShadowDepth="1"/></Border.Effect>
-            <Grid>
-            </Grid>
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="1"/>
+            </Border.Effect>
+            <Panel>
+                
+            </Panel>
         </Border>
       
-        
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ContentControl x:Name="mainContentControl" 
+                           
+                            
+            />
+
+        </ScrollViewer>
       
 
-        <ContentControl x:Name="mainContentControl" 
-                        Grid.Row="1" 
-                        HorizontalAlignment="Center" 
-                        VerticalAlignment="Center" 
-                        />
-
+       
 
     </Grid>
 </Window>
