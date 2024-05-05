@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:CineQuebec.Windows.View"
              mc:Ignorable="d"
              d:DesignHeight="700" d:DesignWidth="1300" 
+             Style="{StaticResource Page_Style}"
              >
     <Grid  >
         <Grid.RowDefinitions>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CineQuebec.Windows.ViewModels
 {
-    public class AdminHomVm
+    public class AdminHomeViewModel
     {
     }
 }

@@ -19,14 +19,22 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
         
-        <Border Grid.Row="0" Background="Black">
+        <Border Grid.Row="0" Background="Black" >
             
             <Border.Effect>
                 <DropShadowEffect ShadowDepth="1"/>
             </Border.Effect>
-            <Panel>
-                
-            </Panel>
+            <Grid>
+
+                <Image x:Name="click" HorizontalAlignment="Left" Margin="100 20 0 20" Source="/Ressources/images/CineQuebec.jpg" MouseLeftButtonDown="click_MouseLeftButtonDown_1"/>
+                <StackPanel Margin="0 0 50 0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                    <Button Content="Inscription" Foreground="White" Margin="0,0,10,0" Width="100" Background="#FF021E27" Click="click_Inscription"/>
+                    <Button Content="Connexion" Foreground="White" Background="#FF1DC7C0" Height="35" Width="100"  Click="click_Connexion"/>
+
+                </StackPanel>
+            </Grid>
+     
+
         </Border>
       
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">

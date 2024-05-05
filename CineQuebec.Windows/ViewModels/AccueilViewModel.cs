@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace CineQuebec.Windows.ViewModels;
 
-public class AccueilVM:Utilities.ViewModelBase
+public class AccueilViewModel:Utilities.ViewModelBase
 {
     private readonly FilmRepository _filmRepository;
     private readonly DatabaseGestion _db;
@@ -23,7 +23,7 @@ public class AccueilVM:Utilities.ViewModelBase
         }
     }
 
-    public AccueilVM()
+    public AccueilViewModel()
     {
         _db = new DatabaseGestion();
         _filmRepository = new FilmRepository(_db);

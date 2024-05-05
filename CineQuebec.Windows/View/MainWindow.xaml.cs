@@ -71,5 +71,21 @@ namespace CineQuebec.Windows
         {
             mainContentControl.Content = new AddProjectionControl(_projectionService, film);
         }
+
+
+        private void click_MouseLeftButtonDown_1(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+        
+        private void click_Inscription(object sender, RoutedEventArgs routedEventArgs)
+        {
+            mainContentControl.Content = new InscriptionControl1();
+        }
+        
+        private void click_Connexion(object sender, RoutedEventArgs routedEventArgs)
+        {
+            mainContentControl.Content = new ConnexionControl();
+        }
     }
 }
