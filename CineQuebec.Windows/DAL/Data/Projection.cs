@@ -16,18 +16,13 @@ namespace CineQuebec.Windows.DAL.Data
         public Salle Salle { get; set; }
         public Film Film { get; set; }
 
-        public DateTime DateHeureFin
-        {
-            get
-            {
-                return DateHeureDebut.AddMinutes(Film.Duration);
-            }
-        }
+        public DateTime DateHeureFin { get; private set; }
         public Projection(DateTime pDateHeureDebut, Salle pSalle, Film pFilm) 
         { 
             DateHeureDebut = pDateHeureDebut;
             Salle = pSalle;
             Film = pFilm;
+            DateHeureFin = DateHeureDebut.AddMinutes(pFilm.Duration);   
         }
     }
 }
