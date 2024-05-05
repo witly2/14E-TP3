@@ -10,7 +10,7 @@ using CineQuebec.Windows.View;
 
 namespace CineQuebec.Windows.ViewModels
 {
-    class NavigationVM :Utilities. ViewModelBase
+    class NavigationViewModel :Utilities. ViewModelBase
     {
         private object _currentView;
         public object CurrentView
@@ -23,17 +23,17 @@ namespace CineQuebec.Windows.ViewModels
         public ICommand HomeAdminCommand { get; set; }
 
 
-        private void Users(object obj) => CurrentView = new UsersVm();
-        private void HomeAdmin(object obj) => CurrentView = new AdminHomVm();
+        private void Users(object obj) => CurrentView = new UsersViewModel();
+        private void HomeAdmin(object obj) => CurrentView = new AdminHomeViewModel();
        
 
-        public NavigationVM()
+        public NavigationViewModel()
         {
             UsersCommand = new RelayCommand(Users);
             HomeAdminCommand = new RelayCommand(HomeAdmin);
           
             // Startup Page
-            CurrentView = new AdminHomVm();
+            CurrentView = new AdminHomeViewModel();
         }
     }
 }

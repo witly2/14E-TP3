@@ -12,8 +12,8 @@ public partial class FilmControl : UserControl
     public FilmControl()
     {
         InitializeComponent();
-        AccueilVM filmVM = new AccueilVM();
-        this.DataContext = filmVM;
+        AccueilViewModel filmViewModel = new AccueilViewModel();
+        this.DataContext = filmViewModel;
         
         timer = new DispatcherTimer();
         timer.Interval = TimeSpan.FromSeconds(4); 

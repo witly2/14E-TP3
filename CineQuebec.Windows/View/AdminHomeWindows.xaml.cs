@@ -48,7 +48,7 @@ namespace CineQuebec.Windows.View
 
         private void Button_Deconnexion_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
+            var mainWindow = new MainWindow();
             mainWindow.Show();
             Close();
         }
