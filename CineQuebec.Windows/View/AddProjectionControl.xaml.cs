@@ -17,8 +17,21 @@ namespace CineQuebec.Windows.View
             _film = film;
             DataContext = film;
 
-            datePicker.SelectedDateChanged += SelectionChanged;
-            timePicker.SelectedDateTimeChanged += SelectionChanged;
+            //datePicker.SelectedDateChanged += SelectionChanged;
+            //timePicker.SelectedDateTimeChanged += SelectionChanged;
+        }
+
+        private void validerDateHeureButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (datePicker.SelectedDate.HasValue && timePicker.SelectedDateTime.HasValue)
+            {
+                salleComboBox.Visibility = Visibility.Visible;
+                UpdateSalleComboBox();
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner une date et une heure pour valider.");
+            }
         }
 
         private void SelectionChanged(object sender, EventArgs e)

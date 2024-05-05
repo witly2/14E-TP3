@@ -102,11 +102,13 @@ namespace CineQuebec.Windows.DAL.Repositories.Projections
 
                 var filterProjectionsEnCours = Builders<Projection>.Filter.And(
                     Builders<Projection>.Filter.Lt(p => p.DateHeureDebut, finProjectionAddCleanSalleAfter),
-                    Builders<Projection>.Filter.Gt(p => p.DateHeureDebut, addTimeCleanSalleDebutProjection));
+                    Builders<Projection>.Filter.Gt(p => p.DateHeureDebut, addTimeCleanSalleDebutProjection),
+                    Builders<Projection>.Filter.Ne(p => p.DateHeureDebut, debutProjectionSouhaite));
 
                 var filterProjectionsFinissantAvant = Builders<Projection>.Filter.And(
                     Builders<Projection>.Filter.Lt(p => p.DateHeureFin, finProjectionAddCleanSalleAfter),
-                    Builders<Projection>.Filter.Gt(p => p.DateHeureFin, addTimeCleanSalleDebutProjection));
+                    Builders<Projection>.Filter.Gt(p => p.DateHeureFin, addTimeCleanSalleDebutProjection),
+                    Builders<Projection>.Filter.Ne(p => p.DateHeureDebut, debutProjectionSouhaite));
 
                 var filter = Builders<Projection>.Filter.Or(
                     filterProjectionsEnCours, filterProjectionsFinissantAvant);
