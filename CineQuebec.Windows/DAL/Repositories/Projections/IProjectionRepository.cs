@@ -15,6 +15,6 @@ namespace CineQuebec.Windows.DAL.Repositories.Projections
         Task<bool> UpdateProjection(Projection projection);
         Task<bool> DeleteProjection(Projection projection);
         Task<List<Salle>> GetSalles();
-        Task<List<Projection>> GetProjectionsForSalle(Salle salle, DateTime jour);
+        Task<List<Salle>> GetSallesDisponibleForProjection(Film film, DateTime debutProjectionSouhaite);
     }
 }

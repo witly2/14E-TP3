@@ -93,17 +93,38 @@ namespace CineQuebec.Windows.DAL.Repositories.Projections
             }
         }
 
-        public async Task<List<Projection>> GetProjectionsForSalle(Salle salle, DateTime jour)
+        public async Task<List<Salle>> GetSallesDisponibleForProjection(Film film, DateTime debutProjectionSouhaite)
         {
             try
             {
-                var filter = Builders<Projection>.Filter.Eq(p => p.Salle.Id, salle.Id) &
-                    Builders<Projection>.Filter.Eq(p => p.DateHeureDebut, jour.Date);
-                return await _projectionsCollection.Find(filter).ToListAsync();
+                DateTime finProjectionAddCleanSalleAfter = debutProjectionSouhaite.AddMinutes(film.Duration).AddHours(1);
+                DateTime addTimeCleanSalleDebutProjection = debutProjectionSouhaite.AddHours(-1);
+
+                var filterProjectionsEnCours = Builders<Projection>.Filter.And(
+                    Builders<Projection>.Filter.Lt(p => p.DateHeureDebut, finProjectionAddCleanSalleAfter),
+                    Builders<Projection>.Filter.Gt(p => p.DateHeureDebut, addTimeCleanSalleDebutProjection));
+
+                var filterProjectionsFinissantAvant = Builders<Projection>.Filter.And(
+                    Builders<Projection>.Filter.Lt(p => p.DateHeureFin, finProjectionAddCleanSalleAfter),
+                    Builders<Projection>.Filter.Gt(p => p.DateHeureFin, addTimeCleanSalleDebutProjection));
+
+                var filter = Builders<Projection>.Filter.Or(
+                    filterProjectionsEnCours, filterProjectionsFinissantAvant);
+
+                var projectionsEnCoursOuFinissantAvant = await _projectionsCollection.Find(filter).ToListAsync();
+                var sallesOccupees = projectionsEnCoursOuFinissantAvant.Select(p => p.Salle).ToList();
+
+                var toutesSallesExistantes = await GetSalles();
+
+                var sallesDisponibles = toutesSallesExistantes.Except(sallesOccupees).ToList();
+
+
+                return sallesDisponibles;
             }
             catch (Exception ex)
             {
-                throw new Exception("Impossible d'obtenir les projections pour la salle à cette heure : " + ex.Message);
+                Console.WriteLine("Impossible d'obtenir les salles disponible à cette heure : " + ex.Message);
+                return new List<Salle>();
             }
         }
     }
