@@ -1,34 +1,28 @@
-﻿using CineQuebec.Windows.DAL.Data;
+﻿using System.Collections.ObjectModel;
 using CineQuebec.Windows.DAL;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CineQuebec.Windows.DAL.Data;
+using CineQuebec.Windows.Utilities;
 
-namespace CineQuebec.Windows.ViewModels
+namespace CineQuebec.Windows.ViewModels;
+
+public class UsersViewModel : ViewModelBase
 {
-    public class UsersViewModel:Utilities.ViewModelBase
+    private readonly DatabaseGestion UsersVm_db;
+    private ObservableCollection<Abonne> _abonnes;
+
+    public UsersViewModel()
     {
+        UsersVm_db = new DatabaseGestion();
+        Abonnes = new ObservableCollection<Abonne>(UsersVm_db.ReadAbonnes());
+    }
 
-        private readonly DatabaseGestion UsersVm_db;
-        private ObservableCollection<Abonne> _abonnes;
-
-        public ObservableCollection<Abonne>? Abonnes
+    public ObservableCollection<Abonne>? Abonnes
+    {
+        get => _abonnes;
+        set
         {
-            get { return _abonnes; }
-            set
-            {
-                _abonnes = value;
-                OnPropertyChanged();
-            }
-        }
-
-        public UsersViewModel()
-        {
-            UsersVm_db = new DatabaseGestion();
-            Abonnes = new ObservableCollection<Abonne>(UsersVm_db.ReadAbonnes());
+            _abonnes = value;
+            OnPropertyChanged();
         }
     }
 }

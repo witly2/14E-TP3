@@ -1,95 +1,83 @@
-﻿using CineQuebec.Windows.BLL.Services;
+﻿using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using CineQuebec.Windows.BLL.Services;
 using CineQuebec.Windows.DAL;
 using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Abonnes;
 using CineQuebec.Windows.Utilities;
-using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Controls;
 
-using System.Windows.Input;
+namespace CineQuebec.Windows.View;
 
-
-namespace CineQuebec.Windows.View
+/// <summary>
+///     Logique d'interaction pour ConnexionControl.xaml
+/// </summary>
+public partial class ConnexionControl : UserControl
 {
-    /// <summary>
-    /// Logique d'interaction pour ConnexionControl.xaml
-    /// </summary>
-    public partial class ConnexionControl : UserControl
+    private readonly AbonneService _abonneService;
+
+    private string erreurMessage;
+    private readonly Abonne newAbonne;
+
+    public ConnexionControl()
     {
+        InitializeComponent();
+        newAbonne = new Abonne();
+        var db = new DatabaseGestion();
+        _abonneService = new AbonneService(new AbonneRepsitory(db));
+        DataContext = newAbonne;
+    }
 
-        private string erreurMessage ;
-        private Abonne newAbonne;
-        private readonly AbonneService _abonneService;
-        public ConnexionControl()
+    private async void Button_Click(object sender, RoutedEventArgs e)
+    {
+        if (ValidateForm())
         {
-            InitializeComponent();
-            newAbonne = new Abonne();
-            DatabaseGestion db = new DatabaseGestion();
-            _abonneService = new AbonneService(new AbonneRepsitory(db));
-            this.DataContext = newAbonne;
-        }
+            var existeAbonne = await _abonneService.GetAbonneByEmail(newAbonne.Email);
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
-        {
-            if (ValidateForm())
+            if (existeAbonne != null && Utils.EstMotDePasseCorrespond(txtMdP.Password.Trim(), existeAbonne.Salt,
+                    existeAbonne.Password))
             {
-                var existeAbonne = await _abonneService.GetAbonneByEmail(newAbonne.Email) as Abonne;
+                var navWindows = new AdminHomeWindows(existeAbonne);
 
-                if (existeAbonne != null && Utils.EstMotDePasseCorrespond(txtMdP.Password.Trim(), existeAbonne.Salt,
-                       existeAbonne.Password))
-                {
-                    AdminHomeWindows navWindows = new AdminHomeWindows(existeAbonne);
-
-                    navWindows.Show();
-                    ((MainWindow)Application.Current.MainWindow).Close();
-                   
-                }
-                else
-                {
-                    MessageBox.Show("Email ou mot de passe est incorrect");
-                }    
+                navWindows.Show();
+                ((MainWindow)Application.Current.MainWindow).Close();
             }
             else
             {
-                MessageBox.Show(erreurMessage);
+                MessageBox.Show("Email ou mot de passe est incorrect");
             }
         }
-
-
-        private void Afficher_form_inscription(object sender, MouseButtonEventArgs e)
+        else
         {
-            ((MainWindow)Application.Current.MainWindow).InscriptionControl();
+            MessageBox.Show(erreurMessage);
         }
+    }
 
-        private bool ValidateForm()
+
+    private void Afficher_form_inscription(object sender, MouseButtonEventArgs e)
+    {
+        ((MainWindow)Application.Current.MainWindow).InscriptionControl();
+    }
+
+    private bool ValidateForm()
+    {
+        erreurMessage = "";
+        // Le motif regex ci-dessous correspond à une adresse courriel valide.
+        var pattern = @"^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$";
+        var rgxMail = new Regex(pattern);
+
+        if (newAbonne.Email == null || newAbonne.Email == "" || txtMdP.Password == "" || txtMdP.Password == "")
         {
-            erreurMessage = "";
-            // Le motif regex ci-dessous correspond à une adresse courriel valide.
-            string pattern = @"^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$";
-            Regex rgxMail = new Regex(pattern);
-
-            if (newAbonne.Email == null || newAbonne.Email == "" || txtMdP.Password == "" || txtMdP.Password == "")
-            {
-                erreurMessage += "Veuiller remplir tous les champs\n. ";
-            }
-            else
-            {
-                if (!rgxMail.IsMatch(newAbonne.Email))
-                {
-                    erreurMessage += "Le format du courriel c'est test@example.com\n. ";
-                }
-            }
-
-            if (erreurMessage.Trim() != "")
-            {
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            erreurMessage += "Veuiller remplir tous les champs\n. ";
+        }
+        else
+        {
+            if (!rgxMail.IsMatch(newAbonne.Email)) erreurMessage += "Le format du courriel c'est test@example.com\n. ";
         }
 
+        if (erreurMessage.Trim() != "")
+            return false;
+        return true;
     }
 }

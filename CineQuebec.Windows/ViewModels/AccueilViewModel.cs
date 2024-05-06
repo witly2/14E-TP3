@@ -1,32 +1,26 @@
-﻿using System.Collections.ObjectModel;
-using CineQuebec.Windows.DAL;
-using CineQuebec.Windows.DAL.Data;
-using CineQuebec.Windows.DAL.Repositories.Films;
-using System.Linq;
-
+﻿using System.Windows.Controls;
+using System.Windows.Input;
+using CineQuebec.Windows.Utilities;
+using Page_Navigation_App.Utilities;
 
 namespace CineQuebec.Windows.ViewModels;
 
-public class AccueilViewModel:Utilities.ViewModelBase
+public class AccueilViewModel : ViewModelBase
 {
-    private readonly FilmRepository _filmRepository;
-    private readonly DatabaseGestion _db;
-    private ObservableCollection<Film> _films;
-    
-    public ObservableCollection<Film>? Films
+    private readonly ContentControl _mainContentControl;
+
+    public AccueilViewModel(ContentControl mainContentControl)
     {
-        get { return _films; }
-        set
-        {
-            _films = value;
-            OnPropertyChanged();
-        }
+        _mainContentControl = mainContentControl;
+
+        YourCommand = new RelayCommand(ShowHome);
     }
 
-    public AccueilViewModel()
+
+    public ICommand YourCommand { get; }
+
+    private void ShowHome(object obj)
     {
-        _db = new DatabaseGestion();
-        _filmRepository = new FilmRepository(_db);
-        Films = new ObservableCollection<Film>(_filmRepository.GetFilms().Result);
+        _mainContentControl.Content = new MainWindow();
     }
 }

@@ -1,130 +1,124 @@
-﻿using CineQuebec.Windows.DAL.Data;
+﻿using System.IO;
+using CineQuebec.Windows.DAL.Data;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CineQuebec.Windows.DAL
+namespace CineQuebec.Windows.DAL;
+
+public class DatabaseGestion
 {
-    public class DatabaseGestion
+    private IMongoDatabase database;
+    private IMongoClient mongoDBClient;
+
+    public DatabaseGestion(IMongoClient client = null)
     {
-        private IMongoClient mongoDBClient;
-        private IMongoDatabase database;
+        Task.Run(async () =>
+        {
+            mongoDBClient = client ?? await OpenConnection();
+            database = await ConnectDatabase();
+            await SeedDevelopmentData();
+        }).Wait();
+    }
 
-        public DatabaseGestion(IMongoClient client = null)
+    private async Task<IMongoClient> OpenConnection()
+    {
+        IMongoClient dbClient = null;
+        try
         {
-            Task.Run(async () =>
-            {
-                mongoDBClient = client ?? await OpenConnection();
-                database = await ConnectDatabase();
-                await SeedDevelopmentData();
-            }).Wait();
+            dbClient = new MongoClient("mongodb://localhost:27017/");
         }
-        private async Task<IMongoClient> OpenConnection()
+        catch (Exception ex)
         {
-            IMongoClient dbClient = null;
-            try
-            {
-                dbClient = new MongoClient("mongodb://localhost:27017/");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Impossible de se connecter à la base de données " + ex.Message, "Erreur");
-            }
-            return dbClient;
+            Console.WriteLine("Impossible de se connecter à la base de données " + ex.Message, "Erreur");
         }
 
-        private async Task<IMongoDatabase> ConnectDatabase()
-        {
-            IMongoDatabase db = null;
-            try
-            {
-                db = mongoDBClient.GetDatabase("TP2DB");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Impossible de se connecter à la base de données " + ex.Message, "Erreur");
-            }
-            return db;
-        }
-        public List<Abonne> ReadAbonnes()
-        {
-            var abonnes = new List<Abonne>();
+        return dbClient;
+    }
 
-            try
-            {
-                var collection = database.GetCollection<Abonne>("Abonnes");
-                abonnes = collection.Aggregate().ToList();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Impossible d'obtenir la collection " + ex.Message, "Erreur");
-            }
-            return abonnes;
-        }
-        
-        public async Task<IMongoCollection<Film>> GetFilmsCollection()
+    private async Task<IMongoDatabase> ConnectDatabase()
+    {
+        IMongoDatabase db = null;
+        try
         {
-            try
-            {
-                var filmsCollection = database.GetCollection<Film>("Films");
-                return filmsCollection;
-
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
-            }
+            db = mongoDBClient.GetDatabase("TP2DB");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Impossible de se connecter à la base de données " + ex.Message, "Erreur");
         }
 
-        public IMongoCollection<Abonne> GetAbonneCollection()
+        return db;
+    }
+
+    public List<Abonne> ReadAbonnes()
+    {
+        var abonnes = new List<Abonne>();
+
+        try
         {
-            return database.GetCollection<Abonne>("Abonnes");
+            var collection = database.GetCollection<Abonne>("Abonnes");
+            abonnes = collection.Aggregate().ToList();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Impossible d'obtenir la collection " + ex.Message, "Erreur");
         }
 
-        public async Task<IMongoCollection<Projection>> GetProjectionsCollection()
+        return abonnes;
+    }
+
+    public async Task<IMongoCollection<Film>> GetFilmsCollection()
+    {
+        try
         {
-            try
-            {
-                var projectionsCollection = database.GetCollection<Projection>("Projections");
-                return projectionsCollection;
-
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
-            }
-                    
+            var filmsCollection = database.GetCollection<Film>("Films");
+            return filmsCollection;
         }
-
-        public async Task<IMongoCollection<Salle>> GetSallesCollection()
+        catch (Exception ex)
         {
-            try
-            {
-                var sallesCollection = database.GetCollection<Salle>("Salles");
-                return sallesCollection;
-
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
-            }
+            throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
         }
+    }
 
-        public async Task SeedDevelopmentData()
+    public IMongoCollection<Abonne> GetAbonneCollection()
+    {
+        return database.GetCollection<Abonne>("Abonnes");
+    }
+
+    public async Task<IMongoCollection<Projection>> GetProjectionsCollection()
+    {
+        try
         {
-            Seed seedData = new Seed(database);
-            await seedData.SeedAbonnes();
-            await seedData.SeedFilms();
-            await seedData.SeedActeurs();
-            await seedData.SeedRealisateurs();
-            await seedData.SeedCategories();
-            await seedData.SeedProjections();
-            await seedData.SeedSalles();
+            var projectionsCollection = database.GetCollection<Projection>("Projections");
+            return projectionsCollection;
         }
+        catch (Exception ex)
+        {
+            throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
+        }
+    }
 
+    public async Task<IMongoCollection<Salle>> GetSallesCollection()
+    {
+        try
+        {
+            var sallesCollection = database.GetCollection<Salle>("Salles");
+            return sallesCollection;
+        }
+        catch (Exception ex)
+        {
+            throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
+        }
+    }
+
+    public async Task SeedDevelopmentData()
+    {
+        var seedData = new Seed(database);
+        await seedData.SeedAbonnes();
+        await seedData.SeedFilms();
+        await seedData.SeedActeurs();
+        await seedData.SeedRealisateurs();
+        await seedData.SeedCategories();
+        await seedData.SeedProjections();
+        await seedData.SeedSalles();
     }
 }

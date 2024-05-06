@@ -1,39 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Windows.Input;
+using CineQuebec.Windows.Utilities;
 using Page_Navigation_App.Utilities;
-using System.Windows.Input;
-using CineQuebec.Windows.ViewModels;
-using CineQuebec.Windows.View;
 
-namespace CineQuebec.Windows.ViewModels
+namespace CineQuebec.Windows.ViewModels;
+
+internal class NavigationViewModel : ViewModelBase
 {
-    class NavigationViewModel :Utilities. ViewModelBase
+    private object _currentView;
+
+
+    public NavigationViewModel()
     {
-        private object _currentView;
-        public object CurrentView
+        UsersCommand = new RelayCommand(Users);
+        HomeAdminCommand = new RelayCommand(HomeAdmin);
+
+        // Startup Page
+        CurrentView = new AdminHomeViewModel();
+    }
+
+    public object CurrentView
+    {
+        get => _currentView;
+        set
         {
-            get { return _currentView; }
-            set { _currentView = value; OnPropertyChanged(); }
+            _currentView = value;
+            OnPropertyChanged();
         }
+    }
 
-        public ICommand UsersCommand { get; set; }
-        public ICommand HomeAdminCommand { get; set; }
+    public ICommand UsersCommand { get; set; }
+    public ICommand HomeAdminCommand { get; set; }
 
 
-        private void Users(object obj) => CurrentView = new UsersViewModel();
-        private void HomeAdmin(object obj) => CurrentView = new AdminHomeViewModel();
-       
+    private void Users(object obj)
+    {
+        CurrentView = new UsersViewModel();
+    }
 
-        public NavigationViewModel()
-        {
-            UsersCommand = new RelayCommand(Users);
-            HomeAdminCommand = new RelayCommand(HomeAdmin);
-          
-            // Startup Page
-            CurrentView = new AdminHomeViewModel();
-        }
+    private void HomeAdmin(object obj)
+    {
+        CurrentView = new AdminHomeViewModel();
     }
 }
