@@ -24,8 +24,8 @@ namespace CineQuebec.WindowsTests.FilmTests
         public async Task GetFilms_Success()
         {
             List<Film> expectedFilms = new List<Film>();
-            Film film1 = new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8);
-            Film film2 = new Film("The Dark Knight", "Le Chevalier Noir", "Lorsque la menace connue sous le nom du Joker sème le chaos parmi les habitants de Gotham, Batman doit accepter l'une des plus grandes épreuves psychologiques et physiques de sa capacité à lutter contre l'injustice.", 152, new DateTime(2008, 7, 18), 9);
+            Film film1 = new Film("Inception", "Inception", "Un voleur qui entre dans les rï¿½ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8);
+            Film film2 = new Film("The Dark Knight", "Le Chevalier Noir", "Lorsque la menace connue sous le nom du Joker sï¿½me le chaos parmi les habitants de Gotham, Batman doit accepter l'une des plus grandes ï¿½preuves psychologiques et physiques de sa capacitï¿½ ï¿½ lutter contre l'injustice.", 152, new DateTime(2008, 7, 18), 9);
             expectedFilms.Add(film1);
             expectedFilms.Add(film2);
             _mockFilmRepository.Setup(x => x.GetFilms()).ReturnsAsync(expectedFilms);
@@ -49,9 +49,9 @@ namespace CineQuebec.WindowsTests.FilmTests
         [TestMethod()]
         public async Task AddFilm_Success()
         {
-            Film addedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.",
+            Film addedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rï¿½ves des autres pour voler leurs secrets de leur subconscient.",
                                     148, new DateTime(2010, 7, 16), 8);
-            Film expectedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.",
+            Film expectedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rï¿½ves des autres pour voler leurs secrets de leur subconscient.",
                                     148, new DateTime(2010, 7, 16), 8);
             _mockFilmRepository.Setup(x => x.AddFilm(It.IsAny<Film>())).ReturnsAsync(addedFilm);
 
@@ -64,7 +64,7 @@ namespace CineQuebec.WindowsTests.FilmTests
         [ExpectedException(typeof(InvalidDataException))]
         public async Task AddFilm_Exception()
         {
-            Film expectedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.",
+            Film expectedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rï¿½ves des autres pour voler leurs secrets de leur subconscient.",
                                     148, new DateTime(2010, 7, 16), 8);
             _mockFilmRepository.Setup(x => x.AddFilm(It.IsAny<Film>())).ThrowsAsync(new Exception("Erreur lors de l'ajout"));
 
@@ -76,9 +76,9 @@ namespace CineQuebec.WindowsTests.FilmTests
         [TestMethod()]
         public async Task UpdateFilm_Success()
         {
-            Film updatedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.",
+            Film updatedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rï¿½ves des autres pour voler leurs secrets de leur subconscient.",
                                     148, new DateTime(2010, 7, 16), 8);
-            Film expectedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.",
+            Film expectedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rï¿½ves des autres pour voler leurs secrets de leur subconscient.",
                                     148, new DateTime(2010, 7, 16), 8);
             _mockFilmRepository.Setup(x => x.UpdateFilm(It.IsAny<Film>())).ReturnsAsync(updatedFilm);
 
@@ -91,7 +91,7 @@ namespace CineQuebec.WindowsTests.FilmTests
         [ExpectedException(typeof(InvalidDataException))]
         public async Task UpdateFilm_Exception()
         {
-            Film expectedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.",
+            Film expectedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rï¿½ves des autres pour voler leurs secrets de leur subconscient.",
                                     148, new DateTime(2010, 7, 16), 8);
             _mockFilmRepository.Setup(x => x.AddFilm(It.IsAny<Film>())).ThrowsAsync(new Exception("Erreur lors de l'update"));
 
@@ -103,7 +103,7 @@ namespace CineQuebec.WindowsTests.FilmTests
         [TestMethod()]
         public async Task GetProjections_Success()
         {
-            Film expectedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.",
+            Film expectedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rï¿½ves des autres pour voler leurs secrets de leur subconscient.",
                                     148, new DateTime(2010, 7, 16), 8);
             Salle salle = new Salle(1, 100);
             List<Projection> expectedProjections = new List<Projection>();
@@ -119,7 +119,7 @@ namespace CineQuebec.WindowsTests.FilmTests
         [ExpectedException(typeof(InvalidDataException))]
         public async Task GetProjections_Exception()
         {
-            Film expectedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.",
+            Film expectedFilm = new Film("Inception", "Inception", "Un voleur qui entre dans les rï¿½ves des autres pour voler leurs secrets de leur subconscient.",
                                     148, new DateTime(2010, 7, 16), 8);
             _mockFilmRepository.Setup(x => x.GetProjectionsForFilm(It.IsAny<Film>())).ThrowsAsync(new Exception("Erreur lors de la recuperation des projections"));
 

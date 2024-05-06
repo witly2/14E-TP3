@@ -48,18 +48,6 @@ namespace CineQuebec.Windows.BLL.Services
             }
         }
 
-        public async Task<bool> UpdateProjection(Projection projection)
-        {
-            try
-            {
-                return await _projectionRepository.UpdateProjection(projection);
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidDataException($"Une erreur s'est produite lors de la modification de la projection : " + ex.Message);
-            }
-        }
-
         public async Task<List<Salle>> GetSalles()
         {
             try
@@ -72,23 +60,27 @@ namespace CineQuebec.Windows.BLL.Services
             }
         }
 
-        public async Task<bool> estSalleDisponibleThisDay(Salle salle, DateTime day)
+        public async Task<bool> UpdateProjection(Projection projection)
         {
             try
             {
-                List<Projection> projections = await _projectionRepository.GetProjectionsForSalle(salle, day);
-                if(projections.Count == 0)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+                return await _projectionRepository.UpdateProjection(projection);
             }
             catch (Exception ex)
             {
-                throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des projections pour cette salle : " + ex.Message);
+                throw new InvalidDataException($"Une erreur s'est produite lors de la modification de la projection : " + ex.Message);
+            }
+        }
+
+        public async Task<List<Salle>> GetSallesDisponibles(Film film, DateTime debutProjectionSouhaite)
+        {
+            try
+            {
+                return await _projectionRepository.GetSallesDisponibleForProjection(film, debutProjectionSouhaite);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des salles : " + ex.Message);
             }
         }
     }
