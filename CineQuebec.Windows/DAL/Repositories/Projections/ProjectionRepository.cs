@@ -120,7 +120,6 @@ namespace CineQuebec.Windows.DAL.Repositories.Projections
 
                 var sallesDisponibles = toutesSallesExistantes.Except(sallesOccupees).ToList();
 
-
                 return sallesDisponibles;
             }
             catch (Exception ex)
