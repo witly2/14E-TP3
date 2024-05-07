@@ -10,9 +10,15 @@ namespace CineQuebec.Windows.DAL.Data
 {
     public class Realisateur
     {
+
         [BsonId]
         public ObjectId Id { get; private set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
+        public Realisateur(string pNom, string pPrenom)
+        {
+            Nom = pNom;
+            Prenom = pPrenom;
+        }
     }
 }
