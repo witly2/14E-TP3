@@ -1,4 +1,5 @@
 ﻿using CineQuebec.Windows.DAL.Data;
+using CineQuebec.Windows.DAL.Exceptions;
 using CineQuebec.Windows.DAL.Repositories.Preferences;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,18 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
 
         public void AddPreferenceRealisateur(Preference preference, Realisateur realisateur)
         {
-            throw new NotImplementedException();
+            if(preference.ListPreferenceRealisateur.Count >= 5)
+            {
+                throw new MaximumPreferenceException("La limite de 5 réalisateurs préférés est atteinte.");
+            }
+
+            if(_preferenceRepository.IsRealisateurAlreadyInList(preference, realisateur))
+            {
+                throw new PreferenceAlreadyExistsException("Le réalisateur est déjà dans la liste de préférence.");
+            }
+
+            preference.ListPreferenceRealisateur.Add(realisateur);
+            _preferenceRepository.UpdatePreference(preference);
         }
     }
 }
