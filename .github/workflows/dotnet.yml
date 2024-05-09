@@ -1,0 +1,50 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: .NET
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    steps:
+    - name: Clône du dépôt GIT
+      uses: actions/checkout@v4
+      with:
+        submodules: recursive
+    - name: Configuration .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+    - name: Installation des dépendances
+      run: dotnet restore
+    - name: Compilation
+      run: dotnet build --no-restore
+    - name: validation des tests unitaires
+      run: dotnet test --no-build --verbosity normal
+      continue-on-error: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Créer un problème GitHub en cas d''échec des tests
+      if: ${{ failure() }}
+      uses: actions/github-script@v4
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          const { context, GitHub } = require('@actions/github');
+          const github = new GitHub(process.env.GITHUB_TOKEN);
+          const { owner, repo } = context.repo;
+          const title = "Échec des tests de validation";
+          const body = "Les tests de validation ont échoué. Veuillez vérifier et résoudre le problème.";
+          github.issues.create({
+            owner: owner,
+            repo: repo,
+            title: title,
+            body: body
+          });
+     
