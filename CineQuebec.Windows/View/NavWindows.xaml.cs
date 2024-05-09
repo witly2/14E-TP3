@@ -7,6 +7,8 @@ using System.Windows.Controls;
 using CineQuebec.Windows.DAL.Repositories.Abonnes;
 using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Projections;
+using CineQuebec.Windows.BLL.Services.Connexion;
+using CineQuebec.Windows.DAL.Repositories.Persons;
 
 
 namespace CineQuebec.Windows.View
@@ -17,16 +19,18 @@ namespace CineQuebec.Windows.View
         private readonly AbonneService _abonneService;
         private readonly AdminHomeControl _adminHomeControl;
         private readonly ProjectionService _projectionService;
-        public NavWindows(Abonne abonne)
+        private readonly ConnexionService _connexionService;
+        public NavWindows(Admin admin)
         {
             DatabaseGestion db = new DatabaseGestion();
             _filmService = new FilmService(new FilmRepository(db));
             _abonneService = new AbonneService(new AbonneRepsitory(db));
             _projectionService = new ProjectionService(new ProjectionRepository(db));
-            _adminHomeControl = new AdminHomeControl(abonne);
+            _adminHomeControl = new AdminHomeControl(admin);
+            _connexionService = new ConnexionService(new PersonRepository(db));
 
             InitializeComponent();
-            AdminName.Text = abonne.Username;
+            AdminName.Text = admin.Username;
             mainContentControl.Content = _adminHomeControl;
 
         }

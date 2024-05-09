@@ -30,21 +30,4 @@ jobs:
       continue-on-error: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Créer un problème GitHub en cas d''échec des tests
-      if: ${{ failure() }}
-      uses: actions/github-script@v4
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          const { context, GitHub } = require('@actions/github');
-          const github = new GitHub(process.env.GITHUB_TOKEN);
-          const { owner, repo } = context.repo;
-          const title = "Échec des tests de validation";
-          const body = "Les tests de validation ont échoué. Veuillez vérifier et résoudre le problème.";
-          github.issues.create({
-            owner: owner,
-            repo: repo,
-            title: title,
-            body: body
-          });
-     
+

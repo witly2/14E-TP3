@@ -22,6 +22,9 @@ namespace CineQuebec.Windows.DAL.Data
         public ushort Duration { get; set; }
         public DateTime InternationalReleaseDate { get; set; }
         public ushort? Rating { get; set; }
+        public List<Realisateur> ListRealisateur { get; private set; } = new List<Realisateur>();
+        public List<Acteur> ListActeur { get; private set; } = new List<Acteur>();
+        public List<Categorie> ListCategorie { get; private set; } = new List<Categorie>();
 
         public Film(string pOriginalTitle, string pFrenchTitle, string pDescription, ushort pDuration, DateTime pInternationalReleaseDate, ushort pRating)
         {
@@ -32,5 +35,21 @@ namespace CineQuebec.Windows.DAL.Data
             InternationalReleaseDate = pInternationalReleaseDate;
             Rating = pRating;
         }
+
+        public void SetListRealisateur(List<Realisateur> realisateurs)
+        {
+            ListRealisateur = realisateurs;
+        }
+
+        public void SetListActeur(List<Acteur> acteurs)
+        {
+            ListActeur = acteurs;
+        }
+
+        public void SetListCategorie(List<Categorie> categories)
+        {
+            ListCategorie = categories;
+        }
+
     }
 }

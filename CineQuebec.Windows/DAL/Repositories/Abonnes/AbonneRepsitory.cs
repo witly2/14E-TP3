@@ -17,12 +17,14 @@ namespace CineQuebec.Windows.DAL.Repositories.Abonnes
 
         private readonly DatabaseGestion _databaseGestion;
         private readonly IMongoCollection<Abonne> _abonneCollection;
+        private readonly IMongoCollection<Person> _personsCollection;
 
 
         public AbonneRepsitory(DatabaseGestion databaseGestion)
         {
             _databaseGestion = databaseGestion;
             _abonneCollection = _databaseGestion.GetAbonneCollection();
+            _personsCollection = _databaseGestion.GetPersonsCollection().Result;
         }
 
         public async Task AddAbonne(Abonne abonne)
@@ -31,7 +33,18 @@ namespace CineQuebec.Windows.DAL.Repositories.Abonnes
             {
                throw new EmailExisteExeption("Un abonnée existe dejà avec ce courriel");
             }
-           await _abonneCollection.InsertOneAsync(abonne);
+            Person person = new Person
+            {
+                Nom = abonne.Nom,
+                Prenom = abonne.Prenom,
+                Email = abonne.Email,
+                Password = abonne.Password,
+                Salt = abonne.Salt
+            };
+            
+            abonne.SetId(person.Id);
+            await _personsCollection.InsertOneAsync(person);
+            await _abonneCollection.InsertOneAsync(abonne);
 
 
         }
