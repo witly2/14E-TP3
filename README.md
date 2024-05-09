@@ -1,8 +1,8 @@
 # TP02 : Ciné Québec
 Mirella LEPASTEUR <br>
 Wily ROUSSEL TATOW DOUNGMO<br>
-:rocket: 
-Au demarrage se créer un compte administrateur
+:rocket: Compte Administrateur : admin@mail.com - Admin123!
+Au demarrage se créer un compte abonné.
 <br>
 <br>
 ## État des tests <br>
