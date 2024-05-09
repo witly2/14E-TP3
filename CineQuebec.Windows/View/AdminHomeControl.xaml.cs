@@ -26,10 +26,10 @@ namespace CineQuebec.Windows.View
     public partial class AdminHomeControl : UserControl
     {
         private readonly FilmService _filmService;
-        public AdminHomeControl(Abonne abonne)
+        public AdminHomeControl(Admin admin)
         {
             DatabaseGestion db = new DatabaseGestion();
-            this.DataContext = abonne;
+            this.DataContext = admin;
            
             InitializeComponent();
         }

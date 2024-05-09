@@ -203,6 +203,7 @@ namespace CineQuebec.Windows.DAL
                 {
                     Nom = "Admin",
                     Email = "admin@mail.com",
+                    Username = "Admin",
                     Password = hashedPassword
                 };
                 await _personsCollection.InsertOneAsync(adminPerson);

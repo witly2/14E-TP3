@@ -1,7 +1,9 @@
 ﻿using CineQuebec.Windows.BLL.Services;
+using CineQuebec.Windows.BLL.Services.Connexion;
 using CineQuebec.Windows.DAL;
 using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Abonnes;
+using CineQuebec.Windows.DAL.Repositories.Persons;
 using CineQuebec.Windows.Utilities;
 using System;
 using System.Collections.Generic;
@@ -30,12 +32,14 @@ namespace CineQuebec.Windows.View
         private string erreurMessage ;
         private Abonne newAbonne;
         private readonly AbonneService _abonneService;
-        public ConnexionControl()
+        private readonly IConnexionService _connexionService;
+        public ConnexionControl(IConnexionService connexionService)
         {
             InitializeComponent();
             newAbonne = new Abonne();
             DatabaseGestion db = new DatabaseGestion();
             _abonneService = new AbonneService(new AbonneRepsitory(db));
+            _connexionService = connexionService;
             this.DataContext = newAbonne;
         }
 
@@ -43,6 +47,7 @@ namespace CineQuebec.Windows.View
         {
             if (ValidateForm())
             {
+                /*
                 var existeAbonne = await _abonneService.GetAbonneByEmail(newAbonne.Email) as Abonne;
 
                 if (existeAbonne != null && Utils.EstMotDePasseCorrespond(txtMdP.Password.Trim(), existeAbonne.Salt,
@@ -57,7 +62,26 @@ namespace CineQuebec.Windows.View
                 else
                 {
                     MessageBox.Show("Email ou mot de passe est incorrect");
-                }    
+                }  */
+                var personne = await _connexionService.GetPersonByEmail(newAbonne.Email);
+                if (personne != null)
+                {
+                    if(personne is Abonne abonne)
+                    {
+                        // TODO : Envoyer à page accueil Abonne
+                    } 
+                    else if (personne is Admin admin)
+                    {
+                        NavWindows navWindows = new NavWindows(admin);
+
+                        navWindows.Show();
+                        ((MainWindow)Application.Current.MainWindow).Close();
+                    }
+                    else if (personne is Employe employe)
+                    {
+                        // TODO : Envoyer à page accueil Employe
+                    }
+                }
             }
             else
             {

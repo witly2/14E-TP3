@@ -17,16 +17,16 @@ namespace CineQuebec.Windows.View
         private readonly AbonneService _abonneService;
         private readonly AdminHomeControl _adminHomeControl;
         private readonly ProjectionService _projectionService;
-        public NavWindows(Abonne abonne)
+        public NavWindows(Admin admin)
         {
             DatabaseGestion db = new DatabaseGestion();
             _filmService = new FilmService(new FilmRepository(db));
             _abonneService = new AbonneService(new AbonneRepsitory(db));
             _projectionService = new ProjectionService(new ProjectionRepository(db));
-            _adminHomeControl = new AdminHomeControl(abonne);
+            _adminHomeControl = new AdminHomeControl(admin);
 
             InitializeComponent();
-            AdminName.Text = abonne.Username;
+            AdminName.Text = admin.Username;
             mainContentControl.Content = _adminHomeControl;
 
         }

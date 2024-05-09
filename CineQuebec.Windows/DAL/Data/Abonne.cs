@@ -10,7 +10,6 @@ namespace CineQuebec.Windows.DAL.Data
 {
     public class Abonne: Person
     {
-        public string Username { get; set; }
         public DateTime DateAdhesion { get; set; }
 
         public Abonne()
