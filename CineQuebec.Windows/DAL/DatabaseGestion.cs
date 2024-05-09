@@ -114,6 +114,20 @@ namespace CineQuebec.Windows.DAL
             }
         }
 
+        public async Task<IMongoCollection<Preference>> GetPreferencesCollection()
+        {
+            try
+            {
+                var preferencesCollection = database.GetCollection<Preference>("Preferences");
+                return preferencesCollection;
+
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
+            }
+        }
+
         public async Task SeedDevelopmentData()
         {
             Seed seedData = new Seed(database);

@@ -12,15 +12,25 @@ namespace CineQuebec.Windows.DAL.Data
     {
         [BsonId]
         public ObjectId Id { get; private set; }
-        public ObjectId AbonneId { get; private set; }
-        public List<Realisateur> ListPreferenceRealisateur {  get; private set; } // max 5
-        public List<Acteur> ListPreferenceActeur { get; private set; } // max 5
-        public List<Categorie> ListPreferenceCategorie { get; private set; } // max 3
+        public Abonne Abonne { get; private set; }
+        public List<Realisateur> ListPreferenceRealisateur {  get; private set; }
+        public List<Acteur> ListPreferenceActeur { get; private set; }
+        public List<Categorie> ListPreferenceCategorie { get; private set; }
 
-        public void SetListPreferenceRealisateur(List<Realisateur> newList)
+
+        public void SetListPreferenceRealisateur(List<Realisateur> newListRealisateur)
         {
-            ListPreferenceRealisateur = newList;
+            ListPreferenceRealisateur = newListRealisateur;
         }
 
+        public void SetListPreferenceActeur(List<Acteur> newListActeur)
+        {
+            ListPreferenceActeur = newListActeur;
+        }
+
+        public void SetListPreferenceCategorie(List<Categorie> newListCategorie)
+        {
+            ListPreferenceCategorie = newListCategorie;
+        }
     }
 }
