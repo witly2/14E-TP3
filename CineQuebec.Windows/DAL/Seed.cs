@@ -147,10 +147,10 @@ namespace CineQuebec.Windows.DAL
             {
                 var realisateurs = new List<Realisateur>
                 {
-                    new Realisateur { Nom = "Nolan", Prenom = "Christopher" },
-                    new Realisateur { Nom = "Chazelle", Prenom = "Damien" },
-                    new Realisateur { Nom = "Villeneuse", Prenom = "Denis" },
-                    new Realisateur { Nom = "Tarantino", Prenom = "Quentin" },
+                    new Realisateur("Nolan", "Christopher"),
+                    new Realisateur ("Chazelle", "Damien"),
+                    new Realisateur ("Villeneuse", "Denis"),
+                    new Realisateur ("Tarantino", "Quentin"),
                 };
                 _realisateursCollection.InsertMany(realisateurs);
                 Console.WriteLine("Données de réalisateur insérées avec succès.");
