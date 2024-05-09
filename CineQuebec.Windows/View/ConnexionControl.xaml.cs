@@ -47,22 +47,6 @@ namespace CineQuebec.Windows.View
         {
             if (ValidateForm())
             {
-                /*
-                var existeAbonne = await _abonneService.GetAbonneByEmail(newAbonne.Email) as Abonne;
-
-                if (existeAbonne != null && Utils.EstMotDePasseCorrespond(txtMdP.Password.Trim(), existeAbonne.Salt,
-                       existeAbonne.Password))
-                {
-                    NavWindows navWindows = new NavWindows(existeAbonne);
-
-                    navWindows.Show();
-                    ((MainWindow)Application.Current.MainWindow).Close();
-                   
-                }
-                else
-                {
-                    MessageBox.Show("Email ou mot de passe est incorrect");
-                }  */
                 var personne = await _connexionService.GetPersonByEmail(newAbonne.Email);
                 if (personne != null)
                 {
