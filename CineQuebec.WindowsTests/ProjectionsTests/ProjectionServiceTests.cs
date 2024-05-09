@@ -2,18 +2,14 @@ using CineQuebec.Windows.BLL.Services;
 using CineQuebec.Windows.DAL;
 using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Projections;
-using MongoDB.Bson;
-using MongoDB.Driver;
 using Moq;
-using System.Windows;
-using System.Windows.Documents;
 
-namespace CineQuebec.WindowsTests.FilmTests
+namespace CineQuebec.WindowsTests.FilmTests;
+
+[TestClass]
+public class ProjectionServiceTests
 {
-    [TestClass()]
-    public class ProjectionServiceTests
-    {
-        private ProjectionService _projectionService;
+      private ProjectionService _projectionService;
         private Mock<IProjectionRepository> _mockProjectionRepository;
         [TestInitialize]
         public void Init()
@@ -181,5 +177,5 @@ namespace CineQuebec.WindowsTests.FilmTests
             await _projectionService.GetSallesDisponibles(film, debutProjectionSouhaite);
         }
         #endregion
-    }
+    
 }

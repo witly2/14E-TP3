@@ -7,33 +7,34 @@ namespace CineQuebec.Windows.View;
 
 public partial class FilmControl : UserControl
 {
-    private int imgSlider=0;
-    private DispatcherTimer timer;
+    private int imgSlider;
+    private readonly DispatcherTimer timer;
+
     public FilmControl()
     {
         InitializeComponent();
-        AccueilViewModel filmViewModel = new AccueilViewModel();
-        this.DataContext = filmViewModel;
-        
+        var filmViewModel = new FilmViewModel();
+        DataContext = filmViewModel;
+
         timer = new DispatcherTimer();
-        timer.Interval = TimeSpan.FromSeconds(4); 
-        timer.Tick += Timer_Tick; 
-        timer.Start(); 
+        timer.Interval = TimeSpan.FromSeconds(4);
+        timer.Tick += Timer_Tick;
+        timer.Start();
     }
-    
+
     private void LoadNextImage()
     {
-        if (imgSlider==3)
-            imgSlider=0;
-        string imagePath = $"../../../Ressources/images/{imgSlider}.png";
+        if (imgSlider == 3)
+            imgSlider = 0;
+        var imagePath = $"../../../Ressources/images/{imgSlider}.png";
 
-        BitmapImage bitmapImage = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
+        var bitmapImage = new BitmapImage(new Uri(imagePath, UriKind.RelativeOrAbsolute));
 
         ImgBrushSlider.ImageSource = bitmapImage;
 
         imgSlider++;
     }
-    
+
     private void Timer_Tick(object sender, EventArgs e)
     {
         LoadNextImage();

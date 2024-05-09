@@ -1,12 +1,12 @@
-﻿using CineQuebec.Windows.DAL.Data;
+﻿using System.IO;
+using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Projections;
-using System.IO;
 
-namespace CineQuebec.Windows.BLL.Services
+namespace CineQuebec.Windows.BLL.Services;
+
+public class ProjectionService : IProjectionService
 {
-    public class ProjectionService : IProjectionService
-    {
-        private readonly IProjectionRepository _projectionRepository;
+    private readonly IProjectionRepository _projectionRepository;
         public ProjectionService(IProjectionRepository projectionRepository)
         {
             _projectionRepository = projectionRepository;
@@ -83,5 +83,4 @@ namespace CineQuebec.Windows.BLL.Services
                 throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des salles : " + ex.Message);
             }
         }
-    }
 }

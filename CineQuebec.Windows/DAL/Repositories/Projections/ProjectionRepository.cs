@@ -1,17 +1,11 @@
 ﻿using CineQuebec.Windows.DAL.Data;
-using MongoDB.Bson;
 using MongoDB.Driver;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace CineQuebec.Windows.DAL.Repositories.Projections
+namespace CineQuebec.Windows.DAL.Repositories.Projections;
+
+public class ProjectionRepository : IProjectionRepository
 {
-    public class ProjectionRepository : IProjectionRepository
-    {
-        private readonly DatabaseGestion _databaseGestion;
+   private readonly DatabaseGestion _databaseGestion;
         private readonly IMongoCollection<Projection> _projectionsCollection;
         private readonly IMongoCollection<Salle> _sallesCollection;
 
@@ -128,5 +122,4 @@ namespace CineQuebec.Windows.DAL.Repositories.Projections
                 return new List<Salle>();
             }
         }
-    }
 }

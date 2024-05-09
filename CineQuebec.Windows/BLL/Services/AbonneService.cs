@@ -1,32 +1,29 @@
 ﻿using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Abonnés;
 
-namespace CineQuebec.Windows.BLL.Services
+namespace CineQuebec.Windows.BLL.Services;
+
+public class AbonneService
 {
-    public class AbonneService
+    private readonly IAbonneRepsitory _abonneRepository;
+
+    public AbonneService(IAbonneRepsitory abonneRepsitory)
     {
+        _abonneRepository = abonneRepsitory;
+    }
 
-        private readonly IAbonneRepsitory _abonneRepository;
+    public List<Abonne> GetAbonnes()
+    {
+        return _abonneRepository.GetAbonnes();
+    }
 
-        public AbonneService(IAbonneRepsitory abonneRepsitory)
-        {
-                _abonneRepository = abonneRepsitory;
-        }
+    public async Task AddAbonne(Abonne abonne)
+    {
+        await _abonneRepository.AddAbonne(abonne);
+    }
 
-        public List<Abonne> GetAbonnes()
-        {
-            return _abonneRepository.GetAbonnes();
-        }
-
-        public async Task AddAbonne(Abonne abonne)
-        {
-           await _abonneRepository.AddAbonne(abonne);
-        }
-
-        public async Task<Abonne> GetAbonneByEmail(string email)
-        {
-            return await _abonneRepository.GetByEmail(email);
-        }
-
+    public async Task<Abonne> GetAbonneByEmail(string email)
+    {
+        return await _abonneRepository.GetByEmail(email);
     }
 }

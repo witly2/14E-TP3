@@ -39,7 +39,7 @@
                             <ContentPresenter />
 
                         </Grid>
-                        
+
                     </Border>
 
                     <ControlTemplate.Triggers>
@@ -65,7 +65,7 @@
                                                     Duration="0:0:0.3" />
                                 </Storyboard>
                             </BeginStoryboard>
-                            
+
                         </EventTrigger>
 
                         <EventTrigger RoutedEvent="Border.MouseLeave"
@@ -80,7 +80,7 @@
                                                     Duration="0:0:0.3" />
                                 </Storyboard>
                             </BeginStoryboard>
-                            
+
                         </EventTrigger>
 
                         <Trigger Property="IsChecked"
@@ -95,9 +95,9 @@
                                     Value="Visible" />
 
                         </Trigger>
-                        
+
                     </ControlTemplate.Triggers>
-                    
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

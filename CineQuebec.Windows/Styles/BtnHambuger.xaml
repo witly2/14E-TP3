@@ -4,12 +4,12 @@
 
     <Style x:Key="topButton" TargetType="Button">
 
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Foreground" Value="#6e7783"/>
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Setter Property="Width" Value="30"/>
-        <Setter Property="Height" Value="30"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="#6e7783" />
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
 
         <Setter Property="Template">
 
@@ -17,14 +17,14 @@
                 <ControlTemplate TargetType="Button">
 
                     <Border Background="{TemplateBinding Background}" CornerRadius="50">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#dcdcdc"/>
+                <Setter Property="Background" Value="#dcdcdc" />
             </Trigger>
         </Style.Triggers>
     </Style>

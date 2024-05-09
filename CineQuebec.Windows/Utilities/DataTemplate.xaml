@@ -1,7 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:vm="clr-namespace:CineQuebec.Windows.ViewModels"
-                    xmlns:view="clr-namespace:CineQuebec.Windows.View">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!--<DataTemplate DataType="{x:Type vm:UsersVm}">
         <view:UsersControl />
@@ -30,5 +28,5 @@
     <DataTemplate DataType="{x:Type vm:SettingVM}">
         <view:Settings />
     </DataTemplate>-->
-    
+
 </ResourceDictionary>
