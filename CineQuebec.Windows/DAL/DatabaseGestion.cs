@@ -1,4 +1,5 @@
 ﻿using CineQuebec.Windows.DAL.Data;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -80,6 +81,48 @@ namespace CineQuebec.Windows.DAL
             }
         }
 
+        public async Task<IMongoCollection<Person>> GetPersonsCollection()
+        {
+            try
+            {
+                var personsCollection = database.GetCollection<Person>("Persons");
+                return personsCollection;
+
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
+            }
+        }
+
+        public async Task<IMongoCollection<Employe>> GetEmployesCollection()
+        {
+            try
+            {
+                var employesCollection = database.GetCollection<Employe>("Employes");
+                return employesCollection;
+
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
+            }
+        }
+
+        public async Task<IMongoCollection<Admin>> GetAdminsCollection()
+        {
+            try
+            {
+                var adminsCollection = database.GetCollection<Admin>("Admins");
+                return adminsCollection;
+
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
+            }
+        }
+
         public IMongoCollection<Abonne> GetAbonneCollection()
         {
             return database.GetCollection<Abonne>("Abonnes");
@@ -138,7 +181,7 @@ namespace CineQuebec.Windows.DAL
             await seedData.SeedCategories();
             await seedData.SeedProjections();
             await seedData.SeedSalles();
+            await seedData.SeedAdmins();
         }
-
     }
 }

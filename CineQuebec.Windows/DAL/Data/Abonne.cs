@@ -8,16 +8,10 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace CineQuebec.Windows.DAL.Data
 {
-    public class Abonne
+    public class Abonne: Person
     {
-        [BsonId]
-        public ObjectId Id { get; private set; }
         public string Username { get; set; }
         public DateTime DateAdhesion { get; set; }
-        public string Email { get; set; }
-        public byte[] Password {  get; set; }
-        public byte[] Salt { get; set; }
-
 
         public Abonne()
         {

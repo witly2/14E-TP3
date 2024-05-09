@@ -1,5 +1,7 @@
 ﻿using CineQuebec.Windows.DAL.Data;
 using MongoDB.Driver;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace CineQuebec.Windows.DAL
 {
@@ -13,6 +15,8 @@ namespace CineQuebec.Windows.DAL
         private readonly IMongoCollection<Categorie> _categoriesCollection;
         private readonly IMongoCollection<Salle> _sallesCollection;
         private readonly IMongoCollection<Projection> _projectionsCollection;
+        private readonly IMongoCollection<Admin> _adminsCollection;
+        private readonly IMongoCollection<Person> _personsCollection;
 
         public Seed(IMongoDatabase database)
         {
@@ -23,6 +27,8 @@ namespace CineQuebec.Windows.DAL
             _categoriesCollection = database.GetCollection<Categorie>("Categories");
             _sallesCollection = database.GetCollection<Salle>("Salles");
             _projectionsCollection = database.GetCollection<Projection>("Projections");
+            _adminsCollection = database.GetCollection<Admin>("Admins");
+            _personsCollection = database.GetCollection<Person>("Persons");
         }
 
 
@@ -82,11 +88,11 @@ namespace CineQuebec.Windows.DAL
             {
                 var projections = new List<Projection>
                 {
-                    new Projection(new DateTime(2024, 3, 10, 20, 0, 0), 
-                                _sallesCollection.Find(s => s.NumeroSalle == 1).FirstOrDefault(), 
+                    new Projection(new DateTime(2024, 3, 10, 20, 0, 0),
+                                _sallesCollection.Find(s => s.NumeroSalle == 1).FirstOrDefault(),
                                 _filmsCollection.Find(f => f.OriginalTitle == "Inception").FirstOrDefault()),
-                    new Projection(new DateTime(2024, 5, 6, 19, 0, 0), 
-                                _sallesCollection.Find(s => s.NumeroSalle == 2).FirstOrDefault(), 
+                    new Projection(new DateTime(2024, 5, 6, 19, 0, 0),
+                                _sallesCollection.Find(s => s.NumeroSalle == 2).FirstOrDefault(),
                                 _filmsCollection.Find(f => f.OriginalTitle == "The Dark Knight").FirstOrDefault()),
                 };
 
@@ -97,7 +103,7 @@ namespace CineQuebec.Windows.DAL
 
         public async Task SeedSalles()
         {
-            if(!_sallesCollection.Indexes.List().Any())
+            if (!_sallesCollection.Indexes.List().Any())
             {
                 var salles = new List<Salle>
                 {
@@ -138,7 +144,7 @@ namespace CineQuebec.Windows.DAL
                 _acteursCollection.InsertMany(acteurs);
                 Console.WriteLine("Données d'acteur insérées avec succès.");
             }
-                
+
         }
 
         public async Task SeedRealisateurs()
@@ -173,6 +179,38 @@ namespace CineQuebec.Windows.DAL
                 };
                 _categoriesCollection.InsertMany(categories);
                 Console.WriteLine("Données de catégorie insérées avec succès.");
+            }
+        }
+
+        public class PasswordHasher
+        {
+            public static byte[] HashPassword(string password)
+            {
+                using (SHA256 sha256 = SHA256.Create())
+                {
+                    byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                    return hashedBytes;
+                }
+            }
+        }
+
+        public async Task SeedAdmins()
+        {
+            if (!_adminsCollection.Indexes.List().Any())
+            {
+                byte[] hashedPassword = PasswordHasher.HashPassword("Admin123!");
+                var adminPerson = new Person
+                {
+                    Nom = "Admin",
+                    Email = "admin@mail.com",
+                    Password = hashedPassword
+                };
+                await _personsCollection.InsertOneAsync(adminPerson);
+
+                var admin = new Admin();
+                admin.SetId(adminPerson.Id);
+                await _adminsCollection.InsertOneAsync(admin);
+                Console.WriteLine("Données d'administrateur insérées avec succès.");
             }
         }
     }
