@@ -209,6 +209,10 @@ namespace CineQuebec.Windows.DAL
                 await _personsCollection.InsertOneAsync(adminPerson);
 
                 var admin = new Admin();
+                admin.Nom = adminPerson.Nom;
+                admin.Email = adminPerson.Email;
+                admin.Username = adminPerson.Username;
+                admin.Password = hashedPassword;
                 admin.SetId(adminPerson.Id);
                 await _adminsCollection.InsertOneAsync(admin);
                 Console.WriteLine("Données d'administrateur insérées avec succès.");
