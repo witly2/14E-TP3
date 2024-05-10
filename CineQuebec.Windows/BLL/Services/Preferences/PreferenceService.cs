@@ -123,5 +123,42 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
                 throw new Exception("Une erreur est survenue lors de la suppression du réalisateur de la liste de préférence : ", ex);
             }
         }
+
+        public async Task<List<Acteur>> GetAllActeurs()
+        {
+
+            try
+            {
+                return await _preferenceRepository.GetAllActeurs();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des acteurs : " + ex.Message);
+            }
+        }
+
+        public async Task<List<Categorie>> GetAllCategories()
+        {
+            try
+            {
+                return await _preferenceRepository.GetAllCategories();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des catégories : " + ex.Message);
+            }
+        }
+
+        public async Task<List<Realisateur>> GetAllRealisateurs()
+        {
+            try
+            {
+                return await _preferenceRepository.GetAllRealisateurs();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des réalisateurs : " + ex.Message);
+            }
+        }
     }
 }

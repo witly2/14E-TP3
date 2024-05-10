@@ -16,6 +16,9 @@ namespace CineQuebec.Windows.DAL.Repositories.Preferences
     {
         private readonly DatabaseGestion _databaseGestion;
         private readonly IMongoCollection<Preference> _preferencesCollection;
+        private readonly IMongoCollection<Realisateur> _realisateursCollection;
+        private readonly IMongoCollection<Acteur> _acteursCollection;
+        private readonly IMongoCollection<Categorie> _categoriesCollection;
 
         public PreferenceRepository(DatabaseGestion databaseGestion)
         {
@@ -89,6 +92,42 @@ namespace CineQuebec.Windows.DAL.Repositories.Preferences
             catch (Exception ex)
             {
                 throw new Exception("Une erreur est survenue lors de la récupération des préférences de l'abonné : ", ex);
+            }
+        }
+
+        public async Task<List<Realisateur>> GetAllRealisateurs()
+        {
+            try
+            {
+                return await _realisateursCollection.Aggregate().ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection de réalisateurs : " + ex.Message);
+            }
+        }
+
+        public async Task<List<Acteur>> GetAllActeurs()
+        {
+            try
+            {
+                return await _acteursCollection.Aggregate().ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection d'acteurs : " + ex.Message);
+            }
+        }
+
+        public async Task<List<Categorie>> GetAllCategories()
+        {
+            try
+            {
+                return await _categoriesCollection.Aggregate().ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection des catégories : " + ex.Message);
             }
         }
     }
