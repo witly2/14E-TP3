@@ -12,26 +12,20 @@ namespace CineQuebec.Windows.DAL.Data
     {
         [BsonId]
         public ObjectId Id { get; private set; }
-        public Abonne Abonne { get; private set; }
+        public List<Abonne> Abonne { get; private set; }
         public TypeRecompense Type { get; private set; }
-        public Projection? Projection { get; private set; }
-        public DateTime? DateExpiration { get; private set; }
+        public Projection Projection { get; private set; }
+        public int NombrePlace {  get; private set; }
 
-        public Recompense(Abonne abonne, TypeRecompense type, Projection projection)
+        public Recompense(List<Abonne> abonne, TypeRecompense type, Projection projection, int nombrePlace)
         {
             Abonne = abonne;
             Type = type;
             Projection = projection;
+            NombrePlace = nombrePlace;
         }
 
-        public Recompense(Abonne abonne, TypeRecompense type, DateTime dateExpiration)
-        {
-            Abonne = abonne;
-            Type = type;
-            DateExpiration = dateExpiration;
-        }
-
-        public void SetAbonne(Abonne abonne)
+        public void SetAbonne(List<Abonne> abonne)
         {
             Abonne = abonne;
         }
@@ -44,10 +38,6 @@ namespace CineQuebec.Windows.DAL.Data
         public void SetProjection(Projection projection)
         {
             Projection = projection;
-        }
-        public void SetDateExpiration(DateTime dateExpiration)
-        {
-            DateExpiration = dateExpiration;
         }
     }
 }
