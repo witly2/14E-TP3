@@ -140,6 +140,7 @@ namespace CineQuebec.Windows.ViewModels.AbonneViewModel
             {
                 var preferences = _preferenceService.GetPreferenceAbonne(_abonne);
                 _preferenceService.AddPreferenceRealisateur(preferences, RealisateurSelectionne);
+                Realisateurs = new ObservableCollection<Realisateur>(preferences.ListPreferenceRealisateur);
                 RealisateursPreferencesVisibility = Visibility.Hidden;
             }
             else
