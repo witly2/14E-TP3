@@ -15,22 +15,6 @@ namespace CineQuebec.Windows.View.AbonneView
             _viewModel = new PreferenceViewModel(abonne, preferenceService);
             DataContext = _viewModel;
         }
-        /*
-        private void ViewModel_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == nameof(PreferenceViewModel.Realisateurs))
-            {
-                txtPreferencesRealisateurs.Text = string.Join(", ", _viewModel.Realisateurs);
-            }
-            else if (e.PropertyName == nameof(PreferenceViewModel.Acteurs))
-            {
-                txtPreferencesActeurs.Text = string.Join(", ", _viewModel.Acteurs);
-            }
-            else if (e.PropertyName == nameof(PreferenceViewModel.Categories))
-            {
-                txtPreferencesCategories.Text = string.Join(", ", _viewModel.Categories);
-            }
-        }*/
 
         private void ModifierPreferencesRealisateurs_Click(object sender, RoutedEventArgs e)
         {
@@ -50,6 +34,31 @@ namespace CineQuebec.Windows.View.AbonneView
         private void AjouterPreferencesRealisateurs_Click(object sender, RoutedEventArgs e)
         {
             _viewModel.AjouterPreferencesRealisateurs();
+        }
+
+        private void AjouterPreferencesActeurs_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.AjouterPreferencesActeurs();
+        }
+
+        private void AjouterPreferencesCategories_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.AjouterPreferencesCategories();
+        }
+
+        private void EnleverPreferencesRealisateurs_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.EnleverPreferencesRealisateurs();
+        }
+
+        private void EnleverPreferencesActeurs_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.EnleverPreferencesActeurs();
+        }
+
+        private void EnleverPreferencesCategories_Click(object sender, RoutedEventArgs e)
+        {
+            _viewModel.EnleverPreferencesCategories();
         }
     }
 }

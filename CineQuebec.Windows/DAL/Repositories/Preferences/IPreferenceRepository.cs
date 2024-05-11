@@ -15,8 +15,8 @@ namespace CineQuebec.Windows.DAL.Repositories.Preferences
         bool IsAlreadyInList<T>(Preference preference, T elementAVerifier, Expression<Func<Preference, IEnumerable<T>>> getListExpression);
         void UpdatePreference(Preference preference);
         Task<List<Realisateur>> GetAllRealisateurs(Preference preference);
-        Task<List<Acteur>> GetAllActeurs();
-        Task<List<Categorie>> GetAllCategories();
+        Task<List<Acteur>> GetAllActeurs(Preference preference);
+        Task<List<Categorie>> GetAllCategories(Preference preference);
 
     }
 }

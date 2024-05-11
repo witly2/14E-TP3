@@ -65,7 +65,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0, 20" Visibility="{Binding RealisateursPreferencesVisibility}">
-            <ComboBox x:Name="cmbPreferencesRealisateurs" Grid.Column="1" Width="200" ItemsSource="{Binding Realisateurs}">
+            <ComboBox x:Name="cmbPreferencesRealisateurs" Grid.Column="1" Width="200" ItemsSource="{Binding Realisateurs}" SelectedItem="{Binding RealisateurAEnleverSelectionne, Mode=TwoWay}" >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock>
@@ -79,7 +79,7 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button Content="Enlever" Margin="10" />
+            <Button Content="Enlever" Margin="10" Click="EnleverPreferencesRealisateurs_Click" />
             <ComboBox x:Name="cmbRealisateursEnDB" Grid.Column="2" Width="200" ItemsSource="{Binding RealisateursBDList}" SelectedItem="{Binding RealisateurSelectionne, Mode=TwoWay}" >
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
@@ -94,34 +94,90 @@
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            
             <Button x:Name="AjoutRealisateurPreference"  Content="Ajouter" Margin="10" Click="AjouterPreferencesRealisateurs_Click" />
         </StackPanel>
 
         <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="0, 20">
             <Label Width="120" Content="Acteurs" FontFamily="Segoe UI" FontWeight="Black" />
-            <TextBox x:Name="txtPreferencesActeurs" Width="200" Style="{StaticResource CustomErrorControlOnErrorStyle}" TextWrapping="Wrap" />
+            <ListBox x:Name="lstPreferencesActeurs" Grid.Column="0" Width="200" ItemsSource="{ Binding Acteurs}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="Nom" />
+                                    <Binding Path="Prenom" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             <Button Content="Modifier" Click="ModifierPreferencesActeurs_Click" Margin="10"/>
         </StackPanel>
 
         <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" Margin="0, 20" Visibility="{Binding ActeursPreferencesVisibility}">
-            <ListBox x:Name="lstPreferencesActeursChoisies" Grid.Column="0" Width="200" SelectionMode="Multiple"/>
-            <Button Content="Enlever" Margin="10" />
-            <ListBox x:Name="lstActeursEnDB" Grid.Column="2" Width="200"/>
-            <Button Content="Ajouter" Margin="10" />
+            <ComboBox x:Name="cmbPreferencesActeurs" Grid.Column="1" Width="200" ItemsSource="{Binding Acteurs}" SelectedItem="{Binding ActeurAEnleverSelectionne, Mode=TwoWay}" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="Nom" />
+                                    <Binding Path="Prenom" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Content="Enlever" Margin="10" Click="EnleverPreferencesActeurs_Click" />
+            <ComboBox x:Name="cmbActeursEnDB" Grid.Column="2" Width="200" ItemsSource="{Binding ActeursBDList}" SelectedItem="{Binding ActeurSelectionne, Mode=TwoWay}" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="Nom" />
+                                    <Binding Path="Prenom" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button x:Name="AjoutActeurPreference"  Content="Ajouter" Margin="10" Click="AjouterPreferencesActeurs_Click" />
         </StackPanel>
 
         <StackPanel Grid.Row="6" Grid.Column="1" Orientation="Horizontal" Margin="0, 20">
             <Label Width="120" Content="Catégories" FontFamily="Segoe UI" FontWeight="Black" />
-            <TextBox x:Name="txtPreferencesCategories" Width="200" Style="{StaticResource CustomErrorControlOnErrorStyle}" TextWrapping="Wrap" />
+            <ListBox x:Name="lstPreferencesCategories" Grid.Column="0" Width="200" ItemsSource="{ Binding Categories}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Nom}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
             <Button Content="Modifier" Click="ModifierPreferencesCategories_Click" Margin="10"/>
         </StackPanel>
 
         <StackPanel Grid.Row="7" Grid.Column="1" Orientation="Horizontal" Margin="0, 20" Visibility="{Binding CategoriesPreferencesVisibility}">
-            <ListBox x:Name="lstPreferencesCategoriesChoisies" Grid.Column="0" Width="200" SelectionMode="Multiple"/>
-            <Button Content="Enlever" Margin="10" />
-            <ListBox x:Name="lstCategoriesEnDB" Grid.Column="2" Width="200"/>
-            <Button Content="Ajouter" Margin="10" />
+            <ComboBox x:Name="cmbPreferencesCategories" Grid.Column="1" Width="200" ItemsSource="{Binding Categories}" SelectedItem="{Binding CategorieAEnleverSelectionne, Mode=TwoWay}" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Categories.Nom}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Content="Enlever" Margin="10" Click="EnleverPreferencesCategories_Click" />
+            <ComboBox x:Name="cmbCategoriesEnDB" Grid.Column="2" Width="200" ItemsSource="{Binding CategoriesBDList}" SelectedItem="{Binding CategorieSelectionne, Mode=TwoWay}" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Nom}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button x:Name="AjoutCategoriePreference"  Content="Ajouter" Margin="10" Click="AjouterPreferencesCategories_Click" />
         </StackPanel>
 
     </Grid>

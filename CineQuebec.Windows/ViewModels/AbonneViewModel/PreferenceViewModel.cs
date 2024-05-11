@@ -16,13 +16,19 @@ namespace CineQuebec.Windows.ViewModels.AbonneViewModel
     public class PreferenceViewModel : NotifyPropertyChangeBase
     {
         private readonly Abonne _abonne;
-        //private readonly Preference? _preferences;
         private readonly IPreferenceService _preferenceService;
         private ObservableCollection<Realisateur> _realisateurs;
         private ObservableCollection<Acteur> _acteurs;
         private ObservableCollection<Categorie> _categories;
         private List<Realisateur> _realisateursBDList;
+        private List<Acteur> _acteursBDList;
+        private List<Categorie> _categoriesBDList;
         private Realisateur _realisateurSelectionne;
+        private Realisateur _realisateurAEnleverSelectionne;
+        private Acteur _acteurSelectionne;
+        private Acteur _acteurAEnleverSelectionne;
+        private Categorie _categorieSelectionne;
+        private Categorie _categorieAEnleverSelectionne;
 
         public Realisateur RealisateurSelectionne
         {
@@ -33,10 +39,67 @@ namespace CineQuebec.Windows.ViewModels.AbonneViewModel
             }
         }
 
+        public Realisateur RealisateurAEnleverSelectionne
+        {
+            get { return _realisateurAEnleverSelectionne; }
+            set
+            {
+                _realisateurAEnleverSelectionne = value; OnPropertyChanged();
+            }
+        }
+
         public List<Realisateur> RealisateursBDList
         {
             get { return _realisateursBDList; }
             set { _realisateursBDList = value; OnPropertyChanged(); }
+        }
+
+        public Acteur ActeurSelectionne
+        {
+            get { return _acteurSelectionne; }
+            set
+            {
+                _acteurSelectionne = value; OnPropertyChanged();
+            }
+        }
+
+        public Acteur ActeurAEnleverSelectionne
+        {
+            get { return _acteurAEnleverSelectionne; }
+            set
+            {
+                _acteurAEnleverSelectionne = value; OnPropertyChanged();
+            }
+        }
+
+        public List<Acteur> ActeursBDList
+        {
+            get { return _acteursBDList; }
+            set { _acteursBDList = value; OnPropertyChanged(); }
+        }
+
+        public Categorie CategorieSelectionne
+        {
+            get { return _categorieSelectionne; }
+            set
+            {
+                _categorieSelectionne = value; OnPropertyChanged();
+            }
+        }
+
+        public Categorie CategorieAEnleverSelectionne
+        {
+            get { return _categorieAEnleverSelectionne; }
+            set
+            {
+                _categorieAEnleverSelectionne = value; OnPropertyChanged();
+            }
+        }
+
+        public List<Categorie> CategoriesBDList
+        {
+            get { return _categoriesBDList; }
+            set { _categoriesBDList = value; OnPropertyChanged(); }
         }
 
         public ObservableCollection<Realisateur> Realisateurs
@@ -124,13 +187,17 @@ namespace CineQuebec.Windows.ViewModels.AbonneViewModel
             RealisateursPreferencesVisibility = Visibility.Visible;
         }
 
-        public void ModifierPreferencesActeurs() 
+        public async void ModifierPreferencesActeurs() 
         {
+            var preferences = _preferenceService.GetPreferenceAbonne(_abonne);
+            ActeursBDList = await _preferenceService.GetAllActeurs(preferences);
             ActeursPreferencesVisibility = Visibility.Visible;
         }
 
-        public void ModifierPreferencesCategories() 
+        public async void ModifierPreferencesCategories() 
         {
+            var preferences = _preferenceService.GetPreferenceAbonne(_abonne);
+            CategoriesBDList = await _preferenceService.GetAllCategories(preferences);
             CategoriesPreferencesVisibility = Visibility.Visible;
         }
 
@@ -139,14 +206,90 @@ namespace CineQuebec.Windows.ViewModels.AbonneViewModel
             if(RealisateurSelectionne != null)
             {
                 var preferences = _preferenceService.GetPreferenceAbonne(_abonne);
-                _preferenceService.AddPreferenceRealisateur(preferences, RealisateurSelectionne);
-                Realisateurs = new ObservableCollection<Realisateur>(preferences.ListPreferenceRealisateur);
-                RealisateursPreferencesVisibility = Visibility.Hidden;
+                if(preferences.ListPreferenceRealisateur.Count >= 5)
+                {
+                    MessageBox.Show("La limite de 5 réalisateurs préférés est atteinte.", "Limite atteinte", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    _preferenceService.AddPreferenceRealisateur(preferences, RealisateurSelectionne);
+                    Realisateurs = new ObservableCollection<Realisateur>(preferences.ListPreferenceRealisateur);
+                    RealisateursPreferencesVisibility = Visibility.Hidden;
+                } 
             }
             else
             {
                 MessageBox.Show("Veuillez sélectionner un réalisateur à ajouter.", "Sélection requise", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+        }
+
+        public void EnleverPreferencesRealisateurs()
+        {
+            if (RealisateurAEnleverSelectionne != null)
+            {
+                var preferences = _preferenceService.GetPreferenceAbonne(_abonne);
+                _preferenceService.RemovePreference(preferences, RealisateurAEnleverSelectionne, p => p.ListPreferenceRealisateur);
+                Realisateurs.Remove(RealisateurAEnleverSelectionne);
+                RealisateursPreferencesVisibility = Visibility.Hidden;
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner un réalisateur à supprimer.", "Sélection requise", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        public void AjouterPreferencesActeurs()
+        {
+            if (ActeurSelectionne != null)
+            {
+                var preferences = _preferenceService.GetPreferenceAbonne(_abonne);
+                if (preferences.ListPreferenceActeur.Count >= 5)
+                {
+                    MessageBox.Show("La limite de 5 acteurs préférés est atteinte.", "Limite atteinte", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    _preferenceService.AddPreferenceActeur(preferences, ActeurSelectionne);
+                    Acteurs = new ObservableCollection<Acteur>(preferences.ListPreferenceActeur);
+                    ActeursPreferencesVisibility = Visibility.Hidden;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner un acteur à ajouter.", "Sélection requise", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        internal void AjouterPreferencesCategories()
+        {
+            if (CategorieSelectionne != null)
+            {
+                var preferences = _preferenceService.GetPreferenceAbonne(_abonne);
+                if (preferences.ListPreferenceCategorie.Count >= 3)
+                {
+                    MessageBox.Show("La limite de 3 catégories préférés est atteinte.", "Limite atteinte", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+                else
+                {
+                    _preferenceService.AddPreferenceCategorie(preferences, CategorieSelectionne);
+                    Categories = new ObservableCollection<Categorie>(preferences.ListPreferenceCategorie);
+                    CategoriesPreferencesVisibility = Visibility.Hidden;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Veuillez sélectionner une catégorie à ajouter.", "Sélection requise", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        internal void EnleverPreferencesActeurs()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void EnleverPreferencesCategories()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -100,7 +100,7 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
 
             try
             {
-                var getListFunc = getListExpression.Compile();
+                /*var getListFunc = getListExpression.Compile();
                 var list = getListFunc(preference).ToList();
                 list.Remove(elementARetirer);
 
@@ -115,7 +115,20 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
                 else if (typeof(T) == typeof(Categorie))
                 {
                     preference.SetListPreferenceCategorie(list.Cast<Categorie>().ToList());
-                }
+                }*/
+                if (preference.ListPreferenceRealisateur.Contains(elementARetirer as Realisateur))
+                    Console.WriteLine("Objet dans la liste");
+
+                var memberExpression = (MemberExpression)getListExpression.Body;
+                var propertyName = memberExpression.Member.Name;
+
+                var listProperty = typeof(Preference).GetProperty(propertyName);
+                var list = (IEnumerable<T>)listProperty.GetValue(preference);
+                var listAsList = list.ToList(); // Convert IEnumerable to List
+
+                listAsList.Remove(elementARetirer);
+
+                listProperty.SetValue(preference, listAsList);
 
                 _preferenceRepository.UpdatePreference(preference);
             }
@@ -125,12 +138,12 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
             }
         }
 
-        public async Task<List<Acteur>> GetAllActeurs()
+        public async Task<List<Acteur>> GetAllActeurs(Preference preference)
         {
 
             try
             {
-                return await _preferenceRepository.GetAllActeurs();
+                return await _preferenceRepository.GetAllActeurs(preference);
             }
             catch (Exception ex)
             {
@@ -138,11 +151,11 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
             }
         }
 
-        public async Task<List<Categorie>> GetAllCategories()
+        public async Task<List<Categorie>> GetAllCategories(Preference preference)
         {
             try
             {
-                return await _preferenceRepository.GetAllCategories();
+                return await _preferenceRepository.GetAllCategories(preference);
             }
             catch (Exception ex)
             {

@@ -100,28 +100,20 @@ namespace CineQuebec.Windows.DAL.Repositories.Preferences
             return realisateursNonPreferes;
         }
 
-        public async Task<List<Acteur>> GetAllActeurs()
+        public async Task<List<Acteur>> GetAllActeurs(Preference preference)
         {
-            try
-            {
-                return await _acteursCollection.Aggregate().ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidDataException("Impossible d'obtenir la collection d'acteurs : " + ex.Message);
-            }
+            var acteursPreferences = preference?.ListPreferenceActeur ?? new List<Acteur>();
+            var allActeurs = await _acteursCollection.Find(_ => true).ToListAsync();
+            var acteursNonPreferes = allActeurs.Where(r => !acteursPreferences.Any(rp => rp.Id == r.Id)).ToList();
+            return acteursNonPreferes;
         }
 
-        public async Task<List<Categorie>> GetAllCategories()
+        public async Task<List<Categorie>> GetAllCategories(Preference preference)
         {
-            try
-            {
-                return await _categoriesCollection.Aggregate().ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidDataException("Impossible d'obtenir la collection des catégories : " + ex.Message);
-            }
+            var categoriesPreferences = preference?.ListPreferenceCategorie ?? new List<Categorie>();
+            var allACategories = await _categoriesCollection.Find(_ => true).ToListAsync();
+            var categoriesNonPreferes = allACategories.Where(r => !categoriesPreferences.Any(rp => rp.Id == r.Id)).ToList();
+            return categoriesNonPreferes;
         }
     }
 }
