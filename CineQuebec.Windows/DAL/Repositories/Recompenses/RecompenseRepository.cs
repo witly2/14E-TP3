@@ -25,7 +25,7 @@ namespace CineQuebec.Windows.DAL.Repositories.Recompenses
         }
 
         public Task<List<Recompense>> GetRecompenseAbonne(Abonne abonne)
-        {
+    {
             throw new NotImplementedException();
         }
     }
