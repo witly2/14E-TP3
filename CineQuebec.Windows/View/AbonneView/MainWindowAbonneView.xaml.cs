@@ -18,12 +18,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace CineQuebec.Windows
+namespace CineQuebec.Windows.View.AbonneView
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindowAbonne : Window
     {
         private readonly FilmService _filmService;
         private readonly AbonneService _abonneService;
@@ -31,49 +31,21 @@ namespace CineQuebec.Windows
         private readonly ConnexionService _connexionService;
         private readonly Film film;
 
-        public MainWindow()
+        public MainWindowAbonne()
         {
             DatabaseGestion db = new DatabaseGestion();
             _filmService = new FilmService(new FilmRepository(db));
             _abonneService = new AbonneService(new AbonneRepsitory(db));
             _projectionService = new ProjectionService(new ProjectionRepository(db));
-            _connexionService = new ConnexionService(new PersonRepository(db));
 
             InitializeComponent();
 
             mainContentControl.Content = new ConnexionControl(_connexionService);
         }
 
-     
-
-        public void InscriptionControl()
+        public void PreferencesControl()
         {
-            mainContentControl.Content = new InscriptionControl1();
-        }
-
-        public void ConnexionControl()
-        {
-            mainContentControl.Content = new ConnexionControl(_connexionService);
-        }
-
-        public void UsersControl()
-        {
-            mainContentControl.Content = new UsersControl(_abonneService);
-        }
-
-        public void FilmsControl()
-        {
-            mainContentControl.Content = new FilmsControl(_filmService, _projectionService);
-        }
-
-        public void AddUpdateFilmControl()
-        {
-            mainContentControl.Content = new AddUpdateFilmControl(_filmService, _projectionService);
-        }
-
-        public void AddProjectionControl()
-        {
-            mainContentControl.Content = new AddProjectionControl(_projectionService, film);
+            //mainContentControl.Content = new PreferenceControl();
         }
 
     }

@@ -17,6 +17,7 @@ namespace CineQuebec.Windows.DAL
         private readonly IMongoCollection<Projection> _projectionsCollection;
         private readonly IMongoCollection<Admin> _adminsCollection;
         private readonly IMongoCollection<Person> _personsCollection;
+        private readonly IMongoCollection<Preference> _preferencesCollection;
 
         public Seed(IMongoDatabase database)
         {
@@ -29,6 +30,7 @@ namespace CineQuebec.Windows.DAL
             _projectionsCollection = database.GetCollection<Projection>("Projections");
             _adminsCollection = database.GetCollection<Admin>("Admins");
             _personsCollection = database.GetCollection<Person>("Persons");
+            _preferencesCollection = database.GetCollection<Preference>("Preferences");
         }
 
 
@@ -55,6 +57,13 @@ namespace CineQuebec.Windows.DAL
                 };
 
                 _abonnesCollection.InsertMany(abonnes);
+
+                foreach (var abonne in abonnes)
+                {
+                    var preference = new Preference();
+                    preference.SetAbonne(abonne);
+                    await _preferencesCollection.InsertOneAsync(preference);
+                }
                 Console.WriteLine("Données d'abonnés insérées avec succès.");
             }
 

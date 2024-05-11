@@ -18,6 +18,7 @@ namespace CineQuebec.Windows.DAL.Repositories.Abonnes
         private readonly DatabaseGestion _databaseGestion;
         private readonly IMongoCollection<Abonne> _abonneCollection;
         private readonly IMongoCollection<Person> _personsCollection;
+        private readonly IMongoCollection<Preference> _preferencesCollection;
 
 
         public AbonneRepsitory(DatabaseGestion databaseGestion)
@@ -25,6 +26,7 @@ namespace CineQuebec.Windows.DAL.Repositories.Abonnes
             _databaseGestion = databaseGestion;
             _abonneCollection = _databaseGestion.GetAbonneCollection();
             _personsCollection = _databaseGestion.GetPersonsCollection().Result;
+            _preferencesCollection = _databaseGestion.GetPreferencesCollection().Result;
         }
 
         public async Task AddAbonne(Abonne abonne)
@@ -41,12 +43,20 @@ namespace CineQuebec.Windows.DAL.Repositories.Abonnes
                 Password = abonne.Password,
                 Salt = abonne.Salt
             };
-            
+
             abonne.SetId(person.Id);
             await _personsCollection.InsertOneAsync(person);
             await _abonneCollection.InsertOneAsync(abonne);
 
-
+            Preference preference = new Preference();
+            preference.SetAbonne(abonne);
+            List<Realisateur> realisateurs = new List<Realisateur>();
+            preference.SetListPreferenceRealisateur(realisateurs);
+            List<Acteur> acteurs = new List<Acteur>();
+            preference.SetListPreferenceActeur(acteurs);
+            List<Categorie> categories = new List<Categorie>();
+            preference.SetListPreferenceCategorie(categories);
+            await _preferencesCollection.InsertOneAsync(preference);
         }
 
         public List<Abonne> GetAbonnes()

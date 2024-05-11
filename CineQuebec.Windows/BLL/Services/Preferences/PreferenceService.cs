@@ -44,13 +44,20 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
 
         public void AddPreferenceRealisateur(Preference preference, Realisateur realisateur)
         {
-            if(preference.ListPreferenceRealisateur.Count >= 5)
+            if(preference != null)
             {
-                throw new MaximumPreferenceException("La limite de 5 réalisateurs préférés est atteinte.");
+                if (preference.ListPreferenceRealisateur.Count >= 5)
+                {
+                    throw new MaximumPreferenceException("La limite de 5 réalisateurs préférés est atteinte.");
+                }
+                preference.ListPreferenceRealisateur.Add(realisateur);
+                _preferenceRepository.UpdatePreference(preference);
+            } 
+            else
+            { 
+                preference.ListPreferenceRealisateur.Add(realisateur);
+                _preferenceRepository.UpdatePreference(preference);
             }
-
-            preference.ListPreferenceRealisateur.Add(realisateur);
-            _preferenceRepository.UpdatePreference(preference);
         }
 
         public List<Abonne>? GetAbonnesWithThisPreference<T>(T elementAChercher, Expression<Func<Preference, IEnumerable<T>>> getListExpression)
@@ -65,16 +72,10 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
             }
         }
 
-        public Preference? GetPreferenceAbonne(Abonne abonne)
+        public Preference GetPreferenceAbonne(Abonne abonne)
         {
-            try
-            {
-                return _preferenceRepository.GetPreferenceAbonne(abonne);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Une erreur est survenue lors de la récupération des préférences de l'abonné : ", ex);
-            }
+            var preferences = _preferenceRepository.GetPreferenceAbonne(abonne);
+            return preferences;
         }
 
         public void IsAlreadyInList<T>(Preference preference, T elementAVerifier, Expression<Func<Preference, IEnumerable<T>>> getListExpression)
@@ -99,7 +100,8 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
 
             try
             {
-                var getListFunc = getListExpression.Compile();
+                // TODO : Code a nettoyer
+                /*var getListFunc = getListExpression.Compile();
                 var list = getListFunc(preference).ToList();
                 list.Remove(elementARetirer);
 
@@ -114,13 +116,63 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
                 else if (typeof(T) == typeof(Categorie))
                 {
                     preference.SetListPreferenceCategorie(list.Cast<Categorie>().ToList());
-                }
+                }*/
+                if (preference.ListPreferenceRealisateur.Contains(elementARetirer as Realisateur))
+                    Console.WriteLine("Objet dans la liste");
+
+                var memberExpression = (MemberExpression)getListExpression.Body;
+                var propertyName = memberExpression.Member.Name;
+
+                var listProperty = typeof(Preference).GetProperty(propertyName);
+                var list = (IEnumerable<T>)listProperty.GetValue(preference);
+                var listAsList = list.ToList(); // Convert IEnumerable to List
+
+                listAsList.Remove(elementARetirer);
+
+                listProperty.SetValue(preference, listAsList);
 
                 _preferenceRepository.UpdatePreference(preference);
             }
             catch (Exception ex)
             {
                 throw new Exception("Une erreur est survenue lors de la suppression du réalisateur de la liste de préférence : ", ex);
+            }
+        }
+
+        public async Task<List<Acteur>> GetAllActeurs(Preference preference)
+        {
+
+            try
+            {
+                return await _preferenceRepository.GetAllActeurs(preference);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des acteurs : " + ex.Message);
+            }
+        }
+
+        public async Task<List<Categorie>> GetAllCategories(Preference preference)
+        {
+            try
+            {
+                return await _preferenceRepository.GetAllCategories(preference);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des catégories : " + ex.Message);
+            }
+        }
+
+        public async Task<List<Realisateur>> GetAllRealisateurs(Preference preference)
+        {
+            try
+            {
+                return await _preferenceRepository.GetAllRealisateurs(preference);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException($"Une erreur s'est produite lors de la récupération des réalisateurs : " + ex.Message);
             }
         }
     }
