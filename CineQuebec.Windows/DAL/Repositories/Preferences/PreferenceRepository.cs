@@ -24,6 +24,9 @@ namespace CineQuebec.Windows.DAL.Repositories.Preferences
         {
             _databaseGestion = databaseGestion;
             _preferencesCollection = _databaseGestion.GetPreferencesCollection().Result;
+            _realisateursCollection = _databaseGestion.GetRealisateursCollection().Result;
+            _acteursCollection = _databaseGestion.GetActeursCollection().Result;
+            _categoriesCollection = _databaseGestion.GetCategoriesCollection().Result;
         }
 
         public bool IsAlreadyInList<T>(Preference preference, T elementAVerifier, Expression<Func<Preference, IEnumerable<T>>> getListExpression)
@@ -84,27 +87,17 @@ namespace CineQuebec.Windows.DAL.Repositories.Preferences
 
         public Preference GetPreferenceAbonne(Abonne abonne)
         {
-            try
-            {
-                var filter = Builders<Preference>.Filter.Eq(p => p.Abonne, abonne);
-                return _preferencesCollection.Find(filter).SingleOrDefault();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Une erreur est survenue lors de la récupération des préférences de l'abonné : ", ex);
-            }
+            var filter = Builders<Preference>.Filter.Eq(p => p.Abonne, abonne);
+            return _preferencesCollection.Find(filter).SingleOrDefault();
+
         }
 
-        public async Task<List<Realisateur>> GetAllRealisateurs()
+        public async Task<List<Realisateur>> GetAllRealisateurs(Preference preference)
         {
-            try
-            {
-                return await _realisateursCollection.Aggregate().ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new InvalidDataException("Impossible d'obtenir la collection de réalisateurs : " + ex.Message);
-            }
+            var realisateursPreferences = preference?.ListPreferenceRealisateur ?? new List<Realisateur>();
+            var allRealisateurs = await _realisateursCollection.Find(_ => true).ToListAsync();
+            var realisateursNonPreferes = allRealisateurs.Where(r => !realisateursPreferences.Any(rp => rp.Id == r.Id)).ToList();
+            return realisateursNonPreferes;
         }
 
         public async Task<List<Acteur>> GetAllActeurs()

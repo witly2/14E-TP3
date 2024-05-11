@@ -56,9 +56,4 @@
     </EmbeddedResource>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\Abonne\" />
-    <Folder Include="View\Abonne\" />
-  </ItemGroup>
-
 </Project>

@@ -81,6 +81,48 @@ namespace CineQuebec.Windows.DAL
             }
         }
 
+        public async Task<IMongoCollection<Realisateur>> GetRealisateursCollection()
+        {
+            try
+            {
+                var realisateursCollection = database.GetCollection<Realisateur>("Realisateurs");
+                return realisateursCollection;
+
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
+            }
+        }
+
+        public async Task<IMongoCollection<Acteur>> GetActeursCollection()
+        {
+            try
+            {
+                var acteursCollection = database.GetCollection<Acteur>("Acteurs");
+                return acteursCollection;
+
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
+            }
+        }
+
+        public async Task<IMongoCollection<Categorie>> GetCategoriesCollection()
+        {
+            try
+            {
+                var categoriesCollection = database.GetCollection<Categorie>("Categories");
+                return categoriesCollection;
+
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
+            }
+        }
+
         public async Task<IMongoCollection<Person>> GetPersonsCollection()
         {
             try

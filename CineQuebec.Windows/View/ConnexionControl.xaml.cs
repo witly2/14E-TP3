@@ -5,6 +5,7 @@ using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Abonnes;
 using CineQuebec.Windows.DAL.Repositories.Persons;
 using CineQuebec.Windows.Utilities;
+using CineQuebec.Windows.View.AbonneView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,10 @@ namespace CineQuebec.Windows.View
                 {
                     if(personne is Abonne abonne)
                     {
-                        // TODO : Envoyer à page accueil Abonne
+                        NavWindowsAbonneView navWindowsAbonne = new NavWindowsAbonneView(abonne);
+                        navWindowsAbonne.Show();
+
+                        ((MainWindow)Application.Current.MainWindow).Close();
                     } 
                     else if (personne is Admin admin)
                     {

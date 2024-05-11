@@ -17,6 +17,10 @@ namespace CineQuebec.Windows.DAL.Data
         public List<Acteur> ListPreferenceActeur { get; private set; }
         public List<Categorie> ListPreferenceCategorie { get; private set; }
 
+        public void SetAbonne(Abonne abonne)
+        {
+            Abonne = abonne;
+        }
 
         public void SetListPreferenceRealisateur(List<Realisateur> newListRealisateur)
         {

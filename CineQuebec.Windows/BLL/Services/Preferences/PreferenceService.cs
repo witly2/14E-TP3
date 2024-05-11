@@ -44,13 +44,20 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
 
         public void AddPreferenceRealisateur(Preference preference, Realisateur realisateur)
         {
-            if(preference.ListPreferenceRealisateur.Count >= 5)
+            if(preference != null)
             {
-                throw new MaximumPreferenceException("La limite de 5 réalisateurs préférés est atteinte.");
+                if (preference.ListPreferenceRealisateur.Count >= 5)
+                {
+                    throw new MaximumPreferenceException("La limite de 5 réalisateurs préférés est atteinte.");
+                }
+                preference.ListPreferenceRealisateur.Add(realisateur);
+                _preferenceRepository.UpdatePreference(preference);
+            } 
+            else
+            { 
+                preference.ListPreferenceRealisateur.Add(realisateur);
+                _preferenceRepository.UpdatePreference(preference);
             }
-
-            preference.ListPreferenceRealisateur.Add(realisateur);
-            _preferenceRepository.UpdatePreference(preference);
         }
 
         public List<Abonne>? GetAbonnesWithThisPreference<T>(T elementAChercher, Expression<Func<Preference, IEnumerable<T>>> getListExpression)
@@ -65,16 +72,10 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
             }
         }
 
-        public Preference? GetPreferenceAbonne(Abonne abonne)
+        public Preference GetPreferenceAbonne(Abonne abonne)
         {
-            try
-            {
-                return _preferenceRepository.GetPreferenceAbonne(abonne);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("Une erreur est survenue lors de la récupération des préférences de l'abonné : ", ex);
-            }
+            var preferences = _preferenceRepository.GetPreferenceAbonne(abonne);
+            return preferences;
         }
 
         public void IsAlreadyInList<T>(Preference preference, T elementAVerifier, Expression<Func<Preference, IEnumerable<T>>> getListExpression)
@@ -149,11 +150,11 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
             }
         }
 
-        public async Task<List<Realisateur>> GetAllRealisateurs()
+        public async Task<List<Realisateur>> GetAllRealisateurs(Preference preference)
         {
             try
             {
-                return await _preferenceRepository.GetAllRealisateurs();
+                return await _preferenceRepository.GetAllRealisateurs(preference);
             }
             catch (Exception ex)
             {

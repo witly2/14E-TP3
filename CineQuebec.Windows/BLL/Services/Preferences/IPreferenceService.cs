@@ -17,7 +17,7 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
         void IsAlreadyInList<T>(Preference preference, T elementAVerifier, Expression<Func<Preference, IEnumerable<T>>> getListExpression);
         void RemovePreference<T>(Preference preference, T elementARetirer, Expression<Func<Preference, IEnumerable<T>>> getListExpression);
         List<Abonne>? GetAbonnesWithThisPreference<T>(T elementAChercher, Expression<Func<Preference, IEnumerable<T>>> getListExpression);
-        Task<List<Realisateur>> GetAllRealisateurs();
+        Task<List<Realisateur>> GetAllRealisateurs(Preference preference);
         Task<List<Acteur>> GetAllActeurs();
         Task<List<Categorie>> GetAllCategories();
     }
