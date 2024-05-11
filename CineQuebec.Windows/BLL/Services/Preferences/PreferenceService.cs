@@ -100,6 +100,7 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
 
             try
             {
+                // TODO : Code a nettoyer
                 /*var getListFunc = getListExpression.Compile();
                 var list = getListFunc(preference).ToList();
                 list.Remove(elementARetirer);
