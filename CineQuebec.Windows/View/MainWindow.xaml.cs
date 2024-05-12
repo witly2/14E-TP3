@@ -23,6 +23,7 @@ public partial class MainWindow : Window
     private readonly ProjectionService _projectionService;
     private readonly Film film;
     private readonly ConnexionService _connexionService;
+    private AccueilFilmControl accueilFilmControl;
 
     public MainWindow()
     {
@@ -37,6 +38,8 @@ public partial class MainWindow : Window
         var accueilViewModel = new AccueilViewModel(mainContentControl);
 
         DataContext = accueilViewModel;
+        
+
         mainContentControl.Content = new AccueilFilmControl();
     }
 
@@ -85,5 +88,10 @@ public partial class MainWindow : Window
     private void click_Connexion(object sender, RoutedEventArgs routedEventArgs)
     {
         mainContentControl.Content = new ConnexionControl(_connexionService);
+    }
+    
+    public void DetailFilmControl( Film film)
+    {
+        mainContentControl.Content = new DetailFilmControl(film);
     }
 }

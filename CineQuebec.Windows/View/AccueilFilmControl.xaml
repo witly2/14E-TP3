@@ -33,7 +33,8 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border Margin="10" Width="300" Height="400"
-                                CornerRadius="5" BorderThickness="2">
+                                CornerRadius="5" BorderThickness="2"
+                                MouseLeftButtonUp="Border_MouseLeftButtonUp" Focusable="True">
                             <StackPanel
                                 VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <Border Width="280" Height="300" BorderBrush="White">
