@@ -18,6 +18,36 @@ namespace CineQuebec.WindowsTests.RecompenseTests
             _recompenseService = new RecompenseService(_mockRecompenseRepository.Object);
         }
 
+        #region GetAllRecompenses
+        public async Task GetAllRecompenses_ShouldReturnAllRecompenses()
+        {
+            List<Recompense> recompenses = new List<Recompense>();
+            List<Abonne> listAbonnes = new List<Abonne>();
+            Projection projection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
+               new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
+            Recompense recompense1 = new Recompense(listAbonnes, TypeRecompense.TicketGratuit, projection, 3);
+            Recompense recompense2 = new Recompense(listAbonnes, TypeRecompense.TicketGratuit, projection, 3);
+            recompenses.Add(recompense1);
+            recompenses.Add(recompense2);
+            _mockRecompenseRepository.Setup(x => x.GetAllRecompenses()).ReturnsAsync(recompenses);
+
+            var result = await _recompenseService.GetAllRecompenses();
+
+            Assert.AreEqual(recompenses.Count, result.Count);
+            Assert.AreEqual(recompenses, result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidDataException))]
+        public async Task GetAllRecompense_ShouldThrowException()
+        {
+            _mockRecompenseRepository.Setup(x => x.GetAllRecompenses()).ThrowsAsync(new Exception("Erreur lors du retour des récompenses."));
+
+            await _recompenseService.GetAllRecompenses();
+        }
+
+        #endregion
+
         #region AjouterRecompense
         [TestMethod]
         public async Task AjouterRecompense_ShouldAddRecompense()

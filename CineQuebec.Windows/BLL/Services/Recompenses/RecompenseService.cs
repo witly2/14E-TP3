@@ -12,6 +12,11 @@ namespace CineQuebec.Windows.BLL.Services.Recompenses
     {
         private readonly IRecompenseRepository _recompenseRepository;
 
+        public RecompenseService(IRecompenseRepository recompenseRepository)
+        {
+            _recompenseRepository = recompenseRepository;
+        }
+
         public Task<Recompense> AjouterRecompenseAvantPremiere(Recompense recompenseExpected)
         {
             throw new NotImplementedException();
