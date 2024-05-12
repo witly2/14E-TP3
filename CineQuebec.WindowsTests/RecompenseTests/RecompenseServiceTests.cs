@@ -19,6 +19,7 @@ namespace CineQuebec.WindowsTests.RecompenseTests
         }
 
         #region GetAllRecompenses
+        [TestMethod]
         public async Task GetAllRecompenses_ShouldReturnAllRecompenses()
         {
             List<Recompense> recompenses = new List<Recompense>();
@@ -41,7 +42,7 @@ namespace CineQuebec.WindowsTests.RecompenseTests
         [ExpectedException(typeof(InvalidDataException))]
         public async Task GetAllRecompense_ShouldThrowException()
         {
-            _mockRecompenseRepository.Setup(x => x.GetAllRecompenses()).ThrowsAsync(new Exception("Erreur lors du retour des récompenses."));
+            _mockRecompenseRepository.Setup(x => x.GetAllRecompenses()).ThrowsAsync(new InvalidDataException("Erreur lors du retour des récompenses."));
 
             await _recompenseService.GetAllRecompenses();
         }
@@ -58,9 +59,9 @@ namespace CineQuebec.WindowsTests.RecompenseTests
             Projection projection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
                 new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
             Recompense recompenseExpected = new Recompense(listAbonnes, TypeRecompense.InvitationAvantPremiere, projection, 1);
-            _mockRecompenseRepository.Setup(x => x.AjouterRecompenseAvantPremiere(It.IsAny<Recompense>())).ReturnsAsync(recompenseExpected);
+            _mockRecompenseRepository.Setup(x => x.AjouterRecompense(It.IsAny<Recompense>())).ReturnsAsync(recompenseExpected);
 
-            var result = await _recompenseService.AjouterRecompenseAvantPremiere(recompenseExpected);
+            var result = await _recompenseService.AjouterRecompense(recompenseExpected);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(recompenseExpected, result);
@@ -68,7 +69,7 @@ namespace CineQuebec.WindowsTests.RecompenseTests
 
         [TestMethod()]
         [ExpectedException(typeof(InvalidDataException))]
-        public async void AjouterRecompenseTypeInvitationAvantPremiere_ShouldReturnThrowException()
+        public async Task AjouterRecompense_ShouldReturnThrowException()
         {
             Abonne abonne = new Abonne { Username = "John Doe", Email = "john.doe@example.com", DateAdhesion = new DateTime(2010, 7, 16) };
             List<Abonne> listAbonnes = new List<Abonne>();
@@ -76,10 +77,9 @@ namespace CineQuebec.WindowsTests.RecompenseTests
             Projection projection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
                 new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
             Recompense recompenseExpected = new Recompense(listAbonnes, TypeRecompense.InvitationAvantPremiere, projection, 1);
-            _mockRecompenseRepository.Setup(x => x.AjouterRecompenseAvantPremiere(It.IsAny<Recompense>())).ThrowsAsync(new Exception("Erreur lors de l'ajout"));
+            _mockRecompenseRepository.Setup(x => x.AjouterRecompense(It.IsAny<Recompense>())).ThrowsAsync(new InvalidDataException("Erreur lors de l'ajout"));
 
-            await _recompenseService.AjouterRecompenseAvantPremiere(recompenseExpected);
-
+            await _recompenseService.AjouterRecompense(recompenseExpected);
         }
         #endregion
 
@@ -123,9 +123,16 @@ namespace CineQuebec.WindowsTests.RecompenseTests
         public async Task GetCountRecompenseAbonne_ShouldThrowException()
         {
             Abonne abonne = new Abonne { Username = "John Doe", Email = "john.doe@example.com", DateAdhesion = new DateTime(2010, 7, 16) };
-            _mockRecompenseRepository.Setup(x => x.GetRecompenseAbonne(It.IsAny<Abonne>())).ThrowsAsync(new Exception("Erreur lors du retour des recompenses."));
+            _mockRecompenseRepository.Setup(x => x.GetRecompenseAbonne(It.IsAny<Abonne>())).ThrowsAsync(new InvalidDataException("Erreur lors du retour des recompenses."));
 
             await _recompenseService.GetCountRecompenseAbonne(abonne);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task GetCountRecompenseAbonne_ShouldThrowExceptionAbonneNull()
+        {
+            await _recompenseService.GetCountRecompenseAbonne(null);
         }
         #endregion
 
@@ -139,7 +146,6 @@ namespace CineQuebec.WindowsTests.RecompenseTests
             Projection projection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
                new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
             Recompense recompense = new Recompense(listAbonnes, TypeRecompense.TicketGratuit, projection, 3);
-            _mockRecompenseRepository.Setup(x => x.GetCountPlaceRestante(It.IsAny<Recompense>())).ReturnsAsync(2);
 
             var result = await _recompenseService.GetCountPlaceRestante(recompense);
 
@@ -147,18 +153,10 @@ namespace CineQuebec.WindowsTests.RecompenseTests
         }
 
         [TestMethod]
-        [ExpectedException(typeof(InvalidDataException))]
+        [ExpectedException(typeof(ArgumentNullException))]
         public async Task GetCountPlaceRestantRecompense_ShouldReturnThrowException()
         {
-            Abonne abonne = new Abonne { Username = "John Doe", Email = "john.doe@example.com", DateAdhesion = new DateTime(2010, 7, 16) };
-            List<Abonne> listAbonnes = new List<Abonne>();
-            listAbonnes.Add(abonne);
-            Projection projection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
-               new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
-            Recompense recompense = new Recompense(listAbonnes, TypeRecompense.TicketGratuit, projection, 3);
-            _mockRecompenseRepository.Setup(x => x.GetCountPlaceRestante(It.IsAny<Recompense>())).ThrowsAsync(new Exception("Erreur lors du retour du nombre de place disponible."));
-
-            await _recompenseService.GetCountPlaceRestante(recompense);
+            await _recompenseService.GetCountPlaceRestante(null);
         }
         #endregion
     }

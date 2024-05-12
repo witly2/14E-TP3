@@ -1,10 +1,5 @@
 ﻿using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Recompenses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CineQuebec.Windows.BLL.Services.Recompenses
 {
@@ -17,24 +12,46 @@ namespace CineQuebec.Windows.BLL.Services.Recompenses
             _recompenseRepository = recompenseRepository;
         }
 
-        public Task<Recompense> AjouterRecompenseAvantPremiere(Recompense recompenseExpected)
+        public async Task<List<Recompense>> GetAllRecompenses()
         {
-            throw new NotImplementedException();
+            var recompenses = await _recompenseRepository.GetAllRecompenses();
+            return recompenses;
         }
 
-        public Task<Recompense> AjouterRecompenseTicketGratuit(Recompense recompenseExpected)
+        public async Task<Recompense> AjouterRecompense(Recompense recompense)
         {
-            throw new NotImplementedException();
+            if(recompense == null)
+            {
+                throw new ArgumentNullException(nameof(recompense), "La récompense ne peut pas être null.");
+            }
+            var recomprenseBd = await _recompenseRepository.AjouterRecompense(recompense);
+            return recomprenseBd;
         }
 
-        public Task<int> GetCountPlaceRestante(Recompense recompense)
+        public async Task<int> GetCountPlaceRestante(Recompense recompense)
         {
-            throw new NotImplementedException();
+            if (recompense == null)
+            {
+                throw new ArgumentNullException(nameof(recompense), "La récompense ne peut pas être null.");
+            }
+            int nombreAbonneRecompense = recompense.Abonne.Count();
+            int nombrePlaceRestante = recompense.NombrePlace - nombreAbonneRecompense;
+            return nombrePlaceRestante;
         }
 
-        public Task<int> GetCountRecompenseAbonne(Abonne abonne)
+        public async Task<int> GetCountRecompenseAbonne(Abonne abonne)
         {
-            throw new NotImplementedException();
+            if (abonne == null)
+            {
+                throw new ArgumentNullException(nameof(abonne), "L'abonné ne peut pas être null.");
+            } 
+            else
+            {
+                List<Recompense> recompenses = new List<Recompense>();
+                recompenses = await _recompenseRepository.GetRecompenseAbonne(abonne);
+                int nombreRecompenseAbonne = recompenses.Count();
+                return nombreRecompenseAbonne;
+            }
         }
     }
 }

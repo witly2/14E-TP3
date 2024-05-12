@@ -9,10 +9,8 @@ namespace CineQuebec.Windows.DAL.Repositories.Recompenses
 {
     public interface IRecompenseRepository
     {
-        Task<Recompense> AjouterRecompenseAvantPremiere(Recompense recompense);
-        Task<Recompense> AjouterRecompenseTicketGratuit(Recompense recompense);
+        Task<Recompense> AjouterRecompense(Recompense recompense);
         Task<List<Recompense>> GetAllRecompenses();
-        Task<int> GetCountPlaceRestante(Recompense recompense);
         Task<List<Recompense>> GetRecompenseAbonne(Abonne abonne);
     }
 }
