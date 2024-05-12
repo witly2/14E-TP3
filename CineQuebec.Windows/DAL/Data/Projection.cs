@@ -5,17 +5,19 @@ namespace CineQuebec.Windows.DAL.Data;
 
 public class Projection
 {
-    public Projection(DateTime pDateHeureDebut, Salle pSalle, Film pFilm)
-    {
-        DateHeureDebut = pDateHeureDebut;
-        Salle = pSalle;
-        Film = pFilm;
-    }
-
-    [BsonId] public ObjectId Id { get; }
-
+    [BsonId]
+    public ObjectId Id { get; private set; }
     public DateTime DateHeureDebut { get; set; }
     public Salle Salle { get; set; }
     public Film Film { get; set; }
+
+    public DateTime DateHeureFin { get; private set; }
+    public Projection(DateTime pDateHeureDebut, Salle pSalle, Film pFilm) 
+    { 
+        DateHeureDebut = pDateHeureDebut;
+        Salle = pSalle;
+        Film = pFilm;
+        DateHeureFin = DateHeureDebut.AddMinutes(pFilm.Duration);   
+    }
     
 }

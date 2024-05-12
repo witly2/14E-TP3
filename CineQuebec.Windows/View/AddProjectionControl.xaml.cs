@@ -8,71 +8,105 @@ namespace CineQuebec.Windows.View;
 
 public partial class AddProjectionControl : UserControl
 {
-    private readonly Film _film;
-    private readonly IProjectionService _projectionService;
-
-    public AddProjectionControl(IProjectionService projectionService, Film film)
-    {
-        InitializeComponent();
-        _projectionService = projectionService;
-        _film = film;
-        DataContext = film;
-        loadSalles();
-    }
-
-    public async void loadSalles()
-    {
-        var salles = await _projectionService.GetSalles();
-        var salleComboBox = (ComboBox)FindName("salleComboBox");
-        foreach (var salle in salles)
+  private readonly IProjectionService _projectionService;
+        private readonly Film _film;
+        public AddProjectionControl(IProjectionService projectionService, Film film)
         {
-            var comboBoxItem = new ComboBoxItem();
-            comboBoxItem.Content = "Salle " + salle.NumeroSalle + " - " + salle.NombrePlace + " places";
-            comboBoxItem.Tag = salle;
-            salleComboBox.Items.Add(comboBoxItem);
+            InitializeComponent();
+            _projectionService = projectionService;
+            _film = film;
+            DataContext = film;
+
+            //datePicker.SelectedDateChanged += SelectionChanged;
+            //timePicker.SelectedDateTimeChanged += SelectionChanged;
         }
-    }
 
-    public async void addProjectionButton_Click(object sender, RoutedEventArgs e)
-    {
-        try
+        private void validerDateHeureButton_Click(object sender, RoutedEventArgs e)
         {
-            var datePicker = (DatePicker)FindName("datePicker");
-            var timePicker = (TimePicker)FindName("timePicker");
-            var salleComboBox = (ComboBox)FindName("salleComboBox");
-
             if (datePicker.SelectedDate.HasValue && timePicker.SelectedDateTime.HasValue)
             {
-                var selectedDateTime = timePicker.SelectedDateTime.Value;
-                var selectedTime = selectedDateTime.TimeOfDay;
-                var dateHeureDebut = datePicker.SelectedDate.Value.Date + selectedTime;
-
-                var selectedSalleItem = (ComboBoxItem)salleComboBox.SelectedItem;
-                var selectedSalle = selectedSalleItem.Tag as Salle;
-                var salleDisponible =
-                    await _projectionService.estSalleDisponibleThisDay(selectedSalle,
-                        datePicker.SelectedDate.Value.Date);
-                if (salleDisponible)
-                {
-                    var newProjection = new Projection(dateHeureDebut, selectedSalle, _film);
-                    await _projectionService.AddProjection(newProjection);
-                    MessageBox.Show("La projection a été ajoutée avec succès.", "Validation", MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-                }
-                else
-                {
-                    MessageBox.Show("La salle n'est pas disponible cette journée.", "Validation", MessageBoxButton.OK,
-                        MessageBoxImage.Information);
-                }
+                salleComboBox.Visibility = Visibility.Visible;
+                UpdateSalleComboBox();
             }
             else
             {
-                MessageBox.Show("Veuillez sélectionner une date, une heure et une salle pour la projection.");
+                MessageBox.Show("Veuillez sélectionner une date et une heure pour valider.");
             }
         }
-        catch (Exception ex)
+
+        private void SelectionChanged(object sender, EventArgs e)
         {
-            MessageBox.Show($"Erreur lors de l'ajout de la projection : {ex.Message}", "Erreur");
+            UpdateButtonState();
+            if (datePicker.SelectedDate.HasValue && timePicker.SelectedDateTime.HasValue)
+            {
+                salleComboBox.Visibility = Visibility.Visible;
+                UpdateSalleComboBox();
+            }
+            else
+            {
+                salleComboBox.Visibility = Visibility.Collapsed;
+                salleComboBox.Items.Clear();
+            }
         }
-    }
+
+        private void UpdateButtonState()
+        {
+            bool isSalleSelected = salleComboBox.SelectedItem != null;
+            if (datePicker.SelectedDate.HasValue && timePicker.SelectedDateTime.HasValue && isSalleSelected)
+                addProjectionButton.IsEnabled = true;
+        }
+
+        private async void UpdateSalleComboBox()
+        {
+            if (datePicker.SelectedDate.HasValue && timePicker.SelectedDateTime.HasValue)
+            {
+                DateTime selectedDateTime = timePicker.SelectedDateTime.Value;
+                TimeSpan selectedTime = selectedDateTime.TimeOfDay;
+                DateTime dateHeureDebut = datePicker.SelectedDate.Value.Date + selectedTime;
+                List<Salle> salles = await _projectionService.GetSallesDisponibles(_film, dateHeureDebut);
+                salleComboBox.Items.Clear();
+                foreach (Salle salle in salles)
+                {
+                    ComboBoxItem comboBoxItem = new ComboBoxItem();
+                    comboBoxItem.Content = "Salle " + salle.NumeroSalle + " - " + salle.NombrePlace + " places";
+                    comboBoxItem.Tag = salle;
+                    salleComboBox.Items.Add(comboBoxItem);
+                }
+            }
+        }
+
+        public async void addProjectionButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                DatePicker datePicker = (DatePicker)this.FindName("datePicker");
+                TimePicker timePicker = (TimePicker)this.FindName("timePicker");
+                ComboBox salleComboBox = (ComboBox)this.FindName("salleComboBox");
+                bool isSalleSelected = salleComboBox.SelectedItem != null;
+
+                if (datePicker.SelectedDate.HasValue && timePicker.SelectedDateTime.HasValue && isSalleSelected)
+                {
+                    DateTime selectedDateTime = timePicker.SelectedDateTime.Value;
+                    TimeSpan selectedTime = selectedDateTime.TimeOfDay;
+                    DateTime dateHeureDebut = datePicker.SelectedDate.Value.Date + selectedTime;
+
+                    ComboBoxItem selectedSalleItem = (ComboBoxItem)salleComboBox.SelectedItem;
+                    Salle selectedSalle = selectedSalleItem.Tag as Salle;
+                    Projection newProjection = new Projection(dateHeureDebut, selectedSalle, _film);
+                    await _projectionService.AddProjection(newProjection);
+                    MessageBox.Show("La projection a été ajoutée avec succès.", "Validation", MessageBoxButton.OK, MessageBoxImage.Information);              
+                } else
+                {
+                    MessageBox.Show("Veuillez sélectionner une date, une heure et une salle pour la projection.");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Erreur lors de l'ajout de la projection : {ex.Message}", "Erreur");
+            }
+
+        }
+
+        
+    
 }

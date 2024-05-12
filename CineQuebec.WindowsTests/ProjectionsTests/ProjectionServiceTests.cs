@@ -9,228 +9,173 @@ namespace CineQuebec.WindowsTests.FilmTests;
 [TestClass]
 public class ProjectionServiceTests
 {
-    private Mock<DatabaseGestion> _mockDatabaseGestion;
-    private Mock<IProjectionRepository> _mockProjectionRepository;
-    private ProjectionService _projectionService;
+      private ProjectionService _projectionService;
+        private Mock<IProjectionRepository> _mockProjectionRepository;
+        [TestInitialize]
+        public void Init()
+        {
+            _mockProjectionRepository = new Mock<IProjectionRepository>();
+            _projectionService = new ProjectionService(_mockProjectionRepository.Object);
+        }
 
-    [TestInitialize]
-    public void Init()
-    {
-        _mockDatabaseGestion = new Mock<DatabaseGestion>();
-        _mockProjectionRepository = new Mock<IProjectionRepository>();
-        _projectionService = new ProjectionService(_mockProjectionRepository.Object);
-    }
+        #region AddProjectionTests
+        [TestMethod()]
+        public async Task AddProjection_Success()
+        {
+            Projection expectedProjection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100), 
+                new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
+            _mockProjectionRepository.Setup(x => x.AddProjection(It.IsAny<Projection>())).ReturnsAsync(expectedProjection);
 
-    #region AddProjectionTests
+            var result = await _projectionService.AddProjection(expectedProjection);
 
-    [TestMethod]
-    public async Task AddProjection_Success()
-    {
-        var expectedProjection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
-            new Film("Inception", "Inception",
-                "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148,
-                new DateTime(2010, 7, 16), 8));
-        _mockProjectionRepository.Setup(x => x.AddProjection(It.IsAny<Projection>())).ReturnsAsync(expectedProjection);
+            Assert.AreEqual(expectedProjection, result);
+        }
 
-        var result = await _projectionService.AddProjection(expectedProjection);
+        [TestMethod()]
+        [ExpectedException(typeof(InvalidDataException))]
+        public async Task AddProjection_Exception()
+        {
+            Projection expectedProjection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
+                new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
+            _mockProjectionRepository.Setup(x => x.AddProjection(It.IsAny<Projection>())).ThrowsAsync(new Exception("Erreur lors de l'ajout"));
 
-        Assert.AreEqual(expectedProjection, result);
-    }
+            await _projectionService.AddProjection(expectedProjection);
+        }
+        #endregion
 
-    [TestMethod]
-    [ExpectedException(typeof(InvalidDataException))]
-    public async Task AddProjection_Exception()
-    {
-        var expectedProjection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
-            new Film("Inception", "Inception",
-                "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148,
-                new DateTime(2010, 7, 16), 8));
-        _mockProjectionRepository.Setup(x => x.AddProjection(It.IsAny<Projection>()))
-            .ThrowsAsync(new Exception("Erreur lors de l'ajout"));
+        #region DeleteProjectionTests
+        [TestMethod()]
+        public async Task DeleteProjection_Success()
+        {
+            Projection expectedProjection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
+                new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
+            _mockProjectionRepository.Setup(x => x.DeleteProjection(expectedProjection)).ReturnsAsync(true);
 
-        await _projectionService.AddProjection(expectedProjection);
-    }
+            var result = await _projectionService.DeleteProjection(expectedProjection);
 
-    #endregion
+            Assert.IsTrue(result);
+        }
 
-    #region DeleteProjectionTests
+        [TestMethod()]
+        [ExpectedException(typeof(InvalidDataException))]
+        public async Task DeleteProjection_Fail()
+        {
+            Projection expectedProjection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
+                new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
+            _mockProjectionRepository.Setup(x => x.DeleteProjection(expectedProjection)).ThrowsAsync(new Exception("Erreur lors de la suppression."));
 
-    [TestMethod]
-    public async Task DeleteProjection_Success()
-    {
-        var expectedProjection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
-            new Film("Inception", "Inception",
-                "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148,
-                new DateTime(2010, 7, 16), 8));
-        _mockProjectionRepository.Setup(x => x.DeleteProjection(expectedProjection)).ReturnsAsync(true);
+            await _projectionService.DeleteProjection(expectedProjection);
+        }
+        #endregion
 
-        var result = await _projectionService.DeleteProjection(expectedProjection);
+        #region GetProjectionstests
+        [TestMethod()]
+        public async Task GetProjections_Success()
+        {
+            Film film = new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.",
+                                    148, new DateTime(2010, 7, 16), 8);
+            var expectedProjections = new List<Projection>();
+            var projection1 = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
+                new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
+            var projection2 = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
+                new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
+            expectedProjections.Add(projection1);
+            expectedProjections.Add(projection2);
+            _mockProjectionRepository.Setup(x => x.GetProjectionsForFilm(film)).ReturnsAsync(expectedProjections);
+            
+            var result = await _projectionService.GetProjections(film);
 
-        Assert.IsTrue(result);
-    }
+            CollectionAssert.AreEqual(expectedProjections, result);
+        }
 
-    [TestMethod]
-    [ExpectedException(typeof(InvalidDataException))]
-    public async Task DeleteProjection_Fail()
-    {
-        var expectedProjection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
-            new Film("Inception", "Inception",
-                "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148,
-                new DateTime(2010, 7, 16), 8));
-        _mockProjectionRepository.Setup(x => x.DeleteProjection(expectedProjection))
-            .ThrowsAsync(new Exception("Erreur lors de la suppression."));
+        [TestMethod()]
+        [ExpectedException(typeof(InvalidDataException))]
+        public async Task GetProjections_Exception()
+        {
+            Film film = new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.",
+                                    148, new DateTime(2010, 7, 16), 8);
+            _mockProjectionRepository.Setup(x => x.GetProjectionsForFilm(film)).ThrowsAsync(new Exception("Erreur lors de la recherche des projections."));
 
-        await _projectionService.DeleteProjection(expectedProjection);
-    }
+            await _projectionService.GetProjections(film);
+        }
+        #endregion
 
-    #endregion
+        #region UpdateProjectionTests
+        [TestMethod()]
+        public async Task UpdateProjection_Success()
+        {
+            Projection expectedProjection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
+                new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
+            _mockProjectionRepository.Setup(x => x.UpdateProjection(expectedProjection)).ReturnsAsync(true);
 
-    #region GetProjectionstests
+            var result = await _projectionService.UpdateProjection(expectedProjection);
 
-    [TestMethod]
-    public async Task GetProjections_Success()
-    {
-        var film = new Film("Inception", "Inception",
-            "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.",
-            148, new DateTime(2010, 7, 16), 8);
-        var expectedProjections = new List<Projection>();
-        var projection1 = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
-            new Film("Inception", "Inception",
-                "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148,
-                new DateTime(2010, 7, 16), 8));
-        var projection2 = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
-            new Film("Inception", "Inception",
-                "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148,
-                new DateTime(2010, 7, 16), 8));
-        expectedProjections.Add(projection1);
-        expectedProjections.Add(projection2);
-        _mockProjectionRepository.Setup(x => x.GetProjectionsForFilm(film)).ReturnsAsync(expectedProjections);
+            Assert.IsTrue(result);
+        }
 
-        var result = await _projectionService.GetProjections(film);
+        [TestMethod()]
+        [ExpectedException(typeof(InvalidDataException))]
+        public async Task UpdateProjection_Exception()
+        {
+            Projection expectedProjection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
+                new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
+            _mockProjectionRepository.Setup(x => x.UpdateProjection(expectedProjection)).ThrowsAsync(new Exception("Erreur lors de la mise � jour de la projection."));
 
-        CollectionAssert.AreEqual(expectedProjections, result);
-    }
+            await _projectionService.UpdateProjection(expectedProjection);
+        }
+        #endregion
 
-    [TestMethod]
-    [ExpectedException(typeof(InvalidDataException))]
-    public async Task GetProjections_Exception()
-    {
-        var film = new Film("Inception", "Inception",
-            "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.",
-            148, new DateTime(2010, 7, 16), 8);
-        _mockProjectionRepository.Setup(x => x.GetProjectionsForFilm(film))
-            .ThrowsAsync(new Exception("Erreur lors de la recherche des projections."));
+        #region GetSallesTests
+        [TestMethod()]
+        public async Task GetSalles_Success()
+        {
+            List<Salle> expectedSalles = new List<Salle>();
+            var salle1 = new Salle(1, 100);
+            var salle2 = new Salle(2, 150);
+            expectedSalles.Add(salle1);
+            expectedSalles.Add(salle2);
+            _mockProjectionRepository.Setup(x => x.GetSalles()).ReturnsAsync(expectedSalles);
 
-        await _projectionService.GetProjections(film);
-    }
+            var result = await _projectionService.GetSalles();
 
-    #endregion
+            CollectionAssert.AreEqual(expectedSalles, result);
+        }
 
-    #region UpdateProjectionTests
+        [TestMethod()]
+        [ExpectedException(typeof(InvalidDataException))]
+        public async Task GetSalles_Exception()
+        {
+            _mockProjectionRepository.Setup(x => x.GetSalles()).ThrowsAsync(new Exception("Erreur lors de la recherche des salles."));
 
-    [TestMethod]
-    public async Task UpdateProjection_Success()
-    {
-        var expectedProjection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
-            new Film("Inception", "Inception",
-                "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148,
-                new DateTime(2010, 7, 16), 8));
-        _mockProjectionRepository.Setup(x => x.UpdateProjection(expectedProjection)).ReturnsAsync(true);
+            await _projectionService.GetSalles();
+        }
+        #endregion
 
-        var result = await _projectionService.UpdateProjection(expectedProjection);
+        #region GetSallesDisponibles
+        [TestMethod()]
+        public async Task GetSallesDisponibleForProjection_Success()
+        {
+            var film = new Film("Inception", "Inception", "Description", 148, DateTime.Now, 8);
+            var debutProjectionSouhaite = new DateTime(2024, 3, 10, 20, 0, 0);
+            var sallesDisponiblesAttendues = new List<Salle> { new Salle(1, 100), new Salle(2, 150) };
+            _mockProjectionRepository.Setup(x => x.GetSallesDisponibleForProjection(film, debutProjectionSouhaite)).ReturnsAsync(sallesDisponiblesAttendues);
 
-        Assert.IsTrue(result);
-    }
+            var result = await _projectionService.GetSallesDisponibles(film, debutProjectionSouhaite);
 
-    [TestMethod]
-    [ExpectedException(typeof(InvalidDataException))]
-    public async Task UpdateProjection_Exception()
-    {
-        var expectedProjection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
-            new Film("Inception", "Inception",
-                "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148,
-                new DateTime(2010, 7, 16), 8));
-        _mockProjectionRepository.Setup(x => x.UpdateProjection(expectedProjection))
-            .ThrowsAsync(new Exception("Erreur lors de la mise à jour de la projection."));
+            Assert.IsNotNull(result);
+            CollectionAssert.AreEqual(sallesDisponiblesAttendues, result);
+        }
 
-        await _projectionService.UpdateProjection(expectedProjection);
-    }
+        [TestMethod()]
+        [ExpectedException(typeof(InvalidDataException))]
+        public async Task GetSallesDisponibleForProjection_Exception()
+        {
+            var film = new Film("Inception", "Inception", "Description", 148, DateTime.Now, 8);
+            var debutProjectionSouhaite = new DateTime(2024, 3, 10, 20, 0, 0);
+            _mockProjectionRepository.Setup(x => x.GetSallesDisponibleForProjection(film, debutProjectionSouhaite)).ThrowsAsync(new InvalidDataException("Erreur lors de la récupération des salles"));
 
-    #endregion
-
-    #region GetSallesTests
-
-    [TestMethod]
-    public async Task GetSalles_Success()
-    {
-        var expectedSalles = new List<Salle>();
-        var salle1 = new Salle(1, 100);
-        var salle2 = new Salle(2, 150);
-        expectedSalles.Add(salle1);
-        expectedSalles.Add(salle2);
-        _mockProjectionRepository.Setup(x => x.GetSalles()).ReturnsAsync(expectedSalles);
-
-        var result = await _projectionService.GetSalles();
-
-        CollectionAssert.AreEqual(expectedSalles, result);
-    }
-
-    [TestMethod]
-    [ExpectedException(typeof(InvalidDataException))]
-    public async Task GetSalles_Exception()
-    {
-        _mockProjectionRepository.Setup(x => x.GetSalles())
-            .ThrowsAsync(new Exception("Erreur lors de la recherche des salles."));
-
-        await _projectionService.GetSalles();
-    }
-
-    #endregion
-
-    #region EstSalleDisponibleThisDay
-
-    [TestMethod]
-    public async Task EstSalleDisponibleThisDay_Success()
-    {
-        var salle1 = new Salle(1, 100);
-        var day = new DateTime(2024, 3, 10);
-        _mockProjectionRepository.Setup(x => x.GetProjectionsForSalle(salle1, day))
-            .ReturnsAsync(new List<Projection>());
-
-        var result = await _projectionService.estSalleDisponibleThisDay(salle1, day);
-
-        Assert.IsTrue(result);
-    }
-
-    [TestMethod]
-    public async Task EstSalleDisponibleThisDay_NoDisponible()
-    {
-        var salle1 = new Salle(1, 100);
-        var day = new DateTime(2024, 3, 10);
-        var projection1 = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
-            new Film("Inception", "Inception",
-                "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148,
-                new DateTime(2010, 7, 16), 8));
-        var projections = new List<Projection>();
-        projections.Add(projection1);
-        _mockProjectionRepository.Setup(x => x.GetProjectionsForSalle(salle1, day)).ReturnsAsync(projections);
-
-        var result = await _projectionService.estSalleDisponibleThisDay(salle1, day);
-
-        Assert.IsFalse(result);
-    }
-
-    [TestMethod]
-    [ExpectedException(typeof(InvalidDataException))]
-    public async Task EstSalleDisponibleThisDay_Exception()
-    {
-        var salle1 = new Salle(1, 100);
-        var day = new DateTime(2024, 3, 10);
-        _mockProjectionRepository.Setup(x => x.GetProjectionsForSalle(salle1, day))
-            .ThrowsAsync(new Exception("Erreur lors de la recherche des projections ce jour."));
-
-        var result = await _projectionService.estSalleDisponibleThisDay(salle1, day);
-    }
-
-    #endregion
+            await _projectionService.GetSallesDisponibles(film, debutProjectionSouhaite);
+        }
+        #endregion
+    
 }
