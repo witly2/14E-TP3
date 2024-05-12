@@ -9,8 +9,7 @@ namespace CineQuebec.Windows.BLL.Services.Recompenses
 {
     public interface IRecompenseService
     {
-        Task<Recompense> AjouterRecompenseAvantPremiere(Recompense recompenseExpected);
-        Task<Recompense> AjouterRecompenseTicketGratuit(Recompense recompenseExpected);
+        Task<Recompense> AjouterRecompense(Recompense recompense);
         Task<List<Recompense>> GetAllRecompenses();
         Task<int> GetCountPlaceRestante(Recompense recompense);
         Task<int> GetCountRecompenseAbonne(Abonne abonne);
