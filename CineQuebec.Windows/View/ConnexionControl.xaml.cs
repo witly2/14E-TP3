@@ -60,7 +60,7 @@ namespace CineQuebec.Windows.View
                     } 
                     else if (personne is Admin admin)
                     {
-                        NavWindows navWindows = new NavWindows(admin);
+                        AdminHomeWindows navWindows = new AdminHomeWindows(admin);
 
                         navWindows.Show();
                         ((MainWindow)Application.Current.MainWindow).Close();
