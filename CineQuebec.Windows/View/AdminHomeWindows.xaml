@@ -73,6 +73,14 @@
                                 </StackPanel>
                             </Button>
 
+                            <Button Style="{StaticResource menuButton}" Click="ToggleButton_Recompense_Click" >
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <md:PackIcon Kind="PencilOutline" Style="{StaticResource menuBtnIcon}"/>
+                                    <TextBlock Text="Récompenses" />
+                                </StackPanel>
+                            </Button>
+
+
 
                         </StackPanel>
 
