@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="CineQuebec.Windows.View.AccueilFilmControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:CineQuebec.Windows.View"
+             mc:Ignorable="d"
+             d:DesignHeight="700" d:DesignWidth="1300"
+             Style="{StaticResource Page_Style}">
+      <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="400" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.Background>
+                <ImageBrush x:Name="ImgBrushSlider" Opacity="0.5" Stretch="UniformToFill" AlignmentX="Center"
+                            AlignmentY="Center"
+                            ImageSource="/Ressources/images/0.png" />
+            </Grid.Background>
+
+
+        </Grid>
+
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+            <TextBlock Text="Films" Margin="10" FontSize="22" FontWeight="Medium" Foreground="White" />
+
+            <StackPanel Margin="20 0" />
+            <ItemsControl ItemsSource="{Binding Films}" Foreground="White">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="10" Width="300" Height="400"
+                                CornerRadius="5" BorderThickness="2">
+                            <StackPanel
+                                VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Border Width="280" Height="300" BorderBrush="White">
+                                    <Border.Effect>
+                                        <DropShadowEffect ShadowDepth="1" />
+                                    </Border.Effect>
+                                    <Border.Background>
+                                        <ImageBrush ImageSource="/Ressources/images/no.png" />
+                                    </Border.Background>
+                                </Border>
+                                <TextBlock Margin="5 0" Text="{Binding FrenchTitle}" FontSize="15" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</UserControl>
