@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using System.Security.Cryptography;
 using System.Text;
+using CineQuebec.Windows.Utilities;
 
 namespace CineQuebec.Windows.DAL
 {
@@ -207,24 +208,35 @@ namespace CineQuebec.Windows.DAL
         {
             if (!_adminsCollection.Indexes.List().Any())
             {
-                byte[] hashedPassword = PasswordHasher.HashPassword("Admin123!");
+                byte[] salt=Utils.CreerSALT();
+                string strPassword = "Admin123!";
+                byte[] hashedPassword = Utils.HacherMotDePasse(strPassword, salt);
                 var adminPerson = new Person
                 {
                     Nom = "Admin",
                     Email = "admin@mail.com",
                     Username = "Admin",
-                    Password = hashedPassword
+                    Password = hashedPassword,
+                    Salt = salt
+                    
                 };
                 await _personsCollection.InsertOneAsync(adminPerson);
+                
 
-                var admin = new Admin();
-                admin.Nom = adminPerson.Nom;
-                admin.Email = adminPerson.Email;
-                admin.Username = adminPerson.Username;
-                admin.Password = hashedPassword;
+
+            
+
+                var admin = new Admin
+                {
+                    Nom = adminPerson.Nom,
+                    Email = adminPerson.Email,
+                    Username = adminPerson.Username,
+                    Password = hashedPassword,
+                    Salt = adminPerson.Salt
+                };
+               
                 admin.SetId(adminPerson.Id);
                 await _adminsCollection.InsertOneAsync(admin);
-                Console.WriteLine("Données d'administrateur insérées avec succès.");
             }
         }
     }

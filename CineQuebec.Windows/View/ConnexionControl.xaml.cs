@@ -48,27 +48,40 @@ namespace CineQuebec.Windows.View
         {
             if (ValidateForm())
             {
-                var personne = await _connexionService.GetPersonByEmail(newAbonne.Email);
-                if (personne != null)
+                try
                 {
-                    if(personne is Abonne abonne)
+                    var personne = await _connexionService.GetPersonByEmail(newAbonne.Email);
+                    if (Utils.EstMotDePasseCorrespond(txtMdP.Password.Trim(), personne.Salt,
+                            personne.Password))
                     {
-                        NavWindowsAbonneView navWindowsAbonne = new NavWindowsAbonneView(abonne);
-                        navWindowsAbonne.Show();
+                        if (personne is Abonne abonne)
+                        {
+                            NavWindowsAbonneView navWindowsAbonne = new NavWindowsAbonneView(abonne);
+                            navWindowsAbonne.Show();
 
-                        ((MainWindow)Application.Current.MainWindow).Close();
-                    } 
-                    else if (personne is Admin admin)
-                    {
-                        AdminHomeWindows navWindows = new AdminHomeWindows(admin);
+                            ((MainWindow)Application.Current.MainWindow).Close();
+                        }
+                        else if (personne is Admin admin)
+                        {
+                            AdminHomeWindows navWindows = new AdminHomeWindows(admin);
 
-                        navWindows.Show();
-                        ((MainWindow)Application.Current.MainWindow).Close();
+                            navWindows.Show();
+                            ((MainWindow)Application.Current.MainWindow).Close();
+                        }
+                        else if (personne is Employe employe)
+                        {
+                            // TODO : Envoyer à page accueil Employe
+                        }
                     }
-                    else if (personne is Employe employe)
+                    else
                     {
-                        // TODO : Envoyer à page accueil Employe
+                        MessageBox.Show("Email ou mot de passe est incorrect");
+                    
                     }
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Email ou mot de passe est incorrect");
                 }
             }
             else
