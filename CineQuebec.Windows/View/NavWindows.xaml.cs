@@ -9,6 +9,8 @@ using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Projections;
 using CineQuebec.Windows.BLL.Services.Connexion;
 using CineQuebec.Windows.DAL.Repositories.Persons;
+using CineQuebec.Windows.View.RecompenseAdminView;
+using CineQuebec.Windows.BLL.Services.Recompenses;
 
 
 namespace CineQuebec.Windows.View
@@ -19,6 +21,7 @@ namespace CineQuebec.Windows.View
         private readonly AbonneService _abonneService;
         private readonly AdminHomeControl _adminHomeControl;
         private readonly ProjectionService _projectionService;
+        private readonly RecompenseService _recompenseService;
         private readonly ConnexionService _connexionService;
         public NavWindows(Admin admin)
         {
@@ -56,6 +59,11 @@ namespace CineQuebec.Windows.View
         private void Button_Accueil_Click(object sender, RoutedEventArgs e)
         {
             mainContentControl.Content = _adminHomeControl;
+        }
+
+        private void ToggleButton_Recompense_Click(object sender, RoutedEventArgs e)
+        {
+            mainContentControl.Content = new RecompenseView(_recompenseService);
         }
     }
 }
