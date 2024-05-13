@@ -18,6 +18,7 @@ namespace CineQuebec.Windows.DAL
         private readonly IMongoCollection<Admin> _adminsCollection;
         private readonly IMongoCollection<Person> _personsCollection;
         private readonly IMongoCollection<Preference> _preferencesCollection;
+        private readonly IMongoCollection<Recompense> _recompensesCollection;
 
         public Seed(IMongoDatabase database)
         {
@@ -31,6 +32,7 @@ namespace CineQuebec.Windows.DAL
             _adminsCollection = database.GetCollection<Admin>("Admins");
             _personsCollection = database.GetCollection<Person>("Persons");
             _preferencesCollection = database.GetCollection<Preference>("Preferences");
+            _recompensesCollection = database.GetCollection<Recompense>("Recompenses");
         }
 
 
@@ -95,11 +97,12 @@ namespace CineQuebec.Windows.DAL
         {
             if (!_projectionsCollection.Indexes.List().Any())
             {
+                var projection1 = new Projection(new DateTime(2024, 3, 10, 20, 0, 0),
+                                _sallesCollection.Find(s => s.NumeroSalle == 1).FirstOrDefault(),
+                                _filmsCollection.Find(f => f.OriginalTitle == "Inception").FirstOrDefault());
                 var projections = new List<Projection>
                 {
-                    new Projection(new DateTime(2024, 3, 10, 20, 0, 0),
-                                _sallesCollection.Find(s => s.NumeroSalle == 1).FirstOrDefault(),
-                                _filmsCollection.Find(f => f.OriginalTitle == "Inception").FirstOrDefault()),
+                    projection1,
                     new Projection(new DateTime(2024, 5, 6, 19, 0, 0),
                                 _sallesCollection.Find(s => s.NumeroSalle == 2).FirstOrDefault(),
                                 _filmsCollection.Find(f => f.OriginalTitle == "The Dark Knight").FirstOrDefault()),
@@ -107,6 +110,12 @@ namespace CineQuebec.Windows.DAL
 
                 _projectionsCollection.InsertMany(projections);
                 Console.WriteLine("Données de projections insérées avec succès.");
+
+                var abonne = new Abonne { Username = "Marie Doe", Email = "marie.doe@example.com", DateAdhesion = DateTime.UtcNow };
+                var recompense = new Recompense(new List<Abonne> { abonne}, TypeRecompense.Ticket, projection1, 5);
+                _recompensesCollection.InsertOne(recompense);
+                Console.WriteLine("Données de recompenses insérées avec succès.");
+
             }
         }
 

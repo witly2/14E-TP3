@@ -8,7 +8,7 @@ namespace CineQuebec.Windows.DAL.Data
 {
     public enum TypeRecompense
     {
-        InvitationAvantPremiere,
-        TicketGratuit
+        Invitation,
+        Ticket
     }
 }

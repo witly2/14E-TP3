@@ -11,6 +11,7 @@ using CineQuebec.Windows.BLL.Services.Connexion;
 using CineQuebec.Windows.DAL.Repositories.Persons;
 using CineQuebec.Windows.View.RecompenseAdminView;
 using CineQuebec.Windows.BLL.Services.Recompenses;
+using CineQuebec.Windows.DAL.Repositories.Recompenses;
 
 
 namespace CineQuebec.Windows.View
@@ -31,6 +32,7 @@ namespace CineQuebec.Windows.View
             _projectionService = new ProjectionService(new ProjectionRepository(db));
             _adminHomeControl = new AdminHomeControl(admin);
             _connexionService = new ConnexionService(new PersonRepository(db));
+            _recompenseService = new RecompenseService(new RecompenseRepository(db));
 
             InitializeComponent();
             AdminName.Text = admin.Username;
