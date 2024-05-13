@@ -26,8 +26,8 @@ namespace CineQuebec.WindowsTests.RecompenseTests
             List<Abonne> listAbonnes = new List<Abonne>();
             Projection projection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
                new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
-            Recompense recompense1 = new Recompense(listAbonnes, TypeRecompense.TicketGratuit, projection, 3);
-            Recompense recompense2 = new Recompense(listAbonnes, TypeRecompense.TicketGratuit, projection, 3);
+            Recompense recompense1 = new Recompense(listAbonnes, TypeRecompense.Ticket, projection, 3);
+            Recompense recompense2 = new Recompense(listAbonnes, TypeRecompense.Ticket, projection, 3);
             recompenses.Add(recompense1);
             recompenses.Add(recompense2);
             _mockRecompenseRepository.Setup(x => x.GetAllRecompenses()).ReturnsAsync(recompenses);
@@ -58,7 +58,7 @@ namespace CineQuebec.WindowsTests.RecompenseTests
             listAbonnes.Add(abonne);
             Projection projection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
                 new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
-            Recompense recompenseExpected = new Recompense(listAbonnes, TypeRecompense.InvitationAvantPremiere, projection, 1);
+            Recompense recompenseExpected = new Recompense(listAbonnes, TypeRecompense.Invitation, projection, 1);
             _mockRecompenseRepository.Setup(x => x.AjouterRecompense(It.IsAny<Recompense>())).ReturnsAsync(recompenseExpected);
 
             var result = await _recompenseService.AjouterRecompense(recompenseExpected);
@@ -76,7 +76,7 @@ namespace CineQuebec.WindowsTests.RecompenseTests
             listAbonnes.Add(abonne);
             Projection projection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
                 new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
-            Recompense recompenseExpected = new Recompense(listAbonnes, TypeRecompense.InvitationAvantPremiere, projection, 1);
+            Recompense recompenseExpected = new Recompense(listAbonnes, TypeRecompense.Invitation, projection, 1);
             _mockRecompenseRepository.Setup(x => x.AjouterRecompense(It.IsAny<Recompense>())).ThrowsAsync(new InvalidDataException("Erreur lors de l'ajout"));
 
             await _recompenseService.AjouterRecompense(recompenseExpected);
@@ -95,8 +95,8 @@ namespace CineQuebec.WindowsTests.RecompenseTests
             listAbonnes2.Add(abonne);
             Projection projection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
                new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
-            Recompense recompense1 = new Recompense(listAbonnes, TypeRecompense.TicketGratuit, projection, 3);
-            Recompense recompense2 =  new Recompense(listAbonnes2, TypeRecompense.TicketGratuit, projection, 3);
+            Recompense recompense1 = new Recompense(listAbonnes, TypeRecompense.Ticket, projection, 3);
+            Recompense recompense2 =  new Recompense(listAbonnes2, TypeRecompense.Ticket, projection, 3);
             recompenses.Add(recompense1);
             recompenses.Add(recompense2);
             _mockRecompenseRepository.Setup(x => x.GetRecompenseAbonne(It.IsAny<Abonne>())).ReturnsAsync(recompenses);
@@ -145,7 +145,7 @@ namespace CineQuebec.WindowsTests.RecompenseTests
             listAbonnes.Add(abonne);
             Projection projection = new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
                new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
-            Recompense recompense = new Recompense(listAbonnes, TypeRecompense.TicketGratuit, projection, 3);
+            Recompense recompense = new Recompense(listAbonnes, TypeRecompense.Ticket, projection, 3);
 
             var result = await _recompenseService.GetCountPlaceRestante(recompense);
 
