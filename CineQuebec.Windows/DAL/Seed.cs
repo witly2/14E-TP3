@@ -2,6 +2,7 @@
 using MongoDB.Driver;
 using System.Security.Cryptography;
 using System.Text;
+using CineQuebec.Windows.Utilities;
 
 namespace CineQuebec.Windows.DAL
 {
@@ -76,6 +77,7 @@ namespace CineQuebec.Windows.DAL
         {
             if (!_filmsCollection.Indexes.List().Any())
             {
+              
                 var films = new List<Film>
                 {
                     new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8),
@@ -103,6 +105,12 @@ namespace CineQuebec.Windows.DAL
                     new Projection(new DateTime(2024, 5, 6, 19, 0, 0),
                                 _sallesCollection.Find(s => s.NumeroSalle == 2).FirstOrDefault(),
                                 _filmsCollection.Find(f => f.OriginalTitle == "The Dark Knight").FirstOrDefault()),
+                    new Projection(new DateTime(2024, 6, 20, 10, 0, 0),
+                        _sallesCollection.Find(s => s.NumeroSalle == 2).FirstOrDefault(),
+                        _filmsCollection.Find(f => f.OriginalTitle == "Inception").FirstOrDefault()),
+                    new Projection(new DateTime(2024, 3, 12, 20, 0, 0),
+                        _sallesCollection.Find(s => s.NumeroSalle == 3).FirstOrDefault(),
+                        _filmsCollection.Find(f => f.OriginalTitle == "Inception").FirstOrDefault()),
                 };
 
                 _projectionsCollection.InsertMany(projections);
@@ -207,24 +215,35 @@ namespace CineQuebec.Windows.DAL
         {
             if (!_adminsCollection.Indexes.List().Any())
             {
-                byte[] hashedPassword = PasswordHasher.HashPassword("Admin123!");
+                byte[] salt=Utils.CreerSALT();
+                string strPassword = "Admin123!";
+                byte[] hashedPassword = Utils.HacherMotDePasse(strPassword, salt);
                 var adminPerson = new Person
                 {
                     Nom = "Admin",
                     Email = "admin@mail.com",
                     Username = "Admin",
-                    Password = hashedPassword
+                    Password = hashedPassword,
+                    Salt = salt
+                    
                 };
                 await _personsCollection.InsertOneAsync(adminPerson);
+                
 
-                var admin = new Admin();
-                admin.Nom = adminPerson.Nom;
-                admin.Email = adminPerson.Email;
-                admin.Username = adminPerson.Username;
-                admin.Password = hashedPassword;
+
+            
+
+                var admin = new Admin
+                {
+                    Nom = adminPerson.Nom,
+                    Email = adminPerson.Email,
+                    Username = adminPerson.Username,
+                    Password = hashedPassword,
+                    Salt = adminPerson.Salt
+                };
+               
                 admin.SetId(adminPerson.Id);
                 await _adminsCollection.InsertOneAsync(admin);
-                Console.WriteLine("Données d'administrateur insérées avec succès.");
             }
         }
     }

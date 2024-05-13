@@ -32,9 +32,10 @@ namespace CineQuebec.Windows.View
 
         private string erreurMessage ;
         private Abonne newAbonne;
+        private readonly Film _film;
         private readonly AbonneService _abonneService;
         private readonly IConnexionService _connexionService;
-        public ConnexionControl(IConnexionService connexionService)
+        public ConnexionControl(IConnexionService connexionService,  Film film=null)
         {
             InitializeComponent();
             newAbonne = new Abonne();
@@ -42,33 +43,52 @@ namespace CineQuebec.Windows.View
             _abonneService = new AbonneService(new AbonneRepsitory(db));
             _connexionService = connexionService;
             this.DataContext = newAbonne;
+            _film = film;
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             if (ValidateForm())
             {
-                var personne = await _connexionService.GetPersonByEmail(newAbonne.Email);
-                if (personne != null)
+                try
                 {
-                    if(personne is Abonne abonne)
+                    var personne = await _connexionService.GetPersonByEmail(newAbonne.Email);
+                    if (Utils.EstMotDePasseCorrespond(txtMdP.Password.Trim(), personne.Salt,
+                            personne.Password))
                     {
-                        NavWindowsAbonneView navWindowsAbonne = new NavWindowsAbonneView(abonne);
-                        navWindowsAbonne.Show();
+                        if (personne is Abonne abonne)
+                        {
+                            NavWindowsAbonneView navWindowsAbonne = new NavWindowsAbonneView(abonne);
 
-                        ((MainWindow)Application.Current.MainWindow).Close();
-                    } 
-                    else if (personne is Admin admin)
-                    {
-                        NavWindows navWindows = new NavWindows(admin);
+                            if (_film is not null)
+                            {
+                                navWindowsAbonne.DetailFilmControl(_film,abonne);
+                            }
+                            navWindowsAbonne.Show();
 
-                        navWindows.Show();
-                        ((MainWindow)Application.Current.MainWindow).Close();
+                            ((MainWindow)Application.Current.MainWindow).Close();
+                        }
+                        else if (personne is Admin admin)
+                        {
+                            AdminHomeWindows navWindows = new AdminHomeWindows(admin);
+
+                            navWindows.Show();
+                            ((MainWindow)Application.Current.MainWindow).Close();
+                        }
+                        else if (personne is Employe employe)
+                        {
+                            // TODO : Envoyer à page accueil Employe
+                        }
                     }
-                    else if (personne is Employe employe)
+                    else
                     {
-                        // TODO : Envoyer à page accueil Employe
+                        MessageBox.Show("Email ou mot de passe est incorrect");
+                    
                     }
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show("Email ou mot de passe est incorrect");
                 }
             }
             else
@@ -80,7 +100,7 @@ namespace CineQuebec.Windows.View
 
         private void Afficher_form_inscription(object sender, MouseButtonEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).InscriptionControl();
+            ((MainWindow)Application.Current.MainWindow).InscriptionControl(_film);
         }
 
         private bool ValidateForm()
