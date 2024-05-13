@@ -44,15 +44,16 @@ public partial class MainWindow : Window
     }
 
 
-    public void InscriptionControl()
+    public void InscriptionControl(Film film = null)
     {
-        mainContentControl.Content = new InscriptionControl1();
+        mainContentControl.Content = new InscriptionControl1(film);
     }
 
-    public void ConnexionControl()
+    public void ConnexionControl( Film film = null)
     {
-        mainContentControl.Content = new ConnexionControl(_connexionService);
+        mainContentControl.Content = new ConnexionControl(_connexionService,  film);
     }
+
 
     public void UsersControl()
     {

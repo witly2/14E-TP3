@@ -32,9 +32,10 @@ namespace CineQuebec.Windows.View
 
         private string erreurMessage ;
         private Abonne newAbonne;
+        private readonly Film _film;
         private readonly AbonneService _abonneService;
         private readonly IConnexionService _connexionService;
-        public ConnexionControl(IConnexionService connexionService)
+        public ConnexionControl(IConnexionService connexionService,  Film film=null)
         {
             InitializeComponent();
             newAbonne = new Abonne();
@@ -42,6 +43,7 @@ namespace CineQuebec.Windows.View
             _abonneService = new AbonneService(new AbonneRepsitory(db));
             _connexionService = connexionService;
             this.DataContext = newAbonne;
+            _film = film;
         }
 
         private async void Button_Click(object sender, RoutedEventArgs e)
@@ -57,6 +59,11 @@ namespace CineQuebec.Windows.View
                         if (personne is Abonne abonne)
                         {
                             NavWindowsAbonneView navWindowsAbonne = new NavWindowsAbonneView(abonne);
+
+                            if (_film is not null)
+                            {
+                                navWindowsAbonne.DetailFilmControl(_film,abonne);
+                            }
                             navWindowsAbonne.Show();
 
                             ((MainWindow)Application.Current.MainWindow).Close();
@@ -93,7 +100,7 @@ namespace CineQuebec.Windows.View
 
         private void Afficher_form_inscription(object sender, MouseButtonEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).InscriptionControl();
+            ((MainWindow)Application.Current.MainWindow).InscriptionControl(_film);
         }
 
         private bool ValidateForm()

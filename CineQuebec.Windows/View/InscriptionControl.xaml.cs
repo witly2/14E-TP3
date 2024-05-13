@@ -32,7 +32,8 @@ namespace CineQuebec.Windows.View
         private Abonne newAbonne;
         private string erreurMessage;
         private readonly AbonneService _abonneService;
-        public InscriptionControl1(Abonne abonne = null)
+        private readonly Film _film;
+        public InscriptionControl1(Film film=null, Abonne abonne = null)
         {
             InitializeComponent();
             if(abonne != null)
@@ -45,12 +46,22 @@ namespace CineQuebec.Windows.View
             _abonneService = new AbonneService(new AbonneRepsitory(db));
 
             this.DataContext = newAbonne;
+            _film = film;
            
         }
 
         private void Afficher_form_login(object sender, MouseButtonEventArgs e)
         {
-            ((MainWindow)Application.Current.MainWindow).ConnexionControl();
+            if (_film is not null)
+            {
+                ((MainWindow)Application.Current.MainWindow).ConnexionControl(_film);
+            }
+            else
+            {
+                ((MainWindow)Application.Current.MainWindow).ConnexionControl();
+            }
+            
+            
         }
 
      
@@ -72,7 +83,14 @@ namespace CineQuebec.Windows.View
                 try
                 {
                     _abonneService.AddAbonne(newAbonne);
-                    ((MainWindow)Application.Current.MainWindow).ConnexionControl();
+                    if (_film is not null)
+                    {
+                        ((MainWindow)Application.Current.MainWindow).ConnexionControl(_film);
+                    }
+                    else
+                    {
+                        ((MainWindow)Application.Current.MainWindow).ConnexionControl();
+                    }
 
                 }
                 catch (EmailExisteExeption ex)

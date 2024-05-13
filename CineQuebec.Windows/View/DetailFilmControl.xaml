@@ -26,12 +26,12 @@
             
             <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Border Margin="20" HorizontalAlignment="Center" BorderBrush="Gray" BorderThickness="5">
-                    <md:PackIcon Kind="Play" Height="150" Width="150" Foreground="White" />
+                    <md:PackIcon Kind="Play" Height="150" Width="150" Foreground="Gray" />
                 </Border>
                 <TextBlock Text="Regarder la bande d'annonce" FontWeight="Bold" Foreground="White" FontSize="30"/>
             </StackPanel>
             <StackPanel Grid.Row="1" VerticalAlignment="Center">
-                <TextBlock Text="{Binding FrenchTitle}" FontWeight="Bold" Foreground="White" FontSize="50"/>
+                <TextBlock Margin="100 10 0 0" Text="{Binding FrenchTitle}" FontWeight="Bold" Foreground="White" FontSize="50"/>
             </StackPanel>
 
 
@@ -44,20 +44,72 @@
             </Grid.Background>
             
             <Grid.RowDefinitions>
-                <RowDefinition Height="200" />
+                <RowDefinition Height="150" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             
-          <StackPanel Grid.Row="0">
-              <TextBlock Text="{Binding Description}" Margin="10" FontSize="22" FontWeight="Medium" Foreground="White" TextWrapping="Wrap" MaxWidth="700" />
+          <StackPanel Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" >
+              <TextBlock Text="{Binding Description}" Margin="100 10 0 0" FontSize="20" FontWeight="Medium" Foreground="White" TextWrapping="Wrap" MaxWidth="700" />
 
           </StackPanel>
             
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" MinHeight="500" Margin="100 10 20 30">
                 <Grid.ColumnDefinitions>
-                
+                    <ColumnDefinition Width="500" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+                
+                <Grid Grid.Column="0" >
+                
+                    <Grid.Background >
+                        <ImageBrush ImageSource="/Ressources/images/no.png" />
+                    </Grid.Background>
+                </Grid>
+            
+                <StackPanel Grid.Column="1" Width="600" Orientation="Vertical">
+                    
+                    <Button  Style="{StaticResource menuButton}" Width="500"   Height="100" FontSize="32"   Click="ButtonREserver_Place_Click" Background="#10349C" Foreground="White"
+                             FontWeight="Bold" Content="Réserver des places"
+                             BorderThickness="40" HorizontalContentAlignment="Center"/>
+                    
+                    <Grid Margin="0 50">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        
+                        <StackPanel Grid.Column="0" Orientation="Vertical" HorizontalAlignment="Center">
+                            
+                            <TextBlock Text="DURÉE" FontSize="20" FontWeight="Bold" Foreground="Gray"/>
+                            <TextBlock Text="{Binding DureeEnHeure}" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                        </StackPanel>
+                       <StackPanel Grid.Column="1" Orientation="Vertical">
+                            <TextBlock Text="Titre Originale" FontSize="20" FontWeight="Bold" Foreground="Gray"/>
+                            <TextBlock Text="{Binding OriginalTitle}" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                        </StackPanel>
+                    </Grid>
+                    
+                    <StackPanel Orientation="Vertical" Margin="50 20">
+                        <TextBlock Text="Acteurs" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                        <TextBlock Text="{Binding Acteurs}" FontSize="16" FontWeight="DemiBold" Foreground="Gray"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Vertical" Margin="50 20">
+                        <TextBlock Text="Réalisateurs" FontSize="30" FontWeight="Bold" Foreground="White"/>
+                        <TextBlock Text="{Binding Realisateurs}" FontSize="16" FontWeight="DemiBold" Foreground="Gray"/>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Vertical" Margin="50 20">
+                        <TextBlock Text="Catégories" FontSize="30" FontWeight="Bold" Foreground="White"/>
+                        <TextBlock Text="{Binding Categories}" FontSize="16" FontWeight="DemiBold" Foreground="Gray"/>
+                    </StackPanel>
+                        
+                
+                </StackPanel>
             </Grid>
+            
+           
 
             <StackPanel Margin="20 0" />
         </Grid>

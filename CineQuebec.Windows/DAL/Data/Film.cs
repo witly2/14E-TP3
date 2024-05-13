@@ -20,6 +20,40 @@ namespace CineQuebec.Windows.DAL.Data
         public string Description { get; set; }
         [Range(1, ushort.MaxValue, ErrorMessage = "La durée doit être supérieure à zéro.")]
         public ushort Duration { get; set; }
+
+        public string DureeEnHeure
+        {
+            get
+            {
+                return DurationToString();
+            }
+        }
+        
+        public string Acteurs
+        {
+            get
+            {
+                return string.Join(", ", ListActeur.Select(a => a.Nom));
+            }
+        }
+        
+        public string Realisateurs
+        {
+            get
+            {
+                return string.Join(", ", ListRealisateur.Select(r => r.Nom));
+            }
+        }
+        
+        public string Categories
+        {
+            get
+            {
+                return string.Join(", ", ListCategorie.Select(c => c.Nom));
+            }
+        }
+        
+
         public DateTime InternationalReleaseDate { get; set; }
         public ushort? Rating { get; set; }
         public List<Realisateur> ListRealisateur { get; private set; } = new List<Realisateur>();
@@ -34,6 +68,38 @@ namespace CineQuebec.Windows.DAL.Data
             Duration = pDuration;
             InternationalReleaseDate = pInternationalReleaseDate;
             Rating = pRating;
+            
+            var acteurs = new List<Acteur>
+            {
+                new Acteur { Nom = "DiCaprio", Prenom = "Leonardo" },
+                new Acteur { Nom = "Nolan", Prenom = "Christopher" },
+                new Acteur { Nom = "Cotillard", Prenom = "Marion" },
+                new Acteur { Nom = "Bale", Prenom = "Christian" },
+                new Acteur { Nom = "Ledger", Prenom = "Heath" }
+
+            };
+            
+            ListActeur = acteurs;
+            
+            var realisateurs = new List<Realisateur>
+            {
+                new Realisateur("Nolan", "Christopher"),
+                new Realisateur ("Chazelle", "Damien"),
+                new Realisateur ("Villeneuse", "Denis"),
+                new Realisateur ("Tarantino", "Quentin"),
+            };
+            
+            ListRealisateur= realisateurs;
+            
+            var categories = new List<Categorie>
+            {
+                new Categorie { Nom = "Science Fiction" },
+                new Categorie { Nom = "Action" },
+                new Categorie { Nom = "Drame" },
+               
+            };
+            
+            ListCategorie = categories;
         }
 
         public void SetListRealisateur(List<Realisateur> realisateurs)
@@ -49,6 +115,11 @@ namespace CineQuebec.Windows.DAL.Data
         public void SetListCategorie(List<Categorie> categories)
         {
             ListCategorie = categories;
+        }
+        
+        public string DurationToString()
+        {
+            return $"{Duration / 60}h{Duration % 60}";
         }
 
     }

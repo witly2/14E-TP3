@@ -77,6 +77,7 @@ namespace CineQuebec.Windows.DAL
         {
             if (!_filmsCollection.Indexes.List().Any())
             {
+              
                 var films = new List<Film>
                 {
                     new Film("Inception", "Inception", "Un voleur qui entre dans les rêves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8),
