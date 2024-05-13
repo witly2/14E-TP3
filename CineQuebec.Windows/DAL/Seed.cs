@@ -105,6 +105,12 @@ namespace CineQuebec.Windows.DAL
                     new Projection(new DateTime(2024, 5, 6, 19, 0, 0),
                                 _sallesCollection.Find(s => s.NumeroSalle == 2).FirstOrDefault(),
                                 _filmsCollection.Find(f => f.OriginalTitle == "The Dark Knight").FirstOrDefault()),
+                    new Projection(new DateTime(2024, 6, 20, 10, 0, 0),
+                        _sallesCollection.Find(s => s.NumeroSalle == 2).FirstOrDefault(),
+                        _filmsCollection.Find(f => f.OriginalTitle == "Inception").FirstOrDefault()),
+                    new Projection(new DateTime(2024, 3, 12, 20, 0, 0),
+                        _sallesCollection.Find(s => s.NumeroSalle == 3).FirstOrDefault(),
+                        _filmsCollection.Find(f => f.OriginalTitle == "Inception").FirstOrDefault()),
                 };
 
                 _projectionsCollection.InsertMany(projections);

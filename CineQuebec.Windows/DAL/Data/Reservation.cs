@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace CineQuebec.Windows.DAL.Data;
 
-public class Réservation
+public class Reservation
 {
     [BsonId]
     public ObjectId Id { get; private set; }
@@ -11,4 +11,5 @@ public class Réservation
     public Projection Projection { get; set; }
     
     public ushort NombreBillets { get; set; }
+    public Abonne Abonne { get; set; }
 }

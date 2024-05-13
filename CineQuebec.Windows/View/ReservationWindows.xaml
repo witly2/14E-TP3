@@ -27,27 +27,26 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="1"  Grid.Column="1" FontSize="36" Text="Réservation" Grid.ColumnSpan="4" Margin="0,0,0,20" TextAlignment="Center" />
+        <TextBlock Grid.Row="1"  Grid.Column="1" FontSize="36" Text="Reservation" Grid.ColumnSpan="4" Margin="0,0,0,20" TextAlignment="Center" />
 
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0, 20">
             <TextBlock Width="120" Text="Titre du Filme" FontFamily="Segoe UI" FontWeight="Black" />
-            <TextBlock Width="200" Text="x" />
+            <TextBlock Width="200" Text="x" x:Name="titreFilm" />
         </StackPanel>
         <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0, 20">
             <TextBlock Width="120" Text="Date de Début" FontFamily="Segoe UI" FontWeight="Black" />
-            <TextBlock Width="200" Text="y" InputScope="EmailUserName"  />
+            <ComboBox Width="200" ItemsSource="{Binding Projections}" SelectedIndex="0" DisplayMemberPath="GetDateHeureDebut" />
         </StackPanel>
 
-        <StackPanel Grid.Row="4" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20">
-            <TextBlock Text="Date de fin" Width="120" FontFamily="Segoe UI" FontWeight="Black" />
-
-            <TextBlock Text="z" Width="200 " IsEnabled="True" />
-        </StackPanel>
+        <!-- <StackPanel Grid.Row="4" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20"> -->
+        <!--     <TextBlock Text="Date de fin" Width="120" FontFamily="Segoe UI" FontWeight="Black" /> -->
+        <!-- -->
+        <!--     <TextBlock Text="z" Width="200 " IsEnabled="True" /> -->
+        <!-- </StackPanel> -->
         
         <StackPanel Grid.Row="5" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20">
             <TextBlock Text="Salle" Width="120" FontFamily="Segoe UI" FontWeight="Black" />
-
-            <TextBlock  Text="z" Width="200 " IsEnabled="True" />
+            <ComboBox Width="200" ItemsSource="{Binding Projections}" SelectedIndex="0" DisplayMemberPath="Salle" />
         </StackPanel>
         
         <StackPanel Grid.Row="6" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20">
@@ -60,8 +59,8 @@
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="7" >
 
-            <Button  Content="Reserver"  Margin="10" Background="CadetBlue"  />
-            <Button  Content="Annuler"  Margin="10" Background="CadetBlue"  />
+            <Button  Content="Reserver"  Margin="10" Background="CadetBlue" Click="Btn_Reservation"  />
+            <Button  Content="Annuler"  Margin="10" Background="CadetBlue"  Click="BtnAnuler" />
         </StackPanel>
 
 

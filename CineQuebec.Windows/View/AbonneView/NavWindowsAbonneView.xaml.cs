@@ -12,6 +12,7 @@ using CineQuebec.Windows.BLL.Services.Connexion;
 using CineQuebec.Windows.DAL.Repositories.Persons;
 using CineQuebec.Windows.BLL.Services.Preferences;
 using CineQuebec.Windows.DAL.Repositories.Preferences;
+using CineQuebec.Windows.ViewModels;
 
 
 namespace CineQuebec.Windows.View.AbonneView
@@ -23,6 +24,8 @@ namespace CineQuebec.Windows.View.AbonneView
         private readonly IPreferenceService _preferenceService;
         private readonly Abonne _abonne;
         private readonly AbonneProfilControl _abonneProfifilControl;
+        private readonly AccueilFilmControl _accueilFilmControl;
+        private readonly DetailFilmControl _detailFilmControl;
         public NavWindowsAbonneView(Abonne abonne)
         {
             DatabaseGestion db = new DatabaseGestion();
@@ -34,6 +37,9 @@ namespace CineQuebec.Windows.View.AbonneView
             mainContentControl.Content = _abonneHomeView;
             _abonneProfifilControl = new AbonneProfilControl(abonne);
             _abonne = abonne;
+            _accueilFilmControl = new AccueilFilmControl(abonne);
+            
+            mainContentControl.Content = _accueilFilmControl;
         }
         public string imageUrl { get; set; }
 
@@ -57,17 +63,19 @@ namespace CineQuebec.Windows.View.AbonneView
 
         private void Button_Accueil_Click(object sender, RoutedEventArgs e)
         {
-            mainContentControl.Content = _abonneHomeView;
+            mainContentControl.Content = _accueilFilmControl;
         }
         
         public void DetailFilmControl( Film film, Abonne abonne=null)
         {
+            mainContentControl.Content=null;
             mainContentControl.Content = new DetailFilmControl(film,abonne);
         }
 
         private void btnAccueil(object sender, MouseButtonEventArgs e)
         {
-            throw new NotImplementedException();
+            
+            mainContentControl.Content = _accueilFilmControl;
         }
 
        
@@ -76,5 +84,7 @@ namespace CineQuebec.Windows.View.AbonneView
         {
             mainContentControl.Content =_abonneProfifilControl;
         }
+        
+     
     }
 }

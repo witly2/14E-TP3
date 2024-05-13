@@ -95,6 +95,19 @@ namespace CineQuebec.Windows.DAL
             }
         }
 
+        public async Task<IMongoCollection<Reservation>> GetReservationCollection()
+        {
+            try
+            {
+                return database.GetCollection<Reservation>("Reservations");
+
+            }
+            catch (Exception e)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection Reservation " + e.Message);
+            }
+        }
+
         public async Task<IMongoCollection<Acteur>> GetActeursCollection()
         {
             try
@@ -212,6 +225,10 @@ namespace CineQuebec.Windows.DAL
                 throw new InvalidDataException("Impossible d'obtenir la collection " + ex.Message);
             }
         }
+        
+        
+        
+
 
         public async Task SeedDevelopmentData()
         {
@@ -221,9 +238,12 @@ namespace CineQuebec.Windows.DAL
             await seedData.SeedActeurs();
             await seedData.SeedRealisateurs();
             await seedData.SeedCategories();
-            await seedData.SeedProjections();
             await seedData.SeedSalles();
+            await seedData.SeedProjections();
             await seedData.SeedAdmins();
         }
+
+
+      
     }
 }

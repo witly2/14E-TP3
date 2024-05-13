@@ -2,5 +2,5 @@
 
 public interface IReservationRepository
 {
-    
+    Task AddReservation(Data.Reservation reservation);
 }
