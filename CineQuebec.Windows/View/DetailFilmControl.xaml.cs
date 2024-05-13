@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using CineQuebec.Windows.DAL.Data;
+using CineQuebec.Windows.View.AbonneView;
 
 namespace CineQuebec.Windows.View;
 
@@ -26,7 +27,18 @@ public partial class DetailFilmControl : UserControl
         else
         {
             ReservationWindows reservationWindows = new ReservationWindows( _abonne,_film);
-            reservationWindows.ShowDialog();
+            if ((bool)reservationWindows.ShowDialog())
+            {
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window is NavWindowsAbonneView navWindowsAbonne)
+                    {
+                        navWindowsAbonne.mainContentControl.Content = new AccueilFilmControl(_abonne);
+                        MessageBox.Show("Le film a été réservé avec succès!");
+                        break;
+                    }
+                }
+            }
         }
        
     }

@@ -26,4 +26,9 @@ public class ReservationRepository:IReservationRepository
         }
         await _reservationsCollection.InsertOneAsync(reservation);
     }
+    
+    public async Task UpdateReservation(Data.Reservation reservation)
+    {
+        await _reservationsCollection.ReplaceOneAsync(x => x.Id == reservation.Id, reservation);
+    }
 }

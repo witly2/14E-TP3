@@ -4,6 +4,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:CineQuebec.Windows.View"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:visualBasic="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic.Core"
+        xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+
         mc:Ignorable="d"
         Title="ReservationWindows" Height="450" Width="800">
      <Grid  Background="White" HorizontalAlignment="Center">
@@ -28,31 +32,40 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="1"  Grid.Column="1" FontSize="36" Text="Reservation" Grid.ColumnSpan="4" Margin="0,0,0,20" TextAlignment="Center" />
-
+        
+        
         <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0, 20">
             <TextBlock Width="120" Text="Titre du Filme" FontFamily="Segoe UI" FontWeight="Black" />
             <TextBlock Width="200" Text="x" x:Name="titreFilm" />
         </StackPanel>
-        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" Margin="0, 20">
+        <StackPanel Grid.Row="3" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20">
+            <TextBlock Text="Place disponible" Width="120" FontFamily="Segoe UI" FontWeight="Black" />
+        
+            <TextBlock Text="{Binding NombreDePlacesDisponibles}" Width="200 " IsEnabled="True" />
+        </StackPanel>
+       
+        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal" Margin="0, 20">
             <TextBlock Width="120" Text="Date de Début" FontFamily="Segoe UI" FontWeight="Black" />
-            <ComboBox Width="200" ItemsSource="{Binding Projections}" SelectedIndex="0" DisplayMemberPath="GetDateHeureDebut" />
+            <ComboBox Width="200" ItemsSource="{Binding Projections}" SelectedIndex="0" SelectedItem="{Binding SelectedProjection}" DisplayMemberPath="GetDateHeureDebut">
+                <b:Interaction.Triggers>
+                    <b:EventTrigger EventName="SelectionChanged">
+                        <b:InvokeCommandAction Command="{Binding SelectDateCommand}" CommandParameter="{Binding SelectedItem, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ComboBox}}" />
+                    </b:EventTrigger>
+                </b:Interaction.Triggers>
+            </ComboBox>
         </StackPanel>
 
-        <!-- <StackPanel Grid.Row="4" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20"> -->
-        <!--     <TextBlock Text="Date de fin" Width="120" FontFamily="Segoe UI" FontWeight="Black" /> -->
-        <!-- -->
-        <!--     <TextBlock Text="z" Width="200 " IsEnabled="True" /> -->
-        <!-- </StackPanel> -->
+     
         
         <StackPanel Grid.Row="5" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20">
             <TextBlock Text="Salle" Width="120" FontFamily="Segoe UI" FontWeight="Black" />
-            <ComboBox Width="200" ItemsSource="{Binding Projections}" SelectedIndex="0" DisplayMemberPath="Salle" />
+            <TextBlock Text="{Binding NumeroDeSalles}" Width="200 " IsEnabled="True" />
         </StackPanel>
         
         <StackPanel Grid.Row="6" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20">
             <TextBlock Text="Nombre de place" Width="120" FontFamily="Segoe UI" FontWeight="Black" />
 
-            <TextBox  Text="z" Width="200 " IsEnabled="True" />
+            <TextBox x:Name="nbrePlaceTxt" Text="z" Width="200 " IsEnabled="True" />
         </StackPanel>
 
      

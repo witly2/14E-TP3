@@ -14,6 +14,14 @@ namespace CineQuebec.Windows.DAL.Data
         public ObjectId Id { get; private set; }
         public int NumeroSalle { get; set; }
         public int NombrePlace { get; set; }
+        
+        public string GetNumeroSalle
+        {
+            get
+            {
+                return NumeroSalle.ToString();
+            }
+        }
 
         public Salle(int pNumeroSalle, int pNombrePlace) 
         {

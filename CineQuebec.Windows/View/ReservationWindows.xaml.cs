@@ -23,6 +23,7 @@ public partial class ReservationWindows : Window
         
         _abonne = abonne;
         _film = film;
+        _abonne = abonne;
         titreFilm.Text = film.FrenchTitle;
         DatabaseGestion db = new DatabaseGestion();
         _reservationService = new ReservationService(new ReservationRepository(db));
@@ -35,22 +36,46 @@ public partial class ReservationWindows : Window
 
     private void Btn_Reservation(object sender, RoutedEventArgs e)
     {
-        
-        try
+        ProjectionViewModel? viewModel = DataContext as ProjectionViewModel;
+
+        if (viewModel != null)
         {
-             // var projections = _projectionService.GetProjections(_film);
+            Projection? selectedProjection = viewModel.SelectedProjection;
+
+            if (selectedProjection != null && ushort.TryParse(nbrePlaceTxt.Text, out var nbrePlace) && nbrePlace > 0 && nbrePlace <= selectedProjection.Salle.NombrePlace )
+            {
+                try
+                {
+                    Reservation reservation = new Reservation()
+                    {
+                        Abonne = _abonne,
+                        Projection = selectedProjection,
+                        NombreBillets = nbrePlace
+                    };
+                    _reservationService.AddReservation(reservation);
+                    DialogResult = true;
+                    Close();
              
              
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception);
+                    throw;
+                }
+            }
+            else
+            {
+                MessageBox.Show($"Veuillez vérifier les informations saisies. Le nombre de place doit être compris entre 1 et {selectedProjection.Salle.NombrePlace}");
+            }
         }
-        catch (Exception exception)
-        {
-            Console.WriteLine(exception);
-            throw;
-        }
+
+       
     }
 
     private void BtnAnuler(object sender, RoutedEventArgs e)
     {
+        DialogResult = false;
         Close();
     }
 }

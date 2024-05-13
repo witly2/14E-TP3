@@ -25,9 +25,12 @@ namespace CineQuebec.Windows.DAL.Data
             DateHeureFin = DateHeureDebut.AddMinutes(pFilm.Duration);   
         }
         
-        public string GetDateHeureDebut()
+        public string GetDateHeureDebut
         {
-            return DateHeureDebut.ToString("yyyy-MM-dd HH:mm");
+            get
+            {
+                return DateHeureDebut.ToString("yyyy-MM-dd HH:mm");
+            }
         }
     }
 }
