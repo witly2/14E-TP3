@@ -138,7 +138,7 @@ namespace CineQuebec.WindowsTests.RecompenseTests
 
         #region GetCountPlaceRestantRecompense
         [TestMethod]
-        public async Task GetCountPlaceRestantRecompense_ShouldReturnNumberPlaceRestante()
+        public void GetCountPlaceRestantRecompense_ShouldReturnNumberPlaceRestante()
         {
             Abonne abonne = new Abonne { Username = "John Doe", Email = "john.doe@example.com", DateAdhesion = new DateTime(2010, 7, 16) };
             List<Abonne> listAbonnes = new List<Abonne>();
@@ -147,16 +147,16 @@ namespace CineQuebec.WindowsTests.RecompenseTests
                new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, new DateTime(2010, 7, 16), 8));
             Recompense recompense = new Recompense(listAbonnes, TypeRecompense.Ticket, projection, 3);
 
-            var result = await _recompenseService.GetCountPlaceRestante(recompense);
+            var result = _recompenseService.GetCountPlaceRestante(recompense);
 
             Assert.AreEqual(2, result);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
-        public async Task GetCountPlaceRestantRecompense_ShouldReturnThrowException()
+        public void GetCountPlaceRestantRecompense_ShouldReturnThrowException()
         {
-            await _recompenseService.GetCountPlaceRestante(null);
+            _recompenseService.GetCountPlaceRestante(null);
         }
         #endregion
     }

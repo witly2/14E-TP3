@@ -28,7 +28,7 @@ namespace CineQuebec.Windows.BLL.Services.Recompenses
             return recomprenseBd;
         }
 
-        public async Task<int> GetCountPlaceRestante(Recompense recompense)
+        public int GetCountPlaceRestante(Recompense recompense)
         {
             if (recompense == null)
             {

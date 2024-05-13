@@ -16,6 +16,7 @@ namespace CineQuebec.Windows.DAL.Data
         public TypeRecompense Type { get; private set; }
         public Projection Projection { get; private set; }
         public int NombrePlace {  get; private set; }
+        public int NombrePlaceRestante { get; private set; }
 
         public Recompense(List<Abonne> abonne, TypeRecompense type, Projection projection, int nombrePlace)
         {
@@ -38,6 +39,11 @@ namespace CineQuebec.Windows.DAL.Data
         public void SetProjection(Projection projection)
         {
             Projection = projection;
+        }
+
+        public void SetNombrePlaceRestante(int nombrePlaceRestante)
+        {
+            NombrePlaceRestante = nombrePlaceRestante;
         }
     }
 }

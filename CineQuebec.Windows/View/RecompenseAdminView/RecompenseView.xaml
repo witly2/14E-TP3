@@ -30,8 +30,24 @@
 
                     <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="200" Header="Date projection" Binding="{Binding Projection.DateHeureDebut}" />
 
+                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="200" Header="Type">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Text" Value="{Binding Type}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Type}" Value="Invitation">
+                                        <Setter Property="Text" Value="Invitation" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding Type}" Value="Ticket">
+                                        <Setter Property="Text" Value="Ticket gratuit" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
 
-                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False"  Width="150" Header="Place restante" Binding="{Binding PlaceRestante}" />
+
+                    <DataGridTextColumn IsReadOnly="True" CanUserResize="False"  Width="150" Header="Place restante" Binding="{Binding NombrePlaceRestante}" />
 
 
                     <DataGridTemplateColumn Header="Operations" IsReadOnly="True" CanUserResize="False" Width="150">

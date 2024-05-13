@@ -9,12 +9,11 @@ namespace CineQuebec.Windows.ViewModels
     {
         private readonly IRecompenseService _recompenseService;
         private ObservableCollection<Recompense> _recompenses;
-        private Dictionary<Recompense, int> _placeRestanteDictionary;
+        private int _nombrePlaceRestante;
 
         public RecompenseViewModel(IRecompenseService recompenseService)
         {
             _recompenseService = recompenseService;
-            _placeRestanteDictionary = new Dictionary<Recompense, int>();
             LoadRecompenses();
         }
 
@@ -31,9 +30,14 @@ namespace CineQuebec.Windows.ViewModels
             }
         }
 
-        public Dictionary<Recompense, int> PlaceRestanteDictionary
+        public int NombrePlaceRestante
         {
-            get { return _placeRestanteDictionary;  }
+            get { return _nombrePlaceRestante; }
+            set
+            {
+                _nombrePlaceRestante = value;
+                OnPropertyChanged(nameof(NombrePlaceRestante));
+            }
         }
 
         private async void LoadRecompenses()
@@ -44,8 +48,16 @@ namespace CineQuebec.Windows.ViewModels
                 Recompenses = new ObservableCollection<Recompense>(recompenses);
                 foreach(var recompense in Recompenses)
                 {
-                    int placeRestante = await _recompenseService.GetCountPlaceRestante(recompense);
-                    _placeRestanteDictionary.Add(recompense, placeRestante);
+                    int placeRestant = _recompenseService.GetCountPlaceRestante(recompense);
+                    if(placeRestant != null)
+                    {
+                        recompense.SetNombrePlaceRestante(placeRestant);
+                    }
+                    else
+                    {
+                        recompense.SetNombrePlaceRestante(0);
+                    }
+                    
                 }
             }
             else
