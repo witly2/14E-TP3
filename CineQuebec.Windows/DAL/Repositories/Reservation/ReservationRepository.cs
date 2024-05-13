@@ -20,6 +20,7 @@ public class ReservationRepository:IReservationRepository
     
     public async Task AddReservation(Data.Reservation reservation)
     {
+        
         if (_reservationsCollection.Find(x => x.Projection == reservation.Projection && x.Abonne == reservation.Abonne).Any())
         {
             throw new ReservationExisteException("Vous avez deja une reservation pour cette projection");
