@@ -11,7 +11,7 @@ namespace CineQuebec.Windows.BLL.Services.Recompenses
     {
         Task<Recompense> AjouterRecompense(Recompense recompense);
         Task<List<Recompense>> GetAllRecompenses();
-        Task<int> GetCountPlaceRestante(Recompense recompense);
+        int GetCountPlaceRestante(Recompense recompense);
         Task<int> GetCountRecompenseAbonne(Abonne abonne);
     }
 }
