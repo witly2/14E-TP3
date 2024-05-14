@@ -7,8 +7,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="1000"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-       xmlns:rs="clr-namespace:CineQuebec.Windows.Ressources.i18n"
-             Style="{StaticResource Page_Style}">
+      xmlns:rs="clr-namespace:CineQuebec.Windows.Ressources.i18n"
+      Style="{StaticResource Page_Style}">
 
     <Grid>
         <Button Style="{StaticResource menuButton}" Name="AddProjectionButton" Click="ToggleButton_AddProjection_Click" HorizontalAlignment="Right" VerticalAlignment="Top" Padding="50" >
@@ -21,44 +21,94 @@
             <TextBlock x:Name="addUpdateTitle" Foreground="White" HorizontalAlignment="Center" FontSize="20"  />
         </Border>
 
-
-        <Grid  Margin="60 60 60 20" Background="White" >
+        <Grid Margin="60 60 60 20" Background="White" >
             <StackPanel Orientation="Vertical">
-                <!-- Titre FR -->
+
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <Label Content="Titre FR :" />
-                    <TextBox x:Name="titreFr" Text="{Binding FrenchTitle, Mode=TwoWay}" Width="200" />
+                    <StackPanel>
+                        <Label Content="Titre FR :" />
+                        <TextBox x:Name="titreFr" Text="{Binding FrenchTitle, Mode=TwoWay}" Width="200" />
+                    </StackPanel>
+                    <StackPanel Margin="20 0 0 0">
+                        <Label Content="Titre original :" />
+                        <TextBox x:Name="originalTitle" Text="{Binding OriginalTitle, Mode=TwoWay}" Width="200" />
+                    </StackPanel>
                 </StackPanel>
 
-                <!-- Titre original -->
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <Label Content="Titre original :" />
-                    <TextBox x:Name="originalTitle" Text="{Binding OriginalTitle, Mode=TwoWay}" Width="200" />
+                    <StackPanel>
+                        <Label Content="Date de sortie internationale :" />
+                        <DatePicker x:Name="InternationalReleaseDate" SelectedDate="{Binding InternationalReleaseDate, Mode=TwoWay}" />
+                    </StackPanel>
+                    <StackPanel Margin="20 0 0 0">
+                        <Label Content="Durée du film (minutes) :" />
+                        <TextBox x:Name="duration" Text="{Binding Duration, Mode=TwoWay}" Width="200" />
+                    </StackPanel>
                 </StackPanel>
 
-                <!-- Date de sortie internationale -->
                 <StackPanel Orientation="Horizontal" Margin="10">
-                    <Label Content="Date de sortie internationale :" />
-                    <DatePicker x:Name="InternationalReleaseDate" SelectedDate="{Binding InternationalReleaseDate, Mode=TwoWay}" />
+                    <StackPanel>
+                        <Label Content="Réalisateur :" />
+                        <ComboBox x:Name="realisateurComboBox" SelectedItem="{Binding SelectedRealisateur, Mode=TwoWay}" Width="200" >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} {1}">
+                                                <Binding Path="Nom" />
+                                                <Binding Path="Prenom" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Margin="20 0 0 0">
+                        <Label Content="Acteur :" />
+                        <ComboBox x:Name="acteurComboBox" SelectedItem="{Binding SelectedActeur, Mode=TwoWay}" Width="200" >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0} {1}">
+                                                <Binding Path="Nom" />
+                                                <Binding Path="Prenom" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Margin="20 0 0 0">
+                        <Label Content="Catégorie du film :" />
+                        <ComboBox x:Name="categorieComboBox" SelectedItem="{Binding SelectedCategorie, Mode=TwoWay}" Width="200" >
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0}">
+                                                <Binding Path="Nom" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+                    </StackPanel>
                 </StackPanel>
 
-                <!-- Duree du film en minutes -->
-                <StackPanel Orientation="Horizontal" Margin="10">
-                    <Label Content="Duree du film (minutes) :" />
-                    <TextBox x:Name="duration" Text="{Binding Duration, Mode=TwoWay}" Width="200" />
-                </StackPanel>
-
-                <!-- Description -->
                 <StackPanel Orientation="Horizontal" Margin="10">
                     <Label Content="Description :" />
                     <TextBox x:Name="description" Text="{Binding Description, Mode=TwoWay}"  Width="400" Height="100" TextWrapping="Wrap" AcceptsReturn="True" />
                 </StackPanel>
-
-                <Button Style="{StaticResource menuButton}" Click="addUpdateButton_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="50" >
+                <Button  Style="{StaticResource menuButton}" Click="addUpdateButton_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="50" >
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                        <TextBlock x:Name="addUpdateButton" Padding="10" />
+                        <TextBlock x:Name="addUpdateButton" Text="Ajouter" Padding="10" />
                     </StackPanel>
                 </Button>
+
             </StackPanel>
         </Grid>
     </Grid>

@@ -19,19 +19,33 @@ namespace CineQuebec.Windows.View
 
             TextBlock addUpdateFilmTextBlock = (TextBlock)this.FindName("addUpdateButton");
             TextBlock addUpdateTitleTextBlock = (TextBlock)this.FindName("addUpdateTitle");
+            ComboBox realisateurComboBox = (ComboBox)this.FindName("realisateurComboBox");
+            ComboBox acteurComboBox = (ComboBox)this.FindName("acteurComboBox");
+            ComboBox categorieComboBox = (ComboBox)this.FindName("categorieComboBox");
 
             if (filmToUpdate != null)
             {
-                Debug.WriteLine($"Titre FR: {filmToUpdate.FrenchTitle}");
                 addUpdateFilmTextBlock.Text = "Modifier";
                 addUpdateTitleTextBlock.Text = "Modification film";
                 this.DataContext = filmToUpdate;
+                LoadComboBox();
             }
             else
             {
+                LoadComboBox();
                 addUpdateFilmTextBlock.Text = "Ajouter";
                 addUpdateTitleTextBlock.Text = "Ajout film";
             }
+        }
+
+        public async Task LoadComboBox()
+        {
+            List<Acteur> acteurs = await _filmServiceInterface.GetAllActeurs();
+            acteurComboBox.ItemsSource = acteurs;
+            List<Realisateur> realisateurs = await _filmServiceInterface.GetAllRealisateurs();
+            realisateurComboBox.ItemsSource = realisateurs;
+            List<Categorie> categories = await _filmServiceInterface.GetAllCategories();
+            categorieComboBox.ItemsSource = categories;
         }
 
         public Film GetFilmForm()
@@ -59,6 +73,14 @@ namespace CineQuebec.Windows.View
                 ratingForm = 0;
             }
 
+            Realisateur selectedRealisateur = realisateurComboBox.SelectedItem as Realisateur;
+            List<Realisateur> realisateurs = new List<Realisateur> { selectedRealisateur };
+            Acteur selectedActeur = acteurComboBox.SelectedItem as Acteur;
+            List<Acteur> acteurs = new List<Acteur> { selectedActeur };
+            Categorie selectedCategorie = categorieComboBox.SelectedItem as Categorie;
+            List<Categorie> categories = new List<Categorie> { selectedCategorie };
+
+
             Film film = new Film(originalTitleForm, frenchTitleForm, descriptionForm, durationForm, internationalReleaseDateForm, ratingForm)
             {
                 OriginalTitle = originalTitleForm,
@@ -68,7 +90,9 @@ namespace CineQuebec.Windows.View
                 InternationalReleaseDate = internationalReleaseDateForm,
                 Rating = ratingForm
             };
-
+            film.SetListRealisateur(realisateurs);
+            film.SetListActeur(acteurs);
+            film.SetListCategorie(categories);
             return film;
         }
         public void ToggleButton_AddProjection_Click(object sender, RoutedEventArgs e)

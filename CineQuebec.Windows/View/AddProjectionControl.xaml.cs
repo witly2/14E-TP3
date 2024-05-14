@@ -10,15 +10,13 @@ namespace CineQuebec.Windows.View
     {
         private readonly IProjectionService _projectionService;
         private readonly Film _film;
+        public Abonne _abonne;
         public AddProjectionControl(IProjectionService projectionService, Film film)
         {
             InitializeComponent();
             _projectionService = projectionService;
             _film = film;
             DataContext = film;
-
-            //datePicker.SelectedDateChanged += SelectionChanged;
-            //timePicker.SelectedDateTimeChanged += SelectionChanged;
         }
 
         private void validerDateHeureButton_Click(object sender, RoutedEventArgs e)
@@ -94,7 +92,9 @@ namespace CineQuebec.Windows.View
                     Salle selectedSalle = selectedSalleItem.Tag as Salle;
                     Projection newProjection = new Projection(dateHeureDebut, selectedSalle, _film);
                     await _projectionService.AddProjection(newProjection);
-                    MessageBox.Show("La projection a été ajoutée avec succès.", "Validation", MessageBoxButton.OK, MessageBoxImage.Information);              
+                    MessageBox.Show("La projection a été ajoutée avec succès.", "Validation", MessageBoxButton.OK, MessageBoxImage.Information);
+                    var accueilFilmControl = new AccueilFilmControl(_abonne);
+                    this.Content = accueilFilmControl;
                 } else
                 {
                     MessageBox.Show("Veuillez sélectionner une date, une heure et une salle pour la projection.");

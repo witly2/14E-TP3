@@ -16,4 +16,10 @@ public class ReservationService:IReservationService
     {
        await _reservationRepository.AddReservation(reservation);
     }
+
+    public async Task<List<Reservation>> GetReservationCountByAbonneId(Abonne abonne)
+    {
+        var reservations = await _reservationRepository.GetReservationCountByAbonneId(abonne);
+        return reservations;
+    }
 }

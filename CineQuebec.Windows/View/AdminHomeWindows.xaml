@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="AdminHomeWindows" Height="700" Width="1300" d:DataContext="{d:DesignInstance }">
+        Title="AdminHomeWindows" Height="700" Width="1300" >
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
@@ -73,6 +73,14 @@
                                 </StackPanel>
                             </Button>
 
+                            <Button Style="{StaticResource menuButton}" Click="ToggleButton_Recompense_Click" >
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <md:PackIcon Kind="PencilOutline" Style="{StaticResource menuBtnIcon}"/>
+                                    <TextBlock Text="Récompenses" />
+                                </StackPanel>
+                            </Button>
+
+
 
                         </StackPanel>
 
@@ -110,7 +118,7 @@
 
                     <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
                                Panel.ZIndex="1" Text="Recherche"
-                               Visibility="{Binding ElementName=txtSearch, Path=Text.IsEmpty, Converter={StaticResource BoolToVis}}" />
+                               Visibility="{Binding ElementName=txtSearch, Converter={StaticResource BoolToVis}}" />
 
                     <TextBox x:Name="txtSearch" Style="{StaticResource search_style}" Height="30" />
 

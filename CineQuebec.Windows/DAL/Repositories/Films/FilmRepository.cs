@@ -34,12 +34,51 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
             }
         }
 
+        public async Task<List<Film>> GetFilmsAvecProjectionsFutures()
+        {
+            try
+            {
+                var futuresProjectionsFilter = Builders<Projection>.Filter.Gt(p => p.DateHeureDebut, DateTime.Now);
+                var filmIdsWithFutureProjections = await _databaseGestion.GetProjectionsCollection().Result
+                    .Find(futuresProjectionsFilter)
+                    .Project(p => p.Film.Id)
+                    .ToListAsync();
+
+                var filmsWithFutureProjections = await _filmsCollection
+                    .Find(film => filmIdsWithFutureProjections.Contains(film.Id))
+                    .ToListAsync();
+
+                return filmsWithFutureProjections;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir les films avec des projections futures : " + ex.Message);
+            }
+        }
+
         public async Task<List<Projection>> GetProjectionsForFilm(Film  film)
         {
             try
             {
                 var projectionsFilm = Builders<Projection>.Filter.Eq(p => p.Film.Id, film.Id);
                 return await _databaseGestion.GetProjectionsCollection().Result.Find(projectionsFilm).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection de projection : " + ex.Message);
+            }
+        }
+
+        public async Task<List<Projection>> GetProjectionsFuturesForFilm(Film film)
+        {
+            try
+            {
+                var allProjectionsFilmFilter = Builders<Projection>.Filter.Eq(p => p.Film.Id, film.Id);
+                var futuresProjectionsFilter = Builders<Projection>.Filter.Gt(p => p.DateHeureDebut, DateTime.Now);
+
+                var combinedFilter = Builders<Projection>.Filter.And(allProjectionsFilmFilter, futuresProjectionsFilter);
+
+                return await _databaseGestion.GetProjectionsCollection().Result.Find(combinedFilter).ToListAsync();
             }
             catch (Exception ex)
             {
@@ -93,6 +132,41 @@ namespace CineQuebec.Windows.DAL.Repositories.Films
             {
                 Console.WriteLine("Impossible de supprimer le film : " + ex.Message);
                 return false;
+            }
+        }
+
+        public async Task<List<Realisateur>> GetAllRealisateurs()
+        {
+            try
+            {
+                return await _databaseGestion.GetRealisateursCollection().Result.Find(_ => true).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection des realisateurs : " + ex.Message);
+            }
+            
+        }
+        public async Task<List<Acteur>> GetAllActeurs()
+        {
+            try
+            {
+                return await _databaseGestion.GetActeursCollection().Result.Find(_ => true).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection des acteurs : " + ex.Message);
+            }
+        }
+        public async Task<List<Categorie>> GetAllCategories()
+        {
+            try
+            {
+                return await _databaseGestion.GetCategoriesCollection().Result.Find(_ => true).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'obtenir la collection des categories : " + ex.Message);
             }
         }
     }
