@@ -57,5 +57,19 @@ namespace CineQuebec.Windows.DAL.Repositories.Recompenses
                 throw new InvalidDataException("Impossible d'obtenir la collection de recompenses : " + ex.Message);
             }
         }
+
+        public async Task<List<Abonne>> AjouterAbonne(Recompense recompense, Abonne abonne)
+        {
+            try
+            {
+                var update = Builders<Recompense>.Update.Push(r => r.Abonne, abonne);
+                await _recompensesCollection.UpdateOneAsync(r => r.Id == recompense.Id, update);
+                return recompense.Abonne;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Impossible d'jouter l'abonne : " + ex.Message);
+            }
+        }
     }
 }

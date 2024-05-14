@@ -12,5 +12,6 @@ namespace CineQuebec.Windows.DAL.Repositories.Recompenses
         Task<Recompense> AjouterRecompense(Recompense recompense);
         Task<List<Recompense>> GetAllRecompenses();
         Task<List<Recompense>> GetRecompenseAbonne(Abonne abonne);
+        Task<List<Abonne>> AjouterAbonne(Recompense recompense, Abonne abonne);
     }
 }

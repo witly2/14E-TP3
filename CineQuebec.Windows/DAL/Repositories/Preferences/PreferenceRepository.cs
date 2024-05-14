@@ -85,9 +85,80 @@ namespace CineQuebec.Windows.DAL.Repositories.Preferences
             }
         }
 
+        public List<Abonne> GetAbonnesWithThisPreferenceCategorie(Categorie categorie)
+        {
+            try
+            {
+                var abonnesAvecPreference = new List<Abonne>();
+
+                var filter = Builders<Preference>.Filter.AnyEq(p => p.ListPreferenceCategorie, categorie);
+
+                var preferencesAvecCategorie = _preferencesCollection.Find(filter).ToList();
+
+                foreach (var preference in preferencesAvecCategorie)
+                {
+                    abonnesAvecPreference.Add(preference.Abonne);
+                }
+
+                return abonnesAvecPreference;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Erreur lors de la recherche des abonnés avec cette préférence : " + ex.Message);
+            }
+        }
+
+        public List<Abonne> GetAbonnesWithThisPreferenceRealisateur(Realisateur realisateur)
+        {
+            try
+            {
+                var abonnesAvecPreference = new List<Abonne>();
+
+                var filter = Builders<Preference>.Filter.AnyEq(p => p.ListPreferenceRealisateur, realisateur);
+
+                var preferencesAvecCategorie = _preferencesCollection.Find(filter).ToList();
+
+                foreach (var preference in preferencesAvecCategorie)
+                {
+                    abonnesAvecPreference.Add(preference.Abonne);
+                }
+
+                return abonnesAvecPreference;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Erreur lors de la recherche des abonnés avec cette préférence : " + ex.Message);
+            }
+        }
+
+        public List<Abonne> GetAbonnesWithThisPreferenceActeur(Acteur acteur)
+        {
+            try
+            {
+                var abonnesAvecPreference = new List<Abonne>();
+
+                var filter = Builders<Preference>.Filter.AnyEq(p => p.ListPreferenceActeur, acteur);
+
+                var preferencesAvecActeur = _preferencesCollection.Find(filter).ToList();
+
+                foreach (var preference in preferencesAvecActeur)
+                {
+                    abonnesAvecPreference.Add(preference.Abonne);
+                }
+
+                return abonnesAvecPreference;
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Erreur lors de la recherche des abonnés avec cette préférence : " + ex.Message);
+            }
+        }
+
+
+
         public Preference GetPreferenceAbonne(Abonne abonne)
         {
-            var filter = Builders<Preference>.Filter.Eq(p => p.Abonne, abonne);
+            var filter = Builders<Preference>.Filter.Eq(p => p.Abonne.Id, abonne.Id);
             return _preferencesCollection.Find(filter).SingleOrDefault();
 
         }

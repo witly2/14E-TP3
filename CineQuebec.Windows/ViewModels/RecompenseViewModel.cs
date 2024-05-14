@@ -1,19 +1,27 @@
-﻿using CineQuebec.Windows.BLL.Services.Recompenses;
+﻿using CineQuebec.Windows.BLL.Services;
+using CineQuebec.Windows.BLL.Services.Recompenses;
 using CineQuebec.Windows.DAL.Data;
+using CineQuebec.Windows.View;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace CineQuebec.Windows.ViewModels
 {
-    public class RecompenseViewModel : NotifyPropertyChangeBase
+    public class RecompenseViewModel : UserControl, INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         private readonly IRecompenseService _recompenseService;
+        private readonly IFilmService _filmService;
         private ObservableCollection<Recompense> _recompenses;
         private int _nombrePlaceRestante;
 
-        public RecompenseViewModel(IRecompenseService recompenseService)
+        public RecompenseViewModel(IRecompenseService recompenseService, IFilmService filmService)
         {
             _recompenseService = recompenseService;
+            _filmService = filmService;
             LoadRecompenses();
         }
 
@@ -25,7 +33,7 @@ namespace CineQuebec.Windows.ViewModels
                 if (_recompenses != value)
                 {
                     _recompenses = value;
-                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(Recompenses));
                 }
             }
         }
@@ -66,14 +74,9 @@ namespace CineQuebec.Windows.ViewModels
             }
         }
 
-        public async void AddRecompense()
+        protected virtual void OnPropertyChanged(string propertyName)
         {
-            MessageBox.Show("AddRecompense.", "Recompense", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        public async void EditRecompense()
-        {
-            MessageBox.Show("EditRecompense.", "Recompense", MessageBoxButton.OK, MessageBoxImage.Information);
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

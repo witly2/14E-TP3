@@ -20,5 +20,8 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
         Task<List<Realisateur>> GetAllRealisateurs(Preference preference);
         Task<List<Acteur>> GetAllActeurs(Preference preference);
         Task<List<Categorie>> GetAllCategories(Preference preference);
+        List<Abonne>? GetAbonnesWithThisPreferenceCategorie(Categorie categorie);
+        List<Abonne>? GetAbonnesWithThisPreferenceActeur(Acteur acteur);
+        List<Abonne>? GetAbonnesWithThisPreferenceRealisateur(Realisateur realisateur);
     }
 }

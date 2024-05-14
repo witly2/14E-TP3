@@ -26,7 +26,7 @@
 
             <DataGrid x:Name="dataGridRecompenses" Background="White" Margin="45 10" Grid.Column="0" Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" ItemsSource="{Binding Recompenses}" AutoGenerateColumns="False">
                 <DataGrid.Columns>
-                    <DataGridTextColumn IsReadOnly="True" CanUserResize="True" Width="200"  Header="Film" Binding="{Binding Projection.Film.FrenchTitle}" />
+                    <DataGridTextColumn IsReadOnly="True" CanUserResize="True" Width="150"  Header="Film" Binding="{Binding Projection.Film.FrenchTitle}" />
 
                     <DataGridTextColumn IsReadOnly="True" CanUserResize="False" Width="200" Header="Date projection" Binding="{Binding Projection.DateHeureDebut}" />
 
@@ -50,7 +50,7 @@
                     <DataGridTextColumn IsReadOnly="True" CanUserResize="False"  Width="150" Header="Place restante" Binding="{Binding NombrePlaceRestante}" />
 
 
-                    <DataGridTemplateColumn Header="Operations" IsReadOnly="True" CanUserResize="False" Width="150">
+                    <DataGridTemplateColumn Header="Operations" IsReadOnly="True" CanUserResize="False" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
 
                             <DataTemplate>

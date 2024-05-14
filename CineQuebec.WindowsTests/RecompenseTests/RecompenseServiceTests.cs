@@ -159,5 +159,30 @@ namespace CineQuebec.WindowsTests.RecompenseTests
             _recompenseService.GetCountPlaceRestante(null);
         }
         #endregion
+
+        #region AjouterAbonne
+        [TestMethod]
+        public async Task AjouterAbonne_ShouldAddAbonneInList()
+        {
+            Abonne abonne = new Abonne { Username = "John Doe", Email = "john.doe@example.com", DateAdhesion = new DateTime(2010, 7, 16) };
+            List<Abonne> listAbonneExpected = new List<Abonne> { abonne };
+            Recompense recompense = new Recompense(new List<Abonne>(), TypeRecompense.Ticket, 
+                new Projection(new DateTime(2024, 3, 10, 20, 0, 0), new Salle(1, 100),
+                new Film("Inception", "Inception", "Un voleur qui entre dans les r�ves des autres pour voler leurs secrets de leur subconscient.", 148, 
+                new DateTime(2010, 7, 16), 8)), 3);
+            _mockRecompenseRepository.Setup(x => x.AjouterAbonne(It.IsAny<Recompense>(), It.IsAny<Abonne>())).ReturnsAsync(listAbonneExpected);
+
+            var result = await _recompenseService.AjouterAbonne(recompense, abonne);
+
+            Assert.AreEqual(listAbonneExpected,  result);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentNullException))]
+        public async Task AjouterAbonne_ShouldReturnThrowException()
+        {
+            await _recompenseService.AjouterAbonne(null, null);
+        }
+        #endregion
     }
 }

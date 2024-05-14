@@ -32,4 +32,10 @@ public class ReservationRepository:IReservationRepository
     {
         await _reservationsCollection.ReplaceOneAsync(x => x.Id == reservation.Id, reservation);
     }
+
+    public async Task<List<Data.Reservation>> GetReservationCountByAbonneId(Abonne abonne)
+    {
+        var reservations = await _reservationsCollection.Find(r => r.Abonne.Id == abonne.Id).ToListAsync();
+        return reservations;
+    }
 }

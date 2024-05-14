@@ -34,9 +34,17 @@ namespace CineQuebec.Windows.BLL.Services.Recompenses
             {
                 throw new ArgumentNullException(nameof(recompense), "La récompense ne peut pas être null.");
             }
-            int nombreAbonneRecompense = recompense.Abonne.Count();
-            int nombrePlaceRestante = recompense.NombrePlace - nombreAbonneRecompense;
-            return nombrePlaceRestante;
+            if(recompense.Abonne == null || recompense.Abonne.Count() == 0)
+            {
+                return recompense.NombrePlace;
+            }
+            else
+            {
+                int nombreAbonneRecompense = recompense.Abonne.Count();
+                int nombrePlaceRestante = recompense.NombrePlace - nombreAbonneRecompense;
+                return nombrePlaceRestante;
+            }
+            
         }
 
         public async Task<int> GetCountRecompenseAbonne(Abonne abonne)
@@ -53,5 +61,20 @@ namespace CineQuebec.Windows.BLL.Services.Recompenses
                 return nombreRecompenseAbonne;
             }
         }
+        
+        public async Task<List<Abonne>> AjouterAbonne(Recompense recompense, Abonne abonne)
+        {
+            if (recompense == null)
+            {
+                throw new ArgumentNullException(nameof(recompense), "La récompense ne peut pas être null.");
+            }
+            if (abonne == null)
+            {
+                throw new ArgumentNullException(nameof(abonne), "L'abonné ne peut pas être null.");
+            }
+
+            return await _recompenseRepository.AjouterAbonne(recompense, abonne);
+        }
     }
+    
 }

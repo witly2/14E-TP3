@@ -11,6 +11,7 @@ namespace CineQuebec.Windows.DAL.Data
     public class Abonne: Person
     {
         public DateTime DateAdhesion { get; set; }
+        public int NombreReservation { get; set; }
 
         public Abonne()
         {

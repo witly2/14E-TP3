@@ -72,6 +72,42 @@ namespace CineQuebec.Windows.BLL.Services.Preferences
             }
         }
 
+        public List<Abonne>? GetAbonnesWithThisPreferenceCategorie(Categorie categorie)
+        {
+            try
+            {
+                return _preferenceRepository.GetAbonnesWithThisPreferenceCategorie(categorie);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("UneUne erreur est survenue lors de la récupération des abonnés avec cette préférence : ", ex);
+            }
+        }
+
+        public List<Abonne> GetAbonnesWithThisPreferenceActeur(Acteur acteur)
+        {
+            try
+            {
+                return _preferenceRepository.GetAbonnesWithThisPreferenceActeur(acteur);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Une erreur est survenue lors de la récupération des abonnés avec cette préférence : " + ex.Message);
+            }
+        }
+
+        public List<Abonne> GetAbonnesWithThisPreferenceRealisateur(Realisateur realisateur)
+        {
+            try
+            {
+                return _preferenceRepository.GetAbonnesWithThisPreferenceRealisateur(realisateur);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidDataException("Une erreur est survenue lors de la récupération des abonnés avec cette préférence : " + ex.Message);
+            }
+        }
+
         public Preference GetPreferenceAbonne(Abonne abonne)
         {
             var preferences = _preferenceRepository.GetPreferenceAbonne(abonne);

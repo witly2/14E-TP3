@@ -17,6 +17,8 @@ namespace CineQuebec.Windows.DAL.Repositories.Preferences
         Task<List<Realisateur>> GetAllRealisateurs(Preference preference);
         Task<List<Acteur>> GetAllActeurs(Preference preference);
         Task<List<Categorie>> GetAllCategories(Preference preference);
-
+        List<Abonne>? GetAbonnesWithThisPreferenceCategorie(Categorie categorie);
+        List<Abonne>? GetAbonnesWithThisPreferenceRealisateur(Realisateur realisateur);
+        List<Abonne>? GetAbonnesWithThisPreferenceActeur(Acteur acteur);
     }
 }
