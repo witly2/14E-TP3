@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using CineQuebec.Windows.BLL.Services;
 using CineQuebec.Windows.DAL.Data;
-using MongoDB.Bson;
 
-namespace CineQuebec.Windows.View
+namespace CineQuebec.Windows.View.UsersControls
 {
     public partial class ReadFilmControl: UserControl
     {

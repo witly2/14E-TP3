@@ -3,6 +3,7 @@ using CineQuebec.Windows.BLL.Services;
 using CineQuebec.Windows.BLL.Services.Reservations;
 using CineQuebec.Windows.DAL;
 using CineQuebec.Windows.DAL.Data;
+using CineQuebec.Windows.DAL.Exceptions;
 using CineQuebec.Windows.DAL.Repositories.Abonnes;
 using CineQuebec.Windows.DAL.Repositories.Projections;
 using CineQuebec.Windows.DAL.Repositories.Reservation;
@@ -34,7 +35,7 @@ public partial class ReservationWindows : Window
         
     }
 
-    private void Btn_Reservation(object sender, RoutedEventArgs e)
+    private async void Btn_Reservation(object sender, RoutedEventArgs e)
     {
         ProjectionViewModel? viewModel = DataContext as ProjectionViewModel;
 
@@ -44,19 +45,26 @@ public partial class ReservationWindows : Window
 
             if (selectedProjection != null && ushort.TryParse(nbrePlaceTxt.Text, out var nbrePlace) && nbrePlace > 0 && nbrePlace <= selectedProjection.Salle.NombrePlace )
             {
+                Reservation reservation = new Reservation()
+                {
+                    Abonne = _abonne,
+                    Projection = selectedProjection,
+                    NombreBillets = nbrePlace
+                };
                 try
                 {
-                    Reservation reservation = new Reservation()
-                    {
-                        Abonne = _abonne,
-                        Projection = selectedProjection,
-                        NombreBillets = nbrePlace
-                    };
-                    _reservationService.AddReservation(reservation);
+                    
+                  await  _reservationService.AddReservation(reservation);
                     DialogResult = true;
                     Close();
-             
-             
+
+
+                }
+                catch (ReservationExisteException)
+                {
+                  await  _reservationService.UpdateReservation(reservation, true);
+                  DialogResult = true;
+                  Close();
                 }
                 catch (Exception exception)
                 {

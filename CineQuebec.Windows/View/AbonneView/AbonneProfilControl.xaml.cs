@@ -2,7 +2,7 @@
 using CineQuebec.Windows.DAL;
 using CineQuebec.Windows.DAL.Data;
 
-namespace CineQuebec.Windows.View;
+namespace CineQuebec.Windows.View.AbonneView;
 
 public partial class AbonneProfilControl : UserControl
 {

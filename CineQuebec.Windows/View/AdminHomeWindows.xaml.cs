@@ -5,6 +5,7 @@ using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Abonnes;
 using CineQuebec.Windows.DAL.Repositories.Films;
 using CineQuebec.Windows.DAL.Repositories.Projections;
+using CineQuebec.Windows.View.UsersControls;
 
 namespace CineQuebec.Windows.View;
 

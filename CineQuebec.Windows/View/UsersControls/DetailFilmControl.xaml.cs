@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.View.AbonneView;
 
-namespace CineQuebec.Windows.View;
+namespace CineQuebec.Windows.View.UsersControls;
 
 public partial class DetailFilmControl : UserControl
 {

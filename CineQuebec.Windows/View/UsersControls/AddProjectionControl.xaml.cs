@@ -4,7 +4,7 @@ using CineQuebec.Windows.BLL.Services;
 using CineQuebec.Windows.DAL.Data;
 using MahApps.Metro.Controls;
 
-namespace CineQuebec.Windows.View
+namespace CineQuebec.Windows.View.UsersControls
 {
     public partial class AddProjectionControl: UserControl
     {

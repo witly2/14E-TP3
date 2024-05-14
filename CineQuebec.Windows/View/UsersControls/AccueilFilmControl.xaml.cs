@@ -7,7 +7,7 @@ using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.View.AbonneView;
 using CineQuebec.Windows.ViewModels;
 
-namespace CineQuebec.Windows.View;
+namespace CineQuebec.Windows.View.UsersControls;
 
 public partial class AccueilFilmControl : UserControl
 {

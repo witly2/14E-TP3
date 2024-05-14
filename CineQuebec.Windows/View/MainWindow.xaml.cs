@@ -9,6 +9,7 @@ using CineQuebec.Windows.DAL.Repositories.Films;
 using CineQuebec.Windows.DAL.Repositories.Persons;
 using CineQuebec.Windows.DAL.Repositories.Projections;
 using CineQuebec.Windows.View;
+using CineQuebec.Windows.View.UsersControls;
 using CineQuebec.Windows.ViewModels;
 
 namespace CineQuebec.Windows;

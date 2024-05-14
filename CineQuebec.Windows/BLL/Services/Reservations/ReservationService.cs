@@ -16,4 +16,16 @@ public class ReservationService:IReservationService
     {
        await _reservationRepository.AddReservation(reservation);
     }
+
+    public List<Reservation> GetReservationsAbonne(Abonne abonne)
+    {
+       return _reservationRepository.GetReservationsAbonne(abonne);
+    }
+
+
+
+    public async Task UpdateReservation(Reservation reservation, bool isCreation = false)
+    {
+       await _reservationRepository.UpdateReservation(reservation, isCreation);
+    }
 }

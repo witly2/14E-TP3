@@ -12,6 +12,7 @@ using CineQuebec.Windows.BLL.Services.Connexion;
 using CineQuebec.Windows.DAL.Repositories.Persons;
 using CineQuebec.Windows.BLL.Services.Preferences;
 using CineQuebec.Windows.DAL.Repositories.Preferences;
+using CineQuebec.Windows.View.UsersControls;
 using CineQuebec.Windows.ViewModels;
 
 
@@ -45,7 +46,7 @@ namespace CineQuebec.Windows.View.AbonneView
 
         private void ToggleButton_Projections_Click(object sender, RoutedEventArgs e)
         {
-            //mainContentControl.Content = new ProjectonView(_abonneService);
+            mainContentControl.Content = new ReservationAbonneControl(_abonne);
 
         }
 

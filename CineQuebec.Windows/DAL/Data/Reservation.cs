@@ -12,4 +12,9 @@ public class Reservation
     
     public ushort NombreBillets { get; set; }
     public Abonne Abonne { get; set; }
+    
+    public void SetId(ObjectId id)
+    {
+        Id = id;
+    }
 }

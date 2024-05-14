@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CineQuebec.Windows.ViewModels
 {
-    public class UsersVm:Utilities.ViewModelBase
+    public class UsersViewModel:Utilities.ViewModelBase
     {
 
         private readonly DatabaseGestion _db;
@@ -25,7 +25,7 @@ namespace CineQuebec.Windows.ViewModels
             }
         }
 
-        public UsersVm()
+        public UsersViewModel()
         {
             _db = new DatabaseGestion();
             Abonnes = new ObservableCollection<Abonne>(_db.ReadAbonnes());

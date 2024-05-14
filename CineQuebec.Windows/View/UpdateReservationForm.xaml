@@ -1,0 +1,69 @@
+﻿<Window x:Class="CineQuebec.Windows.View.UpdateReservationForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:CineQuebec.Windows.View"
+        mc:Ignorable="d"
+        Title="UpdateReservationForm" Height="450" Width="800">
+   <Grid  Background="White" HorizontalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="10" />
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="1"  Grid.Column="1" FontSize="36" Text="Reservation" Grid.ColumnSpan="4" Margin="0,0,0,20" TextAlignment="Center" />
+        
+        
+        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0, 20">
+            <TextBlock Width="120" Text="Titre du Filme" FontFamily="Segoe UI" FontWeight="Black" />
+            <TextBlock Width="200" Text="{Binding Projection.Film.FrenchTitle}" x:Name="titreFilm"  />
+        </StackPanel>
+        <StackPanel Grid.Row="3" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20">
+            <TextBlock Text="Place disponible" Width="120" FontFamily="Segoe UI" FontWeight="Black" />
+        
+            <TextBlock Text="{Binding Projection.Salle.NombrePlace}" Width="200 " IsEnabled="True" />
+        </StackPanel>
+       
+      
+
+     
+        
+        <StackPanel Grid.Row="5" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20">
+            <TextBlock Text="Salle" Width="120" FontFamily="Segoe UI" FontWeight="Black" />
+            <TextBlock Text="{Binding Projection.Salle.NumeroSalle}" Width="200 " IsEnabled="True" />
+        </StackPanel>
+        
+        <StackPanel Grid.Row="6" Grid.Column="1"  Orientation="Horizontal" Margin="0,0,0,20">
+            <TextBlock Text="Nombre de place" Width="120" FontFamily="Segoe UI" FontWeight="Black" />
+
+            <TextBox x:Name="nbrePlaceTxt" Text="{Binding NombreBillets}" Width="200 " IsEnabled="True" />
+        </StackPanel>
+
+     
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="7" >
+
+            <Button  Content="Reserver"  Margin="10" Background="CadetBlue" Click="Btn_Update"  />
+            <Button  Content="Annuler"  Margin="10" Background="CadetBlue"  Click="BtnAnuler" />
+        </StackPanel>
+
+
+
+    </Grid>
+</Window>

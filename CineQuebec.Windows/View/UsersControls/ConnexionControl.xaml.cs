@@ -1,28 +1,16 @@
-﻿using CineQuebec.Windows.BLL.Services;
+﻿using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using CineQuebec.Windows.BLL.Services;
 using CineQuebec.Windows.BLL.Services.Connexion;
 using CineQuebec.Windows.DAL;
 using CineQuebec.Windows.DAL.Data;
 using CineQuebec.Windows.DAL.Repositories.Abonnes;
-using CineQuebec.Windows.DAL.Repositories.Persons;
 using CineQuebec.Windows.Utilities;
 using CineQuebec.Windows.View.AbonneView;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace CineQuebec.Windows.View
+namespace CineQuebec.Windows.View.UsersControls
 {
     /// <summary>
     /// Logique d'interaction pour ConnexionControl.xaml

@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using CineQuebec.Windows.BLL.Services;
 using CineQuebec.Windows.DAL.Data;
 
-namespace CineQuebec.Windows.View
+namespace CineQuebec.Windows.View.UsersControls
 {
     public partial class AddUpdateFilmControl: UserControl
     {

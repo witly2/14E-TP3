@@ -23,7 +23,7 @@ namespace CineQuebec.Windows.ViewModels
         public ICommand HomeAdminCommand { get; set; }
 
 
-        private void Users(object obj) => CurrentView = new UsersVm();
+        private void Users(object obj) => CurrentView = new UsersViewModel();
         private void HomeAdmin(object obj) => CurrentView = new AdminHomVm();
        
 
