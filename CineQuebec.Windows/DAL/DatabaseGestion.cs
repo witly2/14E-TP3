@@ -43,7 +43,7 @@ namespace CineQuebec.Windows.DAL
             IMongoDatabase db = null;
             try
             {
-                db = mongoDBClient.GetDatabase("TP2DB");
+                db = mongoDBClient.GetDatabase("TP3DB");
             }
             catch (Exception ex)
             {
